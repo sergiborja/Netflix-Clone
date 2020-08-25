@@ -1,0 +1,21 @@
+<div *ngIf="!displayAddMember" class="container">
+  <img
+    class="myProfileImage"
+    src="../../assets/profile-image.png"
+    alt="My profule image"
+    (click)="displayAddMember = false"
+  />
+  <img
+    (click)="displayAddMember = true"
+    src="../../assets/add-member.png"
+    alt="add member image"
+  />
+</div>
+
+<form (submit)="onSubmitName($event)" *ngIf="displayAddMember">
+  <h2>Add new profile</h2>
+  <p>Create a profile for a friend</p>
+  <input type="text" placeholder="Name" name="name" />
+  <button>Continue</button>
+  <button (click)="displayAddMember = false">Cancel</button>
+</form>
