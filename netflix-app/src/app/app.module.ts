@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AuthenticateUserComponent } from './authenticate-user/authenticate-user.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AuthenticateUserComponent,
     RegisterUserComponent,
     WelcomeComponent,
+    HomeComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

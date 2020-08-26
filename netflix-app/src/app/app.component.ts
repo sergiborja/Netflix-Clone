@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.sass'],
 })
 export class AppComponent {
   title = 'netflix';
+  constructor(private router: Router) {
+    if (!sessionStorage.token) this.router.navigate(['']);
+    else console.log(sessionStorage.token);
+  }
 }

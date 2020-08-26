@@ -14,17 +14,15 @@ export class RegisterUserComponent implements OnInit {
   onSubmit(event) {
     event.preventDefault();
 
-    let { name, surname, email, password } = event.target;
+    let { nick, email, password } = event.target;
 
-    name = name.value;
-    surname = surname.value;
+    nick = nick.value;
     email = email.value;
     password = password.value;
 
     this.http
       .post(`http://localhost:3000/users`, {
-        name,
-        surname,
+        nick,
         email,
         password,
       })
@@ -32,6 +30,7 @@ export class RegisterUserComponent implements OnInit {
       .catch((error) => console.log(error))
       .then((response) => {
         if (response) {
+          console.log(response);
           this.router.navigate(['authenticate']);
         }
       });
