@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthenticateUserComponent } from './authenticate-user/authenticate-user.component';
-import { RegisterUserComponent } from './register-user/register-user.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { HomeComponent } from './home/home.component';
+import { AuthenticateUserComponent } from './out-logged-components/authenticate-user/authenticate-user.component';
+import { RegisterUserComponent } from './out-logged-components/register-user/register-user.component';
+import { WelcomeComponent } from './logged-module/welcome/welcome.component';
+import { HomeComponent } from './logged-module/home/home.component';
+import { LoggedComponent } from './logged-module/logged.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'authenticate', pathMatch: 'full' },
@@ -11,6 +12,15 @@ const routes: Routes = [
   { path: 'register', component: RegisterUserComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'home', component: HomeComponent },
+  // {
+  //   path: 'logged',
+  //   component: LoggedComponent,
+  //   children: [
+  //     { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+  //     { path: 'welcome', component: WelcomeComponent },
+  //     { path: 'home', component: HomeComponent },
+  //   ],
+  // },
 ];
 
 @NgModule({

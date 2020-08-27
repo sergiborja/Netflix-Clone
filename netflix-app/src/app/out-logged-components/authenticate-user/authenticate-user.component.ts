@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user';
+import { User } from '../../user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -16,14 +16,13 @@ export class AuthenticateUserComponent implements OnInit {
   user: User;
 
   onSubmit(event) {
-    debugger;
     event.preventDefault();
     let email: string = event.target.email.value;
     let password: string = event.target.password.value;
 
     this.http
       .post(
-        `http://localhost:3000/user`,
+        `http://localhost:3000/users/auth`,
         { email, password },
         { responseType: 'text' }
       )

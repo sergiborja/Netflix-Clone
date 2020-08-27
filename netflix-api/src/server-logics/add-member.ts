@@ -6,7 +6,7 @@ const SECRET = "lescatiusquesdeligorsondemoscou";
 
 module.exports = (req: Request, res: Response) => {
   const {
-    body: { nick },
+    body: { nick, character },
   } = req;
   let token;
   let userId: any;
@@ -16,7 +16,7 @@ module.exports = (req: Request, res: Response) => {
 
   User.findById(userId).then((user: any) => {
     if (user) {
-      user.members.push(nick);
+      user.members.push({ nick, character });
     } else throw new Error("Token has expired");
     User.findByIdAndUpdate(userId, user).then(() => {
       Member.create(req.body)

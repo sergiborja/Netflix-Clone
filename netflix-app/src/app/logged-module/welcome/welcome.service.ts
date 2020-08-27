@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class WelcomeService {
   profileSelected: string;
-
+  loggedInSign: string;
   constructor() {}
 
   setProfileSelected(data: string) {

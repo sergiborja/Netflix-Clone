@@ -22,7 +22,7 @@ app.get("/", (req: any, res: any) => {
 
 app.post("/users", registerUser);
 app.get("/users", retrieveUser);
-app.post("/user", authenticateUser);
+app.post("/users/auth", authenticateUser);
 app.patch("/users", addMember);
 
 app.listen(app.get("port"), () => {

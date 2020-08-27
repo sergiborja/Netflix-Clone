@@ -1,0 +1,115 @@
+<div class="tryBack">
+  <form class="formContainer" (submit)="onSubmit($event)">
+    <h2 class="title">Sign Up</h2>
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        placeholder="Nick Name"
+        name="nick"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        placeholder="Email"
+        name="email"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        class="form-control inputColor"
+        id="exampleInputPassword1"
+        placeholder="Password"
+        name="password"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        class="form-control inputColor"
+        id="exampleInputPassword1"
+        placeholder="Write your password again"
+        name="passwordVerify"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <p class="text">Pick a character for this profile and will be added!</p>
+      <input
+        (click)="this.character = 'assets/blueProfile.png'"
+        class="imageInput"
+        type="image"
+        src="assets/blueProfile.png"
+        name="character"
+      />
+      <input
+        (click)="this.character = 'assets/robotProfile.png'"
+        class="imageInput"
+        type="image"
+        src="assets/robotProfile.png"
+        name="character"
+      />
+      <input
+        (click)="this.character = 'assets/yellowProfile.png'"
+        class="imageInput"
+        type="image"
+        src="assets/yellowProfile.png"
+        name="character"
+      />
+      <input
+        (click)="this.character = 'assets/pinkProfile.png'"
+        class="imageInput"
+        type="image"
+        src="assets/pinkProfile.png"
+        name="character"
+      />
+      <input
+        (click)="this.character = 'assets/profile-image.png'"
+        class="imageInput"
+        type="image"
+        src="assets/profile-image.png"
+        name="character"
+      />
+      <input
+        (click)="this.character = 'assets/heroProfile.png'"
+        class="imageInput"
+        type="image"
+        src="assets/heroProfile.png"
+        name="character"
+      />
+      <input
+        (click)="this.character = 'assets/orangeProfile.png'"
+        class="imageInput"
+        type="image"
+        src="assets/orangeProfile.png"
+        name="character"
+      />
+      <input
+        (click)="this.character = 'assets/manProfile.png'"
+        class="imageInput"
+        type="image"
+        src="assets/manProfile.png"
+        name="character"
+      />
+    </div>
+    <button type="submit" class="btn btn-outline-danger submitButton">
+      Sign In
+    </button>
+    <a routerLink="/authenticate" class="registerLink"
+      >I already have an account
+    </a>
+    <p class="dataText">
+      None of this data will be shared or used out of this local API.
+    </p>
+  </form>
+</div>

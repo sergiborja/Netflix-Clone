@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { WelcomeService } from './welcome.service';
 import { Router } from '@angular/router';
@@ -7,11 +14,14 @@ import { Router } from '@angular/router';
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.sass'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeComponent implements OnInit {
   @Input() displayAddMember: boolean;
   @Input() memberList: any;
   @Input() adminName: String;
+  adminCharacter: string;
+  memberCharacter: string;
 
   constructor(
     private http: HttpClient,
@@ -26,7 +36,9 @@ export class WelcomeComponent implements OnInit {
 
   onSubmitName(event) {
     event.preventDefault();
+    console.log(this.memberCharacter);
     let nick: string = event.target.nick.value;
+    let character: string = this.memberCharacter;
 
     const token: string = sessionStorage.token;
 
@@ -37,7 +49,7 @@ export class WelcomeComponent implements OnInit {
     };
 
     this.http
-      .patch(`http://localhost:3000/users`, { nick }, httpOptions)
+      .patch(`http://localhost:3000/users`, { nick, character }, httpOptions)
       .toPromise()
       .catch((error) => console.log(error))
       .then(() => {
@@ -67,9 +79,10 @@ export class WelcomeComponent implements OnInit {
       .toPromise()
       .then((user: any) => {
         if (user) {
-          console.log(user);
+          this.adminCharacter = user.character;
           this.memberList = user.members;
           this.adminName = user.nick;
+          console.log(this.memberList);
         }
         this.displayAddMember = false;
       });
