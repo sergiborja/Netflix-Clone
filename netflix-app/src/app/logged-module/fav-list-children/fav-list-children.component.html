@@ -1,4 +1,10 @@
-<h2>Your favourite Films</h2>
+<h2>Your favourite Ones</h2>
+<p *ngIf="favList && favList.length === 0">
+  Aun no tienes ninguna película en Favoritos :(
+</p>
 <ul>
-  <li *ngFor="let film of favList">{{ film }}</li>
+  <li *ngFor="let film of favList">
+    <h4>{{ film.name }}</h4>
+    <img height="120vh" src="{{ film.cover }}" alt="" />
+  </li>
 </ul>

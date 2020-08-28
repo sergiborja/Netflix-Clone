@@ -62,30 +62,22 @@
 </nav>
 
 <h2>WELCOME {{ this.profileSelected }}</h2>
+
+<h2>All Our Films</h2>
 <ul>
-  <li>
+  <li *ngFor="let film of allFilms">
+    <h4>{{ film.name }}</h4>
     <img
       type="button"
+      (click)="filmSelected(film.ytId)"
       height="120vh"
-      src="assets/vamps.jpg"
-      (click)="filmSelected('H5UxOo6vQF8')"
+      src="{{ film.cover }}"
+      alt=""
     />
+    <button (click)="handleFavSelected(film.ytId, this.profileSelected)">
+      Add to Fav
+    </button>
   </li>
-  <button (click)="handleFavSelected('H5UxOo6vQF8', this.profileSelected)">
-    Add to Fav
-  </button>
-  <li (click)="filmSelected('xtwTzoGA5hU')">
-    El curioso caso de Benjamin Button
-  </li>
-  <button (click)="handleFavSelected('xtwTzoGA5hU', this.profileSelected)">
-    Add to Fav
-  </button>
-  <li (click)="filmSelected('H5UxOo6vQF8')">Saw 1</li>
-  <li (click)="filmSelected('H5UxOo6vQF8')">In time</li>
-  <li (click)="filmSelected('H5UxOo6vQF8')">NOE</li>
-  <li>Infiltrados en la universidad</li>
-  <li>La Ciudad de los Payasos</li>
-  <li>Fallen</li>
 </ul>
 
 <app-fav-list-children></app-fav-list-children>

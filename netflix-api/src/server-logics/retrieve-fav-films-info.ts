@@ -14,15 +14,12 @@ module.exports = (req: Request, res: Response) => {
   };
 
   const favIdList: Array<string> = req.body.favList;
-  let calla: number = 0;
   let filmsInfoRetrieved: Array<expectedBody> = [];
   favIdList.map((filmId) => {
     Film.findOne({ ytId: filmId }).then((filmFound: any) => {
       filmsInfoRetrieved.push(filmFound);
-      calla++;
+      if (filmsInfoRetrieved.length === favIdList.length)
+        res.send(filmsInfoRetrieved);
     });
   });
-  console.log(calla);
-  console.log(filmsInfoRetrieved);
-  if (calla === favIdList.length) res.send(filmsInfoRetrieved);
 };

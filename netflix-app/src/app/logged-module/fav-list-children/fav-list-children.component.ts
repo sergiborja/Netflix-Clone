@@ -14,7 +14,14 @@ export class FavListChildrenComponent implements OnInit {
 
   ngOnInit() {
     this.homeService.cast.subscribe((data) => {
-      this.favList = data;
+      if (data.length > 0) {
+        this.http
+          .post(`http://localhost:3000/favFilms`, { favList: data })
+          .toPromise()
+          .then((filmsInfo) => {
+            this.favList = filmsInfo;
+          });
+      } else this.favList = data;
     });
   }
 }

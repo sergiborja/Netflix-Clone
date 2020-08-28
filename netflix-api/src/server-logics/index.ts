@@ -7,4 +7,5 @@ module.exports = {
   createFilm: require("./create-film"),
   handleFavFilm: require("./handle-fav-film"),
   retrieveFavFilmsInfo: require("./retrieve-fav-films-info"),
+  retrieveAllFilms: require("./retrieve-all-films"),
 };

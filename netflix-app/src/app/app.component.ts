@@ -10,7 +10,6 @@ export class AppComponent {
   title = 'netflix';
   constructor(private router: Router) {
     if (!sessionStorage.token) this.router.navigate(['']);
-    else console.log(sessionStorage.token);
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
     document.body.appendChild(tag);

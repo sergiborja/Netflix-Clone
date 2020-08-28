@@ -3,6 +3,17 @@ import { HomeService } from './home.service';
 import { Router } from '@angular/router';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 
+interface expectedBody {
+  ytId: string;
+  gender: Array<string>;
+  name: string;
+  description: string;
+  time: string;
+  cover: string;
+  __v: number;
+  _id: string;
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,6 +23,7 @@ export class HomeComponent implements OnInit {
   trying: string;
   profileSelected: string;
   favList: Array<string>;
+  allFilms: Array<expectedBody>;
 
   constructor(
     private service: HomeService,
@@ -29,6 +41,12 @@ export class HomeComponent implements OnInit {
           this.profileSelected = memberFound.nick;
           this.favList = memberFound.films;
           this.service.setTry(this.favList);
+          this.http
+            .get(`http://localhost:3000/allFilms`)
+            .toPromise()
+            .then((allFilmsRetrieved: Array<expectedBody>) => {
+              this.allFilms = allFilmsRetrieved;
+            });
         }
       });
   }
