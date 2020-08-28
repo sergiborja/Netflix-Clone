@@ -9,6 +9,9 @@ const {
   retrieveUser,
   authenticateUser,
   addMember,
+  retrieveMember,
+  createFilm,
+  handleFavFilm,
 } = require("./server-logics/index");
 
 app.set("port", 3000);
@@ -21,9 +24,12 @@ app.get("/", (req: any, res: any) => {
 });
 
 app.post("/users", registerUser);
+app.post("/users/film", createFilm);
 app.get("/users", retrieveUser);
+app.get("/users/:nick?", retrieveMember);
 app.post("/users/auth", authenticateUser);
 app.patch("/users", addMember);
+app.patch("/users/handleFavs", handleFavFilm);
 
 app.listen(app.get("port"), () => {
   console.log("Server running on port 3000");

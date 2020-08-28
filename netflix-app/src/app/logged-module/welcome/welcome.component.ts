@@ -31,7 +31,7 @@ export class WelcomeComponent implements OnInit {
 
   sendProfileSelected(profileSelected: string) {
     this.service.setProfileSelected(profileSelected);
-    this.router.navigate(['home']);
+    this.router.navigate([`home/${profileSelected}`]);
   }
 
   onSubmitName(event) {

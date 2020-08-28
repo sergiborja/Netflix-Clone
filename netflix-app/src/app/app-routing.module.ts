@@ -5,13 +5,15 @@ import { RegisterUserComponent } from './out-logged-components/register-user/reg
 import { WelcomeComponent } from './logged-module/welcome/welcome.component';
 import { HomeComponent } from './logged-module/home/home.component';
 import { LoggedComponent } from './logged-module/logged.component';
+import { DEMOComponent } from './demo/demo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'authenticate', pathMatch: 'full' },
   { path: 'authenticate', component: AuthenticateUserComponent },
   { path: 'register', component: RegisterUserComponent },
   { path: 'welcome', component: WelcomeComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home/:nick?', component: HomeComponent },
+  { path: 'demo/:id?', component: DEMOComponent },
   // {
   //   path: 'logged',
   //   component: LoggedComponent,

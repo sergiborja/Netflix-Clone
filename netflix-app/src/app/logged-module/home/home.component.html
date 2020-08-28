@@ -62,3 +62,20 @@
 </nav>
 
 <h2>WELCOME {{ this.profileSelected }}</h2>
+<ul>
+  <li (click)="filmSelected('H5UxOo6vQF8')">Vamps</li>
+  <button (click)="handleFavSelected('H5UxOo6vQF8', this.profileSelected)">
+    Add to Fav
+  </button>
+  <li (click)="filmSelected('xtwTzoGA5hU')">
+    El curioso caso de Benjamin Button
+  </li>
+  <li (click)="filmSelected('H5UxOo6vQF8')">Saw 1</li>
+  <li (click)="filmSelected('H5UxOo6vQF8')">In time</li>
+  <li (click)="filmSelected('H5UxOo6vQF8')">NOE</li>
+  <li>Infiltrados en la universidad</li>
+  <li>La Ciudad de los Payasos</li>
+  <li>Fallen</li>
+</ul>
+
+<app-fav-list-children></app-fav-list-children>
