@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { HomeService } from '../home/home.service';
+import { HttpClient } from '@angular/common/http';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-fav-list-children',
@@ -8,9 +10,11 @@ import { HomeService } from '../home/home.service';
 })
 export class FavListChildrenComponent implements OnInit {
   favList;
-  constructor(private homeService: HomeService) {}
+  constructor(private homeService: HomeService, private http: HttpClient) {}
 
   ngOnInit() {
-    this.homeService.cast.subscribe((data) => (this.favList = data));
+    this.homeService.cast.subscribe((data) => {
+      this.favList = data;
+    });
   }
 }

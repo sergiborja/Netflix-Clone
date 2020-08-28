@@ -6,4 +6,5 @@ module.exports = {
   addMember: require("./add-member"),
   createFilm: require("./create-film"),
   handleFavFilm: require("./handle-fav-film"),
+  retrieveFavFilmsInfo: require("./retrieve-fav-films-info"),
 };

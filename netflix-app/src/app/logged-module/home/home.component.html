@@ -63,13 +63,23 @@
 
 <h2>WELCOME {{ this.profileSelected }}</h2>
 <ul>
-  <li (click)="filmSelected('H5UxOo6vQF8')">Vamps</li>
+  <li>
+    <img
+      type="button"
+      height="120vh"
+      src="assets/vamps.jpg"
+      (click)="filmSelected('H5UxOo6vQF8')"
+    />
+  </li>
   <button (click)="handleFavSelected('H5UxOo6vQF8', this.profileSelected)">
     Add to Fav
   </button>
   <li (click)="filmSelected('xtwTzoGA5hU')">
     El curioso caso de Benjamin Button
   </li>
+  <button (click)="handleFavSelected('xtwTzoGA5hU', this.profileSelected)">
+    Add to Fav
+  </button>
   <li (click)="filmSelected('H5UxOo6vQF8')">Saw 1</li>
   <li (click)="filmSelected('H5UxOo6vQF8')">In time</li>
   <li (click)="filmSelected('H5UxOo6vQF8')">NOE</li>

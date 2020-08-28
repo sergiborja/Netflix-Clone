@@ -6,6 +6,7 @@ export const FilmSchema = new mongoose.Schema({
   description: { type: String, required: true },
   gender: { type: Array, required: true },
   time: { type: String, required: true },
+  cover: { type: String, required: true },
 });
 
 const Film = mongoose.model("Film", FilmSchema);
