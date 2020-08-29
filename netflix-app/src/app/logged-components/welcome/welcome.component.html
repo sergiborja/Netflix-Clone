@@ -1,0 +1,134 @@
+<div *ngIf="!displayAddMember">
+  <h1 class="bigTitle">Who's watching?</h1>
+  <div class="container">
+    <div>
+      <img
+        (click)="sendProfileSelected(adminName)"
+        src="{{ this.adminCharacter }}"
+        class="myProfileImage"
+        type="button"
+      />
+      <div class="nameUnder">
+        <p class="nameText">
+          {{ this.adminName }}
+        </p>
+      </div>
+    </div>
+
+    <ul *ngFor="let member of memberList">
+      <li class="memberList">
+        <div>
+          <img
+            (click)="sendProfileSelected(member.nick)"
+            class="myProfileImage"
+            src="{{ member.character }}"
+            type="button"
+          />
+          <div class="nameUnder">
+            <p class="nameText">
+              {{ member.nick }}
+            </p>
+            <button (click)="deleteMemberSelected(member.nick)">X</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div
+      class="addButtonContainer"
+      *ngIf="this.memberList && 4 > this.memberList.length"
+    >
+      <img
+        class="myProfileImage"
+        (click)="displayAddMember = true"
+        src="../../assets/add-member.png"
+        alt="add member image"
+        type="button"
+      />
+    </div>
+  </div>
+</div>
+
+<form
+  (submit)="onSubmitName($event)"
+  class="formContainer"
+  *ngIf="displayAddMember"
+>
+  <h2 class="title">Add Profile</h2>
+  <div class="form-group">
+    <p class="text">Add a profile for another person watching Netflix</p>
+    <input
+      type="text"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      placeholder="Nick Name"
+      name="nick"
+      required
+    />
+  </div>
+  <p class="text">Pick a character for this profile and will be added!</p>
+  <form class="form-group">
+    <img
+      (click)="this.memberCharacter = 'assets/blueProfile.png'"
+      class="imageInput"
+      type="image"
+      src="assets/blueProfile.png"
+      id="memberCharacter"
+    />
+    <img
+      (click)="this.memberCharacter = 'assets/robotProfile.png'"
+      class="imageInput"
+      type="image"
+      src="assets/robotProfile.png"
+      name="memberCharacter"
+    />
+    <img
+      (click)="this.memberCharacter = 'assets/yellowProfile.png'"
+      class="imageInput"
+      type="image"
+      src="assets/yellowProfile.png"
+      name="memberCharacter"
+    />
+    <img
+      (click)="this.memberCharacter = 'assets/pinkProfile.png'"
+      class="imageInput"
+      type="image"
+      src="assets/pinkProfile.png"
+      name="memberCharacter"
+    />
+    <img
+      (click)="this.memberCharacter = 'assets/profile-image.png'"
+      class="imageInput"
+      type="image"
+      src="assets/profile-image.png"
+      name="memberCharacter"
+    />
+    <img
+      (click)="this.memberCharacter = 'assets/heroProfile.png'"
+      class="imageInput"
+      type="image"
+      src="assets/heroProfile.png"
+      name="memberCharacter"
+    />
+    <img
+      (click)="this.memberCharacter = 'assets/orangeProfile.png'"
+      class="imageInput"
+      type="image"
+      src="assets/orangeProfile.png"
+      name="memberCharacter"
+    />
+    <img
+      (click)="this.memberCharacter = 'assets/manProfile.png'"
+      class="imageInput"
+      type="image"
+      src="assets/manProfile.png"
+      name="memberCharacter"
+    />
+  </form>
+  <button type="submit" class="btn btn-outline-danger submitButton">
+    Add Profile
+  </button>
+  <button (click)="displayAddMember = false" class="btn btn-outline-secondary">
+    Cancel
+  </button>
+</form>

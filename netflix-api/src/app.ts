@@ -14,6 +14,7 @@ const {
   handleFavFilm,
   retrieveFavFilmsInfo,
   retrieveAllFilms,
+  deleteMember,
 } = require("./server-logics/index");
 
 app.set("port", 3000);
@@ -32,6 +33,7 @@ app.get("/users/:nick?", retrieveMember);
 app.post("/users/auth", authenticateUser);
 app.patch("/users", addMember);
 app.patch("/users/handleFavs", handleFavFilm);
+app.patch("/users/delMember", deleteMember);
 app.post("/favFilms", retrieveFavFilmsInfo);
 app.get("/allFilms", retrieveAllFilms);
 

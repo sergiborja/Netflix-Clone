@@ -1,4 +1,6 @@
 <div class="tryBack">
+  <img class="netflixLogo" src="assets/netflix-logo.png" alt="" />
+
   <form class="formContainer" (submit)="onSubmit($event)">
     <h2 class="title">Sign Up</h2>
     <div class="form-group">
@@ -43,7 +45,7 @@
         required
       />
     </div>
-    <div class="form-group">
+    <form class="form-group">
       <p class="text">Pick a character for this profile and will be added!</p>
       <input
         (click)="this.character = 'assets/blueProfile.png'"
@@ -101,7 +103,10 @@
         src="assets/manProfile.png"
         name="character"
       />
-    </div>
+    </form>
+    <p style="color: red" *ngIf="this.errorFeedback">
+      {{ this.errorFeedback }}
+    </p>
     <button type="submit" class="btn btn-outline-danger submitButton">
       Sign In
     </button>

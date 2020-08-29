@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../user';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { AuthenticateService } from '../../services/authenticate.service';
 
 @Component({
   selector: 'app-authenticate-user',
@@ -11,28 +10,24 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class AuthenticateUserComponent implements OnInit {
   ngOnInit(): void {}
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthenticateService
+  ) {}
 
-  user: User;
+  errorFeedback: string;
 
   onSubmit(event) {
     event.preventDefault();
     let email: string = event.target.email.value;
     let password: string = event.target.password.value;
-
-    this.http
-      .post(
-        `http://localhost:3000/users/auth`,
-        { email, password },
-        { responseType: 'text' }
-      )
-      .toPromise()
-      .catch((error) => console.log(error))
-      .then((token) => {
-        if (token) {
-          sessionStorage.token = token;
-          this.router.navigate(['welcome']);
-        }
-      });
+    this.authService.getToken(email, password).then(({ token, error }) => {
+      if (token) {
+        sessionStorage.token = token;
+        this.router.navigate(['welcome']);
+      } else {
+        this.errorFeedback = error;
+      }
+    });
   }
 }

@@ -1,0 +1,99 @@
+<div class="homeWrapper">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light navbarWrapper">
+    <img
+      src="/assets/netflix-logo.png"
+      class="navbar-brand navbarTitle"
+      href="#"
+    />
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="nav-item dropdown dropdownContainer">
+        <a
+          class="changeProfile"
+          type="button"
+          (click)="this.router.navigate(['welcome'])"
+        >
+          Change Profile
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- <h2 class="titles">Welcome {{ this.profileSelected }}</h2> -->
+
+  <h2 class="titles">All Our Films</h2>
+  <ul class="list-group list-group-horizontal filmsContainer">
+    <li class="list-group-item liAllFilms" *ngFor="let film of allFilms">
+      <h4 class="filmName">{{ film.name }}</h4>
+      <img
+        class="filmCover"
+        type="button"
+        (click)="filmSelected(film.ytId)"
+        src="{{ film.cover }}"
+        alt=""
+      />
+      <button
+        (click)="handleFavSelected(film.ytId, this.profileSelected)"
+        type="button"
+        class="btn btn-outline-info"
+      >
+        +
+      </button>
+    </li>
+  </ul>
+
+  <h2 class="titles">The drama ones</h2>
+  <ul class="list-group list-group-horizontal filmsContainer">
+    <li class="list-group-item liAllFilms" *ngFor="let film of dramaFilms">
+      <h4 class="filmName">{{ film.name }}</h4>
+      <img
+        class="filmCover"
+        type="button"
+        (click)="filmSelected(film.ytId)"
+        src="{{ film.cover }}"
+        alt=""
+      />
+      <button
+        (click)="handleFavSelected(film.ytId, this.profileSelected)"
+        type="button"
+        class="btn btn-outline-info"
+      >
+        +
+      </button>
+    </li>
+  </ul>
+
+  <h2 class="titles">The action ones</h2>
+  <ul class="list-group list-group-horizontal filmsContainer">
+    <li class="list-group-item liAllFilms" *ngFor="let film of actionFilms">
+      <h4 class="filmName">{{ film.name }}</h4>
+      <img
+        class="filmCover"
+        type="button"
+        (click)="filmSelected(film.ytId)"
+        src="{{ film.cover }}"
+        alt=""
+      />
+      <button
+        (click)="handleFavSelected(film.ytId, this.profileSelected)"
+        type="button"
+        class="btn btn-outline-info"
+      >
+        +
+      </button>
+    </li>
+  </ul>
+
+  <app-fav-list-children></app-fav-list-children>
+</div>

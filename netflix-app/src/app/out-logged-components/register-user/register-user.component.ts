@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { RegisterUserService } from '../../services/register-user.service';
 
 @Component({
   selector: 'app-register-user',
@@ -9,13 +9,18 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class RegisterUserComponent implements OnInit {
   character: string;
+  errorFeedback: string;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private router: Router,
+    private registerUserService: RegisterUserService
+  ) {}
 
   ngOnInit(): void {}
+
   onSubmit(event) {
     event.preventDefault();
-    console.log(this.character);
+
     let character: string = this.character;
 
     let { nick, email, password, passwordVerify } = event.target;
@@ -26,23 +31,16 @@ export class RegisterUserComponent implements OnInit {
     passwordVerify = passwordVerify.value;
 
     if (password === passwordVerify) {
-      this.http
-        .post(`http://localhost:3000/users`, {
-          nick,
-          email,
-          password,
-          character,
-        })
-        .toPromise()
-        .catch((error) => console.log(error))
+      this.registerUserService
+        .postUser(nick, email, password, character)
         .then((response) => {
-          if (response) {
-            console.log(response);
-            this.router.navigate(['authenticate']);
-          }
-        });
+          console.log(response);
+          if (response.error) this.errorFeedback = response.error;
+          else this.router.navigate(['authenticate']);
+        })
+        .catch((error) => console.log(error));
     } else {
-      console.log('WRONG PASSWORD');
+      this.errorFeedback = 'Las contraseñas introducidas no coinciden';
     }
   }
 }

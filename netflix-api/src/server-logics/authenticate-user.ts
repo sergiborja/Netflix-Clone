@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import User from "./../schemas/user";
+import UserSchema from "./../schemas/user";
 const jwtPromised = require("../essentials/jwt-promised");
 const SECRET = "lescatiusquesdeligorsondemoscou";
 const bcrypt = require("bcrypt");
@@ -8,16 +8,16 @@ module.exports = async (req: Request, res: Response) => {
   let {
     body: { email, password },
   } = req;
-  const userFound: any = await User.findOne({ email });
-  if (!userFound) throw new Error("Este email no existe");
+  const userFound: any = await UserSchema.findOne({ email });
+  if (!userFound) res.status(401).json("Email not found");
   else {
     const match = await bcrypt.compare(password, userFound.password);
-    if (!match) throw new Error("Contraseña incorrecta");
+    if (!match) res.status(401).json("Incorrect Password");
     else {
       const token = await jwtPromised.sign({ sub: userFound.id }, SECRET, {
         expiresIn: "1d",
       });
-      await res.send(token);
+      await res.send({ token });
     }
   }
 };

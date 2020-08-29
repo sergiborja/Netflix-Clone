@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import User from "../schemas/user";
+import UserSchema from "../schemas/user";
 import Member from "../schemas/member";
 
 module.exports = async (req: Request, res: Response) => {
@@ -8,7 +8,7 @@ module.exports = async (req: Request, res: Response) => {
   } = req;
 
   let userFound: any = await Member.findOne({ nick });
-  if (!userFound) userFound = await User.findOne({ nick });
+  if (!userFound) userFound = await UserSchema.findOne({ nick });
 
   if (!userFound) {
     res.status(404).send();

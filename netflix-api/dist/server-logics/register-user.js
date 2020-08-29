@@ -35,24 +35,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var user_1 = __importDefault(require("./../schemas/user"));
+var user_1 = require("./../schemas/user");
 var bcrypt = require("bcrypt");
 module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, nick, email, password, character, hash;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var nick, email, password, character, hash;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _a = req.body, nick = _a.nick, email = _a.email, password = _a.password, character = _a.character;
+                nick = req.body.nick;
+                email = req.body.email;
+                password = req.body.password;
+                character = req.body.character;
                 return [4 /*yield*/, bcrypt.hash(password, 10)];
             case 1:
-                hash = _b.sent();
-                user_1.default.create({ nick: nick, email: email, password: hash, character: character }, function (error, user) {
+                hash = _a.sent();
+                user_1.UserSchema.create({ nick: nick, email: email, password: hash, character: character }, function (error, user) {
                     if (error)
-                        res.send(error);
+                        res.status(409).json("This email already exists");
                     else
                         res.status(201).send();
                 });
@@ -60,4 +60,4 @@ module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVnaXN0ZXItdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmVnaXN0ZXItdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLDJEQUFxQztBQUNyQyxJQUFNLE1BQU0sR0FBRyxPQUFPLENBQUMsUUFBUSxDQUFDLENBQUM7QUFFakMsTUFBTSxDQUFDLE9BQU8sR0FBRyxVQUFPLEdBQVksRUFBRSxHQUFhOzs7OztnQkFDM0MsS0FBdUMsR0FBRyxDQUFDLElBQUksRUFBN0MsSUFBSSxVQUFBLEVBQUUsS0FBSyxXQUFBLEVBQUUsUUFBUSxjQUFBLEVBQUUsU0FBUyxlQUFBLENBQWM7Z0JBQ3pDLHFCQUFNLE1BQU0sQ0FBQyxJQUFJLENBQUMsUUFBUSxFQUFFLEVBQUUsQ0FBQyxFQUFBOztnQkFBdEMsSUFBSSxHQUFHLFNBQStCO2dCQUM1QyxjQUFJLENBQUMsTUFBTSxDQUNULEVBQUUsSUFBSSxNQUFBLEVBQUUsS0FBSyxPQUFBLEVBQUUsUUFBUSxFQUFFLElBQUksRUFBRSxTQUFTLFdBQUEsRUFBRSxFQUMxQyxVQUFDLEtBQVUsRUFBRSxJQUFTO29CQUNwQixJQUFJLEtBQUs7d0JBQUUsR0FBRyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQzs7d0JBQ3RCLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxFQUFFLENBQUM7Z0JBQzlCLENBQUMsQ0FDRixDQUFDOzs7O0tBQ0gsQ0FBQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVnaXN0ZXItdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmVnaXN0ZXItdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLDBDQUErQztBQUMvQyxJQUFNLE1BQU0sR0FBRyxPQUFPLENBQUMsUUFBUSxDQUFDLENBQUM7QUFFakMsTUFBTSxDQUFDLE9BQU8sR0FBRyxVQUFPLEdBQVksRUFBRSxHQUFhOzs7OztnQkFDM0MsSUFBSSxHQUFXLEdBQUcsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDO2dCQUM3QixLQUFLLEdBQVcsR0FBRyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUM7Z0JBQy9CLFFBQVEsR0FBVyxHQUFHLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQztnQkFDckMsU0FBUyxHQUFXLEdBQUcsQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDO2dCQUNoQyxxQkFBTSxNQUFNLENBQUMsSUFBSSxDQUFDLFFBQVEsRUFBRSxFQUFFLENBQUMsRUFBQTs7Z0JBQXRDLElBQUksR0FBRyxTQUErQjtnQkFDNUMsaUJBQVUsQ0FBQyxNQUFNLENBQ2YsRUFBRSxJQUFJLE1BQUEsRUFBRSxLQUFLLE9BQUEsRUFBRSxRQUFRLEVBQUUsSUFBSSxFQUFFLFNBQVMsV0FBQSxFQUFFLEVBQzFDLFVBQUMsS0FBVSxFQUFFLElBQVM7b0JBQ3BCLElBQUksS0FBSzt3QkFBRSxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQywyQkFBMkIsQ0FBQyxDQUFDOzt3QkFDeEQsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLEVBQUUsQ0FBQztnQkFDOUIsQ0FBQyxDQUNGLENBQUM7Ozs7S0FDSCxDQUFDIn0=

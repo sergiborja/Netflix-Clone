@@ -8,4 +8,5 @@ module.exports = {
   handleFavFilm: require("./handle-fav-film"),
   retrieveFavFilmsInfo: require("./retrieve-fav-films-info"),
   retrieveAllFilms: require("./retrieve-all-films"),
+  deleteMember: require("./delete-member"),
 };

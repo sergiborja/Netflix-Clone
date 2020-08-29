@@ -1,4 +1,5 @@
 <div class="tryBack">
+  <img class="netflixLogo" src="assets/netflix-logo.png" alt="" />
   <form class="formContainer" (submit)="onSubmit($event)">
     <h2 class="title">Sign In</h2>
     <div class="form-group">
@@ -20,6 +21,9 @@
         name="password"
       />
     </div>
+    <p style="color: red" *ngIf="this.errorFeedback">
+      {{ this.errorFeedback }}
+    </p>
     <button type="submit" class="btn btn-outline-danger submitButton">
       Sign In
     </button>
