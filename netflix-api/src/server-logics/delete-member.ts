@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import User from "./../schemas/user";
+import UserSchema, { UserDocument } from "./../schemas/user";
 import Member from "../schemas/member";
 const jwt = require("jsonwebtoken");
 const SECRET = "lescatiusquesdeligorsondemoscou";
@@ -14,7 +14,7 @@ module.exports = (req: Request, res: Response) => {
     [, token] = req.headers.authorization.split(" ");
   userId = jwt.verify(token, SECRET).sub;
 
-  User.findById(userId).then((userFound: any) => {
+  UserSchema.findById(userId).then((userFound: any) => {
     const filteredMemberList = userFound.members.filter(
       (member: any) => member.nick !== nick
     );

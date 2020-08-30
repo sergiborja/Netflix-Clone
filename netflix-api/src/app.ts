@@ -1,7 +1,9 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import bodyParser = require("body-parser");
 import express = require("express");
 import mongoose = require("mongoose");
-const uri: string = "mongodb://localhost:27017/netflix";
+const { MONGODB_URL: uri } = require("process").env;
 const cors = require("./essentials/cors");
 const app = express();
 const {

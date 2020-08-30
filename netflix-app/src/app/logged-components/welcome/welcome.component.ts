@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { WelcomeService } from '../../services/welcome.service';
 import { Router } from '@angular/router';
+import { UserMemberList } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-welcome',
@@ -16,20 +17,20 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeComponent implements OnInit {
-  @Input() displayAddMember: boolean;
-  @Input() memberList: any;
-  @Input() adminName: String;
+  displayAddMember: boolean;
+  memberList: Array<UserMemberList>;
+  adminName: String;
   adminCharacter: string;
   memberCharacter: string;
   errorFeedback: string;
 
   constructor(private welcomeService: WelcomeService, private router: Router) {}
 
-  sendProfileSelected(profileSelected: string) {
+  sendProfileSelected(profileSelected: string): void {
     this.router.navigate([`home/${profileSelected}`]);
   }
 
-  deleteMemberSelected(memberToDelete) {
+  deleteMemberSelected(memberToDelete: string): void {
     this.welcomeService
       .deleteMember(sessionStorage.token, memberToDelete)
       .then(() => {
@@ -37,10 +38,11 @@ export class WelcomeComponent implements OnInit {
           (member) => member.nick !== memberToDelete
         );
         this.memberList = filteredArray;
+        console.log(filteredArray);
       });
   }
 
-  onSubmitName(event) {
+  onSubmitName(event): void {
     event.preventDefault();
     let nick: string = event.target.nick.value;
     let character: string = this.memberCharacter;

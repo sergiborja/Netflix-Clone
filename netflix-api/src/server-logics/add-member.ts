@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import UserSchema from "./../schemas/user";
-import Member from "../schemas/member";
+import UserSchema, { UserDocument } from "./../schemas/user";
+import Member, { MemberDocument } from "../schemas/member";
+import { SchemaType } from "mongoose";
 const jwt = require("jsonwebtoken");
-const SECRET = "lescatiusquesdeligorsondemoscou";
+const SECRET: string = "lescatiusquesdeligorsondemoscou";
 
 module.exports = (req: Request, res: Response) => {
   const {
@@ -13,7 +14,7 @@ module.exports = (req: Request, res: Response) => {
   if (req.headers.authorization)
     [, token] = req.headers.authorization.split(" ");
   userId = jwt.verify(token, SECRET).sub;
-  Member.findOne({ nick }).then((nickFound: any) => {
+  Member.findOne({ nick }).then((nickFound) => {
     if (!nickFound) {
       UserSchema.findById(userId).then((user: any) => {
         user.members.push({ nick, character });

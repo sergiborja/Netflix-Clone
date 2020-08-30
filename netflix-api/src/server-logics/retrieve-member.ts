@@ -6,8 +6,12 @@ const SECRET = "lescatiusquesdeligorsondemoscou";
 
 module.exports = (req: Request, res: Response) => {
   const nick = req.params.nick;
-  Member.findOne({ nick }).then((memberFound) => {
-    if (!memberFound) res.status(404).send();
-    else res.send(memberFound);
-  });
+  Member.findOne({ nick })
+    .then((memberFound) => {
+      if (!memberFound) res.status(404).send();
+      else res.send(memberFound);
+    })
+    .catch(() => {
+      res.status(500).send("Server Error");
+    });
 };

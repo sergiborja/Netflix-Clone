@@ -125,11 +125,17 @@
       name="memberCharacter"
     />
   </form>
-  <p style="color: red">{{ this.errorFeedback && this.errorFeedback }}</p>
+  <p style="color: red" *ngIf="this.errorFeedback">
+    {{ this.errorFeedback }}
+  </p>
   <button type="submit" class="btn btn-outline-danger submitButton">
     Add Profile
   </button>
-  <button (click)="displayAddMember = false" class="btn btn-outline-secondary">
+  <button
+    (click)="errorFeedback = false"
+    (click)="displayAddMember = false"
+    class="btn btn-outline-secondary"
+  >
     Cancel
   </button>
 </form>

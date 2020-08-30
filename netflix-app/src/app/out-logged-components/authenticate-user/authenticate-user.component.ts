@@ -17,7 +17,7 @@ export class AuthenticateUserComponent implements OnInit {
 
   errorFeedback: string;
 
-  onSubmit(event) {
+  onSubmit(event): void {
     event.preventDefault();
     let email: string = event.target.email.value;
     let password: string = event.target.password.value;
