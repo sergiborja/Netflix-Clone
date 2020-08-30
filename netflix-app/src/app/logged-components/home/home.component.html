@@ -46,17 +46,30 @@
         src="{{ film.cover }}"
         alt=""
       />
-      <button
-        (click)="handleFavSelected(film.ytId, this.profileSelected)"
-        type="button"
-        class="btn btn-outline-info"
-        style="height: 100%"
-      >
-        +
-      </button>
+
+      <div class="filmInfo">
+        <h4>{{ film.name }}</h4>
+        <p>
+          {{ film.description }}
+        </p>
+        <p>{{ film.gender }}</p>
+        <button
+          (click)="handleFavSelected(film.ytId, this.profileSelected)"
+          type="button"
+          class="btn btn-outline-info filmButtons"
+        >
+          Add to Favs
+        </button>
+        <button
+          (click)="filmSelected(film.ytId)"
+          type="button"
+          class="btn btn-outline-info"
+        >
+          Watch now!
+        </button>
+      </div>
     </li>
   </ul>
-
   <h2 class="titles">The drama ones</h2>
   <ul class="list-group list-group-horizontal filmsContainer">
     <li class="list-group-item liAllFilms" *ngFor="let film of dramaFilms">
@@ -68,14 +81,28 @@
         src="{{ film.cover }}"
         alt=""
       />
-      <button
-        (click)="handleFavSelected(film.ytId, this.profileSelected)"
-        type="button"
-        class="btn btn-outline-info"
-        style="height: 100%"
-      >
-        +
-      </button>
+
+      <div class="filmInfo">
+        <h4>{{ film.name }}</h4>
+        <p>
+          {{ film.description }}
+        </p>
+        <p>{{ film.gender }}</p>
+        <button
+          (click)="handleFavSelected(film.ytId, this.profileSelected)"
+          type="button"
+          class="btn btn-outline-info filmButtons"
+        >
+          Add to Favs
+        </button>
+        <button
+          (click)="filmSelected(film.ytId)"
+          type="button"
+          class="btn btn-outline-info"
+        >
+          Watch now!
+        </button>
+      </div>
     </li>
   </ul>
 
@@ -90,14 +117,28 @@
         src="{{ film.cover }}"
         alt=""
       />
-      <button
-        (click)="handleFavSelected(film.ytId, this.profileSelected)"
-        type="button"
-        class="btn btn-outline-info"
-        style="height: 100%"
-      >
-        +
-      </button>
+
+      <div class="filmInfo">
+        <h4>{{ film.name }}</h4>
+        <p>
+          {{ film.description }}
+        </p>
+        <p>{{ film.gender }}</p>
+        <button
+          (click)="handleFavSelected(film.ytId, this.profileSelected)"
+          type="button"
+          class="btn btn-outline-info filmButtons"
+        >
+          Add to Favs
+        </button>
+        <button
+          (click)="filmSelected(film.ytId)"
+          type="button"
+          class="btn btn-outline-info"
+        >
+          Watch now!
+        </button>
+      </div>
     </li>
   </ul>
 

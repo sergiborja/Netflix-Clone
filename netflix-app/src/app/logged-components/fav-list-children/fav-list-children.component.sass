@@ -1,19 +1,35 @@
-.liFavs
-    padding: 0
-    transition: transform 1s
-.liFavs:hover
-    transform: scale(1.5)
-    z-index: 2
-.filmCover
-    height: 40vh
-.titles
-    color: rgba(194, 191, 191)
-    font-size: 3.8vh
-    margin-left: 1vw
 .feedback
     color: rgba(194, 191, 191)
     font-size: 2.5vh
     margin-left: 1vw
-.favButton
-.favButton:hover
-    background-color: #ce0000
+.liAllFilms
+    padding: 0
+    transition: transform 1s
+    background-color: #141414
+    max-width: 40vw
+.liAllFilms:hover
+    transform: scale(1.1)
+    z-index: 2
+    display: flex
+    flex-direction: row
+.liAllFilms:hover .filmInfo
+    display: block
+.filmCover
+    height: 40vh
+.filmName
+    display: none
+    z-index: 2
+    background: red
+    text-align: center
+.navbarTitle
+    height: 15vh
+.titles
+    color: rgba(194, 191, 191)
+    font-size: 3.8vh
+    margin-left: 1vw
+.filmInfo
+    display: none
+    padding: 2.5vh
+    color: #818181
+.filmButtons
+    margin-right: 1vh
