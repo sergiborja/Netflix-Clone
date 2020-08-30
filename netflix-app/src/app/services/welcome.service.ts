@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class WelcomeService {
   constructor(private http: HttpClient) {}
 
-  public getMemberList(
+  public addAndGetMemberList(
     token: string,
     nick: string,
     character: string
@@ -21,15 +21,17 @@ export class WelcomeService {
     return this.http
       .patch(`http://localhost:3000/users`, { nick, character }, httpOptions)
       .toPromise()
-      .catch((error) => console.log(error))
       .then(() => {
         return this.http
           .get(`http://localhost:3000/users`, httpOptions)
           .toPromise()
           .then(({ members }: any) => {
-            return members;
+            return { members: members };
           })
-          .catch((error) => console.log(error));
+          .catch((error) => console.log('hola'));
+      })
+      .catch((error) => {
+        return { error: error };
       });
   }
 

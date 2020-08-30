@@ -21,6 +21,7 @@ export class WelcomeComponent implements OnInit {
   @Input() adminName: String;
   adminCharacter: string;
   memberCharacter: string;
+  errorFeedback: string;
 
   constructor(private welcomeService: WelcomeService, private router: Router) {}
 
@@ -46,10 +47,13 @@ export class WelcomeComponent implements OnInit {
 
     const token: string = sessionStorage.token;
     this.welcomeService
-      .getMemberList(token, nick, character)
-      .then((members) => {
-        this.memberList = members;
-        this.displayAddMember = false;
+      .addAndGetMemberList(token, nick, character)
+      .then(({ members, error }) => {
+        if (error) this.errorFeedback = error.error;
+        else {
+          this.memberList = members;
+          this.displayAddMember = false;
+        }
       });
   }
 

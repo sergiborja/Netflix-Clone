@@ -18,7 +18,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="nav-item dropdown dropdownContainer">
+      <div class="">
         <a
           class="changeProfile"
           type="button"
@@ -26,6 +26,9 @@
         >
           Change Profile
         </a>
+      </div>
+      <div class="">
+        <a class="logOut" type="button" (click)="logOut()"> Log Out </a>
       </div>
     </div>
   </nav>
@@ -47,6 +50,7 @@
         (click)="handleFavSelected(film.ytId, this.profileSelected)"
         type="button"
         class="btn btn-outline-info"
+        style="height: 100%"
       >
         +
       </button>
@@ -68,6 +72,7 @@
         (click)="handleFavSelected(film.ytId, this.profileSelected)"
         type="button"
         class="btn btn-outline-info"
+        style="height: 100%"
       >
         +
       </button>
@@ -89,6 +94,7 @@
         (click)="handleFavSelected(film.ytId, this.profileSelected)"
         type="button"
         class="btn btn-outline-info"
+        style="height: 100%"
       >
         +
       </button>

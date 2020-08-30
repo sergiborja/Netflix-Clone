@@ -19,7 +19,6 @@ interface expectedBody {
   styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent implements OnInit {
-  trying: string;
   profileSelected: string;
   favList: Array<string>;
   allFilms: Array<expectedBody>;
@@ -41,7 +40,7 @@ export class HomeComponent implements OnInit {
 
     this.homeService.retrieveAllFilms().then((allFilmsRetrieved) => {
       this.allFilms = allFilmsRetrieved;
-      console.log(allFilmsRetrieved);
+
       let dramaFilms = [];
       allFilmsRetrieved.map((film) => {
         const indexOf = film.gender.indexOf('drama');
@@ -68,5 +67,10 @@ export class HomeComponent implements OnInit {
 
   filmSelected(filmId: string) {
     this.router.navigate([`demo/${filmId}`]);
+  }
+
+  logOut() {
+    delete sessionStorage.token;
+    window.location.reload();
   }
 }
