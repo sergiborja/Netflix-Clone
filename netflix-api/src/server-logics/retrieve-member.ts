@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-import User from "./../schemas/user";
 import Member from "../schemas/member";
-const jwt = require("jsonwebtoken");
-const SECRET = "lescatiusquesdeligorsondemoscou";
 
 module.exports = (req: Request, res: Response) => {
   const nick = req.params.nick;

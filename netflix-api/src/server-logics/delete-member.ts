@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import UserSchema, { UserDocument } from "./../schemas/user";
 import Member from "../schemas/member";
 const jwt = require("jsonwebtoken");
-const SECRET = "lescatiusquesdeligorsondemoscou";
+const {
+  env: { SECRET },
+} = process;
 
 module.exports = (req: Request, res: Response) => {
   const {

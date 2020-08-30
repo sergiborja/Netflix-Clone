@@ -3,7 +3,7 @@ dotenv.config();
 import bodyParser = require("body-parser");
 import express = require("express");
 import mongoose = require("mongoose");
-const { MONGODB_URL: uri } = require("process").env;
+const { MONGODB_URL: uri, PORT } = require("process").env;
 const cors = require("./essentials/cors");
 const app = express();
 const {
@@ -19,7 +19,7 @@ const {
   deleteMember,
 } = require("./server-logics/index");
 
-app.set("port", 3000);
+app.set("port", PORT);
 
 app.use(cors);
 app.use(bodyParser.json());
@@ -40,7 +40,7 @@ app.post("/favFilms", retrieveFavFilmsInfo);
 app.get("/allFilms", retrieveAllFilms);
 
 app.listen(app.get("port"), () => {
-  console.log("Server running on port 3000");
+  console.log(`Server running on port ${PORT}`);
 });
 
 mongoose.connect(uri, (error: any) => {

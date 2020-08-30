@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import UserSchema from "./../schemas/user";
 const jwt = require("jsonwebtoken");
-const SECRET = "lescatiusquesdeligorsondemoscou";
+const {
+  env: { SECRET },
+} = process;
 
 module.exports = (req: Request, res: Response) => {
   if (!req.headers.authorization) {

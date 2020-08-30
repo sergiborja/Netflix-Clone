@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import UserSchema, { UserDocument } from "./../schemas/user";
-import Member, { MemberDocument } from "../schemas/member";
-import { SchemaType } from "mongoose";
+import UserSchema from "./../schemas/user";
+import Member from "../schemas/member";
 const jwt = require("jsonwebtoken");
-const SECRET: string = "lescatiusquesdeligorsondemoscou";
+const {
+  env: { SECRET },
+} = process;
 
 module.exports = (req: Request, res: Response) => {
   const {
