@@ -22,7 +22,7 @@ export class FavListChildrenComponent implements OnInit {
     this.homeService.cast.subscribe((data: any) => {
       if (data.length > 0) {
         this.http
-          .post(`http://localhost:3000/favFilms`, { favList: data })
+          .post(`http://localhost:3000/films/favs`, { favList: data })
           .toPromise()
           .then((filmsInfo: Array<Film>) => {
             this.favList = filmsInfo;

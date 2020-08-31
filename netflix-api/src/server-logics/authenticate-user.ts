@@ -6,7 +6,7 @@ const jwtPromised = require("../essentials/jwt-promised");
 const {
   env: { SECRET },
 } = process;
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 module.exports = async (req: Request, res: Response) => {
   let email: string = req.body.email;

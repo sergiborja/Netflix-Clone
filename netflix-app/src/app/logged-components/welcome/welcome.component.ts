@@ -7,6 +7,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { WelcomeService } from '../../services/welcome.service';
+import { HomeService } from '../../services/home.service';
 import { Router } from '@angular/router';
 import { UserMemberList } from 'src/app/interfaces/interfaces';
 
@@ -24,9 +25,14 @@ export class WelcomeComponent implements OnInit {
   memberCharacter: string;
   errorFeedback: string;
 
-  constructor(private welcomeService: WelcomeService, private router: Router) {}
+  constructor(
+    private welcomeService: WelcomeService,
+    private router: Router,
+    private homeService: HomeService
+  ) {}
 
   sendProfileSelected(profileSelected: string): void {
+    // this.homeService.setProfileSelected(profileSelected);
     this.router.navigate([`home/${profileSelected}`]);
   }
 

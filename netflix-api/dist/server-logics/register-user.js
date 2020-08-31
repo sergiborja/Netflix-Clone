@@ -40,9 +40,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var user_1 = __importDefault(require("../schemas/user"));
-var bcrypt = require("bcrypt");
 module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var nick, email, password, character, hash, nickFound;
+    var nick, email, password, character, nickFound;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -50,14 +49,11 @@ module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 email = req.body.email;
                 password = req.body.password;
                 character = req.body.character;
-                return [4 /*yield*/, bcrypt.hash(password, 10)];
-            case 1:
-                hash = _a.sent();
                 return [4 /*yield*/, user_1.default.findOne({ nick: nick })];
-            case 2:
+            case 1:
                 nickFound = _a.sent();
                 if (!nickFound) {
-                    user_1.default.create({ nick: nick, email: email, password: hash, character: character }, function (error, user) {
+                    user_1.default.create({ nick: nick, email: email, password: password, character: character }, function (error, user) {
                         if (error)
                             res.status(409).json("This email already exists");
                         else
@@ -71,4 +67,4 @@ module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVnaXN0ZXItdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmVnaXN0ZXItdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLHlEQUF5QztBQUN6QyxJQUFNLE1BQU0sR0FBRyxPQUFPLENBQUMsUUFBUSxDQUFDLENBQUM7QUFFakMsTUFBTSxDQUFDLE9BQU8sR0FBRyxVQUFPLEdBQVksRUFBRSxHQUFhOzs7OztnQkFDM0MsSUFBSSxHQUFXLEdBQUcsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDO2dCQUM3QixLQUFLLEdBQVcsR0FBRyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUM7Z0JBQy9CLFFBQVEsR0FBVyxHQUFHLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQztnQkFDckMsU0FBUyxHQUFXLEdBQUcsQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDO2dCQUNoQyxxQkFBTSxNQUFNLENBQUMsSUFBSSxDQUFDLFFBQVEsRUFBRSxFQUFFLENBQUMsRUFBQTs7Z0JBQXRDLElBQUksR0FBRyxTQUErQjtnQkFDMUIscUJBQU0sY0FBVSxDQUFDLE9BQU8sQ0FBQyxFQUFFLElBQUksTUFBQSxFQUFFLENBQUMsRUFBQTs7Z0JBQTlDLFNBQVMsR0FBRyxTQUFrQztnQkFDcEQsSUFBSSxDQUFDLFNBQVMsRUFBRTtvQkFDZCxjQUFVLENBQUMsTUFBTSxDQUNmLEVBQUUsSUFBSSxNQUFBLEVBQUUsS0FBSyxPQUFBLEVBQUUsUUFBUSxFQUFFLElBQUksRUFBRSxTQUFTLFdBQUEsRUFBRSxFQUMxQyxVQUFDLEtBQVUsRUFBRSxJQUFTO3dCQUNwQixJQUFJLEtBQUs7NEJBQUUsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsMkJBQTJCLENBQUMsQ0FBQzs7NEJBQ3hELEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxFQUFFLENBQUM7b0JBQzlCLENBQUMsQ0FDRixDQUFDO2lCQUNIO3FCQUFNO29CQUNMLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLCtCQUErQixDQUFDLENBQUM7aUJBQ3ZEOzs7O0tBQ0YsQ0FBQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVnaXN0ZXItdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmVnaXN0ZXItdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLHlEQUF5QztBQUV6QyxNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7O2dCQUMzQyxJQUFJLEdBQVcsR0FBRyxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUM7Z0JBQzdCLEtBQUssR0FBVyxHQUFHLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQztnQkFDL0IsUUFBUSxHQUFXLEdBQUcsQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDO2dCQUNyQyxTQUFTLEdBQVcsR0FBRyxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUM7Z0JBRTNCLHFCQUFNLGNBQVUsQ0FBQyxPQUFPLENBQUMsRUFBRSxJQUFJLE1BQUEsRUFBRSxDQUFDLEVBQUE7O2dCQUE5QyxTQUFTLEdBQUcsU0FBa0M7Z0JBQ3BELElBQUksQ0FBQyxTQUFTLEVBQUU7b0JBQ2QsY0FBVSxDQUFDLE1BQU0sQ0FDZixFQUFFLElBQUksTUFBQSxFQUFFLEtBQUssT0FBQSxFQUFFLFFBQVEsVUFBQSxFQUFFLFNBQVMsV0FBQSxFQUFFLEVBQ3BDLFVBQUMsS0FBVSxFQUFFLElBQVM7d0JBQ3BCLElBQUksS0FBSzs0QkFBRSxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQywyQkFBMkIsQ0FBQyxDQUFDOzs0QkFDeEQsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLEVBQUUsQ0FBQztvQkFDOUIsQ0FBQyxDQUNGLENBQUM7aUJBQ0g7cUJBQU07b0JBQ0wsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsK0JBQStCLENBQUMsQ0FBQztpQkFDdkQ7Ozs7S0FDRixDQUFDIn0=

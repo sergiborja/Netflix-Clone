@@ -19,11 +19,11 @@ export class WelcomeService {
       }),
     };
     return this.http
-      .patch(`http://localhost:3000/users`, { nick, character }, httpOptions)
+      .patch(`http://localhost:3000/members`, { nick, character }, httpOptions)
       .toPromise()
       .then(() => {
         return this.http
-          .get(`http://localhost:3000/users`, httpOptions)
+          .get(`http://localhost:3000/users/single`, httpOptions)
           .toPromise()
           .then(({ members }: any) => {
             return { members: members };
@@ -42,7 +42,7 @@ export class WelcomeService {
       }),
     };
     return this.http
-      .patch(`http://localhost:3000/users/delMember`, { nick }, httpOptions)
+      .patch(`http://localhost:3000/members/delete-one`, { nick }, httpOptions)
       .toPromise()
       .then((response) => {})
       .catch((error) => console.log(error));
@@ -55,7 +55,7 @@ export class WelcomeService {
       }),
     };
     return this.http
-      .get(`http://localhost:3000/users`, httpOptions)
+      .get(`http://localhost:3000/users/single`, httpOptions)
       .toPromise()
       .then((userRetrieved) => {
         return userRetrieved;

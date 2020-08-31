@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { RegisterUserService } from '../../services/register-user.service';
+import * as bcrypt from 'bcryptjs';
 
 @Component({
   selector: 'app-register-user',
@@ -10,6 +11,7 @@ import { RegisterUserService } from '../../services/register-user.service';
 export class RegisterUserComponent implements OnInit {
   character: string;
   errorFeedback: string;
+  secret: string = 'cruscatdepalausabullaballubac';
 
   constructor(
     private router: Router,
@@ -18,7 +20,7 @@ export class RegisterUserComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit(event) {
+  async onSubmit(event) {
     event.preventDefault();
 
     let character: string = this.character;
@@ -31,10 +33,11 @@ export class RegisterUserComponent implements OnInit {
     passwordVerify = passwordVerify.value;
 
     if (password === passwordVerify) {
+      password = await bcrypt.hashSync(password, 10);
+
       this.registerUserService
         .postUser(nick, email, password, character)
         .then((response) => {
-          console.log(response);
           if (response.error) this.errorFeedback = response.error;
           else this.router.navigate(['authenticate']);
         })

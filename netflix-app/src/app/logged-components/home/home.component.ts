@@ -17,11 +17,12 @@ export class HomeComponent implements OnInit {
 
   constructor(private homeService: HomeService, public router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     const [, profileSelected] = this.router.url.split('/home/');
+    this.profileSelected = profileSelected;
 
     this.homeService
-      .retrieveProfileSelected(profileSelected)
+      .retrieveProfileSelected(this.profileSelected)
       .then((memberFound) => {
         this.profileSelected = memberFound.nick;
         this.favList = memberFound.films;

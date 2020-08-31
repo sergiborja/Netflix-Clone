@@ -29,15 +29,25 @@ app.get("/", (req: any, res: any) => {
 });
 
 app.post("/users", registerUser);
-app.post("/users/film", createFilm);
-app.get("/users", retrieveUser);
-app.get("/users/:nick?", retrieveMember);
+app.post("/films", createFilm);
+app.get("/users/single", retrieveUser);
+app.get("/members/:nick?", retrieveMember);
 app.post("/users/auth", authenticateUser);
-app.patch("/users", addMember);
-app.patch("/users/handleFavs", handleFavFilm);
-app.patch("/users/delMember", deleteMember);
-app.post("/favFilms", retrieveFavFilmsInfo);
-app.get("/allFilms", retrieveAllFilms);
+app.patch("/members", addMember);
+app.patch("/users/fav-films", handleFavFilm);
+app.patch("/members/delete-one", deleteMember);
+app.post("/films/favs", retrieveFavFilmsInfo);
+app.get("/films/all", retrieveAllFilms);
+// app.post("/users", registerUser);
+// app.post("/users/film", createFilm);
+// app.get("/users", retrieveUser);
+// app.get("/users/:nick?", retrieveMember);
+// app.post("/users/auth", authenticateUser);
+// app.patch("/users", addMember);
+// app.patch("/users/handleFavs", handleFavFilm);
+// app.patch("/users/delMember", deleteMember);
+// app.post("/favFilms", retrieveFavFilmsInfo);
+// app.get("/allFilms", retrieveAllFilms);
 
 app.listen(app.get("port"), () => {
   console.log(`Server running on port ${PORT}`);

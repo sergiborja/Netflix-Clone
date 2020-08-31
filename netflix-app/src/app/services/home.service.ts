@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import tokenValidation from '../../../../jwt-verifier/jwt-promised';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HomeService {
+  profileSelected;
+
   constructor(private http: HttpClient) {}
 
   private favList = new Subject();
@@ -16,7 +19,7 @@ export class HomeService {
 
   retrieveProfileSelected(profileSelected: string): Promise<any> {
     return this.http
-      .get(`http://localhost:3000/users/${profileSelected}`)
+      .get(`http://localhost:3000/members/${profileSelected}`)
       .toPromise()
       .then((memberFound: any) => {
         return memberFound;
@@ -24,7 +27,7 @@ export class HomeService {
   }
   retrieveAllFilms(): Promise<any> {
     return this.http
-      .get(`http://localhost:3000/allFilms`)
+      .get(`http://localhost:3000/films/all`)
       .toPromise()
       .then((allFilmsRetrieved: any) => {
         return allFilmsRetrieved;
@@ -32,7 +35,7 @@ export class HomeService {
   }
   handleFavFilms(profileSelected: string, ytIdSelected: string): Promise<any> {
     return this.http
-      .patch(`http://localhost:3000/users/handleFavs`, {
+      .patch(`http://localhost:3000/users/fav-films`, {
         nick: profileSelected,
         ytId: ytIdSelected,
       })
@@ -40,5 +43,13 @@ export class HomeService {
       .then((userUpdatedFilms: any) => {
         return userUpdatedFilms;
       });
+  }
+
+  getProfileSelected() {
+    return this.profileSelected;
+  }
+
+  setProfileSelected(profileSelected) {
+    this.profileSelected = profileSelected;
   }
 }
