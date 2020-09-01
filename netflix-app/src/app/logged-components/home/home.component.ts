@@ -14,11 +14,13 @@ export class HomeComponent implements OnInit {
   allFilms: Array<Film>;
   dramaFilms: Array<Film>;
   actionFilms: Array<Film>;
+  validToken: boolean;
 
   constructor(private homeService: HomeService, public router: Router) {}
 
   ngOnInit() {
     const [, profileSelected] = this.router.url.split('/home/');
+    this.validToken = this.homeService.validateToken(sessionStorage.token);
     this.profileSelected = profileSelected;
 
     this.homeService
@@ -37,7 +39,6 @@ export class HomeComponent implements OnInit {
         const indexOf = film.gender.indexOf('drama');
         if (indexOf !== -1) dramaFilms.push(film);
       });
-      console.log(dramaFilms);
       this.dramaFilms = dramaFilms;
 
       let actionFilms: Array<Film> = [];
@@ -58,7 +59,7 @@ export class HomeComponent implements OnInit {
   }
 
   filmSelected(filmId: string): void {
-    this.router.navigate([`demo/${filmId}`]);
+    this.router.navigate([`player/${filmId}`]);
   }
 
   logOut(): void {

@@ -6,7 +6,6 @@ module.exports = async (req: Request, res: Response) => {
   const email: string = req.body.email;
   const password: string = req.body.password;
   const character: string = req.body.character;
-  // const hash = await bcrypt.hash(password, 10);
   const nickFound = await UserSchema.findOne({ nick });
   if (!nickFound) {
     UserSchema.create(

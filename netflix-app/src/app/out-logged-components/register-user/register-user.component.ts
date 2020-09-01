@@ -11,7 +11,6 @@ import * as bcrypt from 'bcryptjs';
 export class RegisterUserComponent implements OnInit {
   character: string;
   errorFeedback: string;
-  secret: string = 'cruscatdepalausabullaballubac';
 
   constructor(
     private router: Router,
@@ -23,6 +22,23 @@ export class RegisterUserComponent implements OnInit {
   async onSubmit(event) {
     event.preventDefault();
 
+    function validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      let validation = re.test(String(email).toLowerCase());
+      if (!validation) return false;
+      const [, domain] = email.split('.');
+      const posibleDomains = ['com', 'es', 'org', 'net', 'edu', 'mil'];
+      for (var i = 0; i < posibleDomains.length; i++) {
+        if (posibleDomains[i] !== domain) {
+          validation = false;
+        } else {
+          validation = true;
+          break;
+        }
+      }
+      return validation;
+    }
+
     let character: string = this.character;
 
     let { nick, email, password, passwordVerify } = event.target;
@@ -31,8 +47,9 @@ export class RegisterUserComponent implements OnInit {
     email = email.value;
     password = password.value;
     passwordVerify = passwordVerify.value;
+    let emailValidation: boolean = validateEmail(email);
 
-    if (password === passwordVerify) {
+    if (password === passwordVerify && emailValidation) {
       password = await bcrypt.hashSync(password, 10);
 
       this.registerUserService
@@ -42,6 +59,8 @@ export class RegisterUserComponent implements OnInit {
           else this.router.navigate(['authenticate']);
         })
         .catch((error) => console.log(error));
+    } else if (!emailValidation) {
+      this.errorFeedback = 'Este email no existe';
     } else {
       this.errorFeedback = 'Las contraseñas introducidas no coinciden';
     }

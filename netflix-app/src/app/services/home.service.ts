@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import tokenValidation from '../../../../jwt-verifier/jwt-promised';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
+// const decodedToken = helper.decodeToken(myRawToken);
+// const expirationDate = helper.getTokenExpirationDate(myRawToken);
 
 @Injectable({
   providedIn: 'root',
 })
 export class HomeService {
   profileSelected;
+  helper = new JwtHelperService();
 
   constructor(private http: HttpClient) {}
 
@@ -51,5 +55,15 @@ export class HomeService {
 
   setProfileSelected(profileSelected) {
     this.profileSelected = profileSelected;
+  }
+
+  validateToken(token: string) {
+    try {
+      const validToken: any = !this.helper.isTokenExpired(token);
+      if (validToken) return true;
+      else return false;
+    } catch (error) {
+      if (error) return false;
+    }
   }
 }

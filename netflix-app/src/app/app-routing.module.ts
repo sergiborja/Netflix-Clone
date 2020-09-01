@@ -4,7 +4,7 @@ import { AuthenticateUserComponent } from './out-logged-components/authenticate-
 import { RegisterUserComponent } from './out-logged-components/register-user/register-user.component';
 import { WelcomeComponent } from './logged-components/welcome/welcome.component';
 import { HomeComponent } from './logged-components/home/home.component';
-import { DEMOComponent } from './demo/demo.component';
+import { PlayerComponent } from './logged-components/player/player.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'authenticate', pathMatch: 'full' },
@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterUserComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'home/:nick?', component: HomeComponent },
-  { path: 'demo/:id?', component: DEMOComponent },
+  { path: 'player/:id?', component: PlayerComponent },
 ];
 
 @NgModule({

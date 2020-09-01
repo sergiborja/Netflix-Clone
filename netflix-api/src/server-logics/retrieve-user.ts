@@ -7,9 +7,10 @@ const {
 
 module.exports = (req: Request, res: Response) => {
   if (!req.headers.authorization) {
-    UserSchema.find(req.body).then((user) => {
+    UserSchema.findOne(req.body).then((user: any) => {
       if (!user) res.status(404).send();
-      else res.send(user);
+      const { nick, films, email, members, character } = user;
+      res.send({ nick, films, email, members, character });
     });
   } else if (req.headers.authorization) {
     let [, token] = req.headers.authorization.split(" ");

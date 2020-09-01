@@ -16,7 +16,6 @@ export class RegisterUserService {
       })
       .toPromise()
       .then((status: any) => {
-        console.log('status');
         return { status: status };
       })
       .catch(({ error }) => {

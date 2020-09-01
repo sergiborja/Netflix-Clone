@@ -1,4 +1,4 @@
-<div class="homeWrapper">
+<div class="homeWrapper" *ngIf="this.validToken">
   <nav class="navbar navbar-expand-lg navbar-light bg-light navbarWrapper">
     <img
       src="/assets/netflix-logo.png"
@@ -143,4 +143,13 @@
   </ul>
 
   <app-fav-list-children></app-fav-list-children>
+</div>
+
+<div
+  *ngIf="!this.validToken"
+  class="alert alert-danger badTokenFeedback"
+  role="alert"
+>
+  There has been a problem,
+  <a href="#" class="alert-link">your token has expired</a>.
 </div>
