@@ -14,6 +14,16 @@ const {
 } = require("../essentials/errors/error-builder");
 const handleError = require("../essentials/errors/handle-error");
 
+/** 
+Recieves an email and a password, it the creadentials are correct, a new jwt token will be sent.
+
+@param {string} email The email (already registered).
+@param {string} password The password (already registered).
+
+@throws {UnexistenceError} If the email doesn't exist.
+@throws {CredentialsError} If the password is not correct.
+*/
+
 module.exports = async (req: Request, res: Response) => {
   try {
     let email: string = req.body.email;

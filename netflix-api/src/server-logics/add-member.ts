@@ -8,6 +8,15 @@ const {
 } = process;
 const handleError = require("../essentials/errors/handle-error");
 
+/** 
+Recieves a nick name and the src of the character user chose for this new member. If the params pass the error tests, status 201 will be sent.
+@param {string} token The req headers authorization, will be used to find and handle the User collection.
+@param {string} nick The nick name of the new member.
+@param {string} character The src of the character for this new member.
+
+@throws {DuplicityError} If the nick name of the new member already exist.
+*/
+
 module.exports = async (req: Request, res: Response) => {
   const {
     body: { nick, character },

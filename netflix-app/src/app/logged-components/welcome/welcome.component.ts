@@ -18,12 +18,12 @@ import { UserMemberList } from 'src/app/interfaces/interfaces';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeComponent implements OnInit {
-  displayAddMember: boolean;
-  memberList: Array<UserMemberList>;
-  adminName: String;
-  adminCharacter: string;
-  memberCharacter: string;
-  errorFeedback: string;
+  private displayAddMember: boolean;
+  private memberList: Array<UserMemberList>;
+  private adminName: String;
+  private adminCharacter: string;
+  private memberCharacter: string;
+  private errorFeedback: string;
 
   constructor(
     private welcomeService: WelcomeService,
