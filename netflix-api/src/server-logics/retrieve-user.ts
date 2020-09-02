@@ -7,6 +7,16 @@ const {
 } = process;
 const handleError = require("../essentials/errors/handle-error");
 
+/** 
+If a token is recieved from req headers, retrieves the info of the userId from this token. Otherwise, listens to the body of the req and retrives the user according to that body.
+
+@param {string} req.body The body.
+or
+@param {string} nick The nick name.
+
+@throws {UnexistenceError} If the user cannot be found.
+*/
+
 module.exports = async (req: Request, res: Response) => {
   try {
     if (!req.headers.authorization) {

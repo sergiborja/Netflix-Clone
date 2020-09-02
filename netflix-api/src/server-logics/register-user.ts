@@ -3,6 +3,18 @@ import UserSchema, { UserDocument } from "../schemas/user";
 import { DuplicityError } from "../essentials/errors/error-builder";
 const handleError = require("../essentials/errors/handle-error");
 
+/** 
+Recieves the data of the new user that wants to be created.
+
+@param {string} name The name of the new user.
+@param {string} surname The surname of the new user.
+@param {string} password The password of the new user.
+@param {string} character The character of the new user.
+
+@throws {DuplicityError} If the email is already registered to our database.
+@throws {DuplicityError} If the nick name is already registered to our database.
+*/
+
 module.exports = async (req: Request, res: Response) => {
   try {
     const { nick, email, password, character }: UserDocument = req.body;

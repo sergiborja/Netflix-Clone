@@ -8,6 +8,14 @@ const {
 const { UnexistenceError } = require("../essentials/errors/error-builder");
 const handleError = require("../essentials/errors/handle-error");
 
+/** 
+Recieves the nick name of the member that wants to be deleted, and deletes it.
+
+@param {string} nick The nick name.
+
+@throws {UnexistenceError} If the nick name doesn't exist.
+*/
+
 module.exports = async (req: Request, res: Response) => {
   try {
     const {

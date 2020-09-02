@@ -3,6 +3,14 @@ import Film, { FilmDocument } from "../schemas/film";
 import { UnexistenceError } from "../essentials/errors/error-builder";
 const handleError = require("../essentials/errors/handle-error");
 
+/** 
+Recieves the id of a film and returns the whole information of that film.
+
+@param {Array<string>} favIdList The list of ids (favourite user films).
+
+@throws {UnexistenceError} If the id is incorrect.
+*/
+
 module.exports = (req: Request, res: Response) => {
   try {
     const favIdList: Array<string> = req.body.favList;

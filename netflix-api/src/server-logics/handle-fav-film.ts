@@ -8,6 +8,14 @@ const {
 } = process;
 const jwt = require("jsonwebtoken");
 
+/** 
+Recieves the id of a film. If the user asking for this already has this id in his favourite films array, it deletes it. Otherwise adds it.
+
+@param {string} ytId The id of the film that wants to be added or deleted.
+
+@throws {UnexistenceError} If there's a fail obtaining the user id of the token.
+*/
+
 module.exports = async (req: Request, res: Response) => {
   try {
     const {
