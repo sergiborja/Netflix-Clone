@@ -8,15 +8,21 @@ const {
 } = process;
 const bcrypt = require("bcryptjs");
 
+const {
+  UnexistenceError,
+  CredentialsError,
+} = require("../essentials/errors/error-builder");
+const handleError = require("../essentials/errors/handle-error");
+
 module.exports = async (req: Request, res: Response) => {
-  let email: string = req.body.email;
-  let password: string = req.body.password;
-  const userFound: any = await UserSchema.findOne({ email });
-  if (!userFound) res.status(401).json("Email not found");
-  else {
-    const match = await bcrypt.compare(password, userFound.password);
-    if (!match) res.status(401).json("Incorrect Password");
+  try {
+    let email: string = req.body.email;
+    let password: string = req.body.password;
+    const userFound: any = await UserSchema.findOne({ email });
+    if (!userFound) throw new UnexistenceError("Email not found");
     else {
+      const match = await bcrypt.compare(password, userFound.password);
+      if (!match) throw new CredentialsError("Incorrect Password");
       const token: string = await jwtPromised.sign(
         { sub: userFound.id },
         SECRET,
@@ -26,5 +32,7 @@ module.exports = async (req: Request, res: Response) => {
       );
       res.send({ token });
     }
+  } catch (error) {
+    handleError(error, res);
   }
 };

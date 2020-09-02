@@ -37,17 +37,7 @@ app.patch("/members", addMember);
 app.patch("/users/fav-films", handleFavFilm);
 app.patch("/members/delete-one", deleteMember);
 app.post("/films/favs", retrieveFavFilmsInfo);
-app.get("/films/all", retrieveAllFilms);
-// app.post("/users", registerUser);
-// app.post("/users/film", createFilm);
-// app.get("/users", retrieveUser);
-// app.get("/users/:nick?", retrieveMember);
-// app.post("/users/auth", authenticateUser);
-// app.patch("/users", addMember);
-// app.patch("/users/handleFavs", handleFavFilm);
-// app.patch("/users/delMember", deleteMember);
-// app.post("/favFilms", retrieveFavFilmsInfo);
-// app.get("/allFilms", retrieveAllFilms);
+app.get("/films", retrieveAllFilms);
 
 app.listen(app.get("port"), () => {
   console.log(`Server running on port ${PORT}`);

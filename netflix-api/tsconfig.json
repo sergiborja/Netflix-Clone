@@ -5,6 +5,7 @@
     "module": "commonjs",
     "outDir": "./dist",
     /* Strict Type-Checking Options */
+    "strictNullChecks": false,
     "strict": true,
     "esModuleInterop": true,
     /* Source Map Options */

@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
-// const decodedToken = helper.decodeToken(myRawToken);
-// const expirationDate = helper.getTokenExpirationDate(myRawToken);
 
 @Injectable({
   providedIn: 'root',
@@ -31,18 +28,25 @@ export class HomeService {
   }
   retrieveAllFilms(): Promise<any> {
     return this.http
-      .get(`http://localhost:3000/films/all`)
+      .get(`http://localhost:3000/films`)
       .toPromise()
       .then((allFilmsRetrieved: any) => {
+        console.log(allFilmsRetrieved);
         return allFilmsRetrieved;
       });
   }
-  handleFavFilms(profileSelected: string, ytIdSelected: string): Promise<any> {
+  handleFavFilms(token: string, ytIdSelected: string): Promise<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    };
     return this.http
-      .patch(`http://localhost:3000/users/fav-films`, {
-        nick: profileSelected,
-        ytId: ytIdSelected,
-      })
+      .patch(
+        `http://localhost:3000/users/fav-films`,
+        { ytId: ytIdSelected },
+        httpOptions
+      )
       .toPromise()
       .then((userUpdatedFilms: any) => {
         return userUpdatedFilms;

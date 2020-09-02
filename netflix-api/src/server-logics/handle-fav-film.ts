@@ -1,29 +1,44 @@
 import { Request, Response } from "express";
 import UserSchema from "../schemas/user";
 import Member from "../schemas/member";
+const { UnexistenceError } = require("../essentials/errors/error-builder");
+const handleError = require("../essentials/errors/handle-error");
+const {
+  env: { SECRET },
+} = process;
+const jwt = require("jsonwebtoken");
 
 module.exports = async (req: Request, res: Response) => {
-  const {
-    body: { nick, ytId },
-  } = req;
+  try {
+    const {
+      body: { ytId },
+    } = req;
 
-  let userFound: any = await Member.findOne({ nick });
-  if (!userFound) userFound = await UserSchema.findOne({ nick });
+    let token;
+    let userId;
 
-  if (!userFound) {
-    res.status(404).send();
-    res.send("ESTE NICK NAME NO EXISTE");
-  } else {
-    const filteredFilmsArray = userFound.films.filter(
+    if (req.headers.authorization)
+      [, token] = req.headers.authorization.split(" ");
+    userId = jwt.verify(token, SECRET).sub;
+
+    if (!userId)
+      throw new UnexistenceError("There is no user asociated with this token");
+
+    let userFound: any = await Member.findById(userId);
+    if (!userFound) userFound = await UserSchema.findById(userId);
+
+    const updatedFavFilmList = userFound.films.filter(
       (film: any) => film !== ytId
     );
     if (
-      JSON.stringify(filteredFilmsArray) === JSON.stringify(userFound.films)
+      JSON.stringify(updatedFavFilmList) === JSON.stringify(userFound.films)
     ) {
-      filteredFilmsArray.push(ytId);
+      updatedFavFilmList.push(ytId);
     }
-    userFound.films = filteredFilmsArray;
+    userFound.films = updatedFavFilmList;
     await userFound.save();
     res.send(userFound.films);
+  } catch (error) {
+    handleError(error, res);
   }
 };

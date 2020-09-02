@@ -64,34 +64,40 @@ var user_1 = __importDefault(require("./../schemas/user"));
 var jwtPromised = require("../essentials/jwt-promised");
 var SECRET = process.env.SECRET;
 var bcrypt = require("bcryptjs");
+var _a = require("../essentials/errors/error-builder"), UnexistenceError = _a.UnexistenceError, CredentialsError = _a.CredentialsError;
+var handleError = require("../essentials/errors/handle-error");
 module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var email, password, userFound, match, token;
+    var email, password, userFound, match, token, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 6, , 7]);
                 email = req.body.email;
                 password = req.body.password;
                 return [4 /*yield*/, user_1.default.findOne({ email: email })];
             case 1:
                 userFound = _a.sent();
                 if (!!userFound) return [3 /*break*/, 2];
-                res.status(401).json("Email not found");
-                return [3 /*break*/, 6];
+                throw new UnexistenceError("Email not found");
             case 2: return [4 /*yield*/, bcrypt.compare(password, userFound.password)];
             case 3:
                 match = _a.sent();
-                if (!!match) return [3 /*break*/, 4];
-                res.status(401).json("Incorrect Password");
-                return [3 /*break*/, 6];
-            case 4: return [4 /*yield*/, jwtPromised.sign({ sub: userFound.id }, SECRET, {
-                    expiresIn: "1d",
-                })];
-            case 5:
+                if (!match)
+                    throw new CredentialsError("Incorrect Password");
+                return [4 /*yield*/, jwtPromised.sign({ sub: userFound.id }, SECRET, {
+                        expiresIn: "1d",
+                    })];
+            case 4:
                 token = _a.sent();
                 res.send({ token: token });
-                _a.label = 6;
-            case 6: return [2 /*return*/];
+                _a.label = 5;
+            case 5: return [3 /*break*/, 7];
+            case 6:
+                error_1 = _a.sent();
+                handleError(error_1, res);
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/];
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXV0aGVudGljYXRlLXVzZXIuanMiLCJzb3VyY2VSb290IjoiLi9zcmMvIiwic291cmNlcyI6WyJzZXJ2ZXItbG9naWNzL2F1dGhlbnRpY2F0ZS11c2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLDZDQUFpQztBQUNqQyxNQUFNLENBQUMsTUFBTSxFQUFFLENBQUM7QUFFaEIsMkRBQTZEO0FBQzdELElBQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyw0QkFBNEIsQ0FBQyxDQUFDO0FBRWpELElBQUEsTUFBTSxHQUNYLE9BQU8sV0FESSxDQUNIO0FBQ1osSUFBTSxNQUFNLEdBQUcsT0FBTyxDQUFDLFVBQVUsQ0FBQyxDQUFDO0FBRW5DLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxHQUFZLEVBQUUsR0FBYTs7Ozs7Z0JBQzdDLEtBQUssR0FBVyxHQUFHLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQztnQkFDL0IsUUFBUSxHQUFXLEdBQUcsQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDO2dCQUNsQixxQkFBTSxjQUFVLENBQUMsT0FBTyxDQUFDLEVBQUUsS0FBSyxPQUFBLEVBQUUsQ0FBQyxFQUFBOztnQkFBcEQsU0FBUyxHQUFRLFNBQW1DO3FCQUN0RCxDQUFDLFNBQVMsRUFBVix3QkFBVTtnQkFBRSxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxpQkFBaUIsQ0FBQyxDQUFDOztvQkFFeEMscUJBQU0sTUFBTSxDQUFDLE9BQU8sQ0FBQyxRQUFRLEVBQUUsU0FBUyxDQUFDLFFBQVEsQ0FBQyxFQUFBOztnQkFBMUQsS0FBSyxHQUFHLFNBQWtEO3FCQUM1RCxDQUFDLEtBQUssRUFBTix3QkFBTTtnQkFBRSxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxvQkFBb0IsQ0FBQyxDQUFDOztvQkFFL0IscUJBQU0sV0FBVyxDQUFDLElBQUksQ0FDMUMsRUFBRSxHQUFHLEVBQUUsU0FBUyxDQUFDLEVBQUUsRUFBRSxFQUNyQixNQUFNLEVBQ047b0JBQ0UsU0FBUyxFQUFFLElBQUk7aUJBQ2hCLENBQ0YsRUFBQTs7Z0JBTkssS0FBSyxHQUFXLFNBTXJCO2dCQUNELEdBQUcsQ0FBQyxJQUFJLENBQUMsRUFBRSxLQUFLLE9BQUEsRUFBRSxDQUFDLENBQUM7Ozs7O0tBR3pCLENBQUMifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXV0aGVudGljYXRlLXVzZXIuanMiLCJzb3VyY2VSb290IjoiLi9zcmMvIiwic291cmNlcyI6WyJzZXJ2ZXItbG9naWNzL2F1dGhlbnRpY2F0ZS11c2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLDZDQUFpQztBQUNqQyxNQUFNLENBQUMsTUFBTSxFQUFFLENBQUM7QUFFaEIsMkRBQTZEO0FBQzdELElBQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyw0QkFBNEIsQ0FBQyxDQUFDO0FBRWpELElBQUEsTUFBTSxHQUNYLE9BQU8sV0FESSxDQUNIO0FBQ1osSUFBTSxNQUFNLEdBQUcsT0FBTyxDQUFDLFVBQVUsQ0FBQyxDQUFDO0FBRTdCLElBQUEsS0FHRixPQUFPLENBQUMsb0NBQW9DLENBQUMsRUFGL0MsZ0JBQWdCLHNCQUFBLEVBQ2hCLGdCQUFnQixzQkFDK0IsQ0FBQztBQUNsRCxJQUFNLFdBQVcsR0FBRyxPQUFPLENBQUMsbUNBQW1DLENBQUMsQ0FBQztBQUVqRSxNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFFM0MsS0FBSyxHQUFXLEdBQUcsQ0FBQyxJQUFJLENBQUMsS0FBSyxDQUFDO2dCQUMvQixRQUFRLEdBQVcsR0FBRyxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUM7Z0JBQ2xCLHFCQUFNLGNBQVUsQ0FBQyxPQUFPLENBQUMsRUFBRSxLQUFLLE9BQUEsRUFBRSxDQUFDLEVBQUE7O2dCQUFwRCxTQUFTLEdBQVEsU0FBbUM7cUJBQ3RELENBQUMsU0FBUyxFQUFWLHdCQUFVO2dCQUFFLE1BQU0sSUFBSSxnQkFBZ0IsQ0FBQyxpQkFBaUIsQ0FBQyxDQUFDO29CQUU5QyxxQkFBTSxNQUFNLENBQUMsT0FBTyxDQUFDLFFBQVEsRUFBRSxTQUFTLENBQUMsUUFBUSxDQUFDLEVBQUE7O2dCQUExRCxLQUFLLEdBQUcsU0FBa0Q7Z0JBQ2hFLElBQUksQ0FBQyxLQUFLO29CQUFFLE1BQU0sSUFBSSxnQkFBZ0IsQ0FBQyxvQkFBb0IsQ0FBQyxDQUFDO2dCQUN2QyxxQkFBTSxXQUFXLENBQUMsSUFBSSxDQUMxQyxFQUFFLEdBQUcsRUFBRSxTQUFTLENBQUMsRUFBRSxFQUFFLEVBQ3JCLE1BQU0sRUFDTjt3QkFDRSxTQUFTLEVBQUUsSUFBSTtxQkFDaEIsQ0FDRixFQUFBOztnQkFOSyxLQUFLLEdBQVcsU0FNckI7Z0JBQ0QsR0FBRyxDQUFDLElBQUksQ0FBQyxFQUFFLEtBQUssT0FBQSxFQUFFLENBQUMsQ0FBQzs7Ozs7Z0JBR3RCLFdBQVcsQ0FBQyxPQUFLLEVBQUUsR0FBRyxDQUFDLENBQUM7Ozs7O0tBRTNCLENBQUMifQ==

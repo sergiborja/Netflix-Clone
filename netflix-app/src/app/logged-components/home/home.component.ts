@@ -50,9 +50,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  handleFavSelected(ytIdSelected: string, profileSelected: string): void {
+  handleFavSelected(ytIdSelected: string): void {
+    const token = sessionStorage.token;
     this.homeService
-      .handleFavFilms(profileSelected, ytIdSelected)
+      .handleFavFilms(token, ytIdSelected)
       .then((userUpdatedFilms) => {
         this.homeService.setFavList(userUpdatedFilms);
       });
