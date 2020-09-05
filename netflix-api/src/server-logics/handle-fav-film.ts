@@ -19,21 +19,20 @@ Recieves the id of a film. If the user asking for this already has this id in hi
 module.exports = async (req: Request, res: Response) => {
   try {
     const {
-      body: { ytId },
+      body: { ytId, nick },
     } = req;
 
     let token;
     let userId;
+    let userFound: any;
 
-    if (req.headers.authorization)
+    if (nick) {
+      userFound = await Member.findOne({ nick });
+    } else {
       [, token] = req.headers.authorization.split(" ");
-    userId = jwt.verify(token, SECRET).sub;
-
-    if (!userId)
-      throw new UnexistenceError("There is no user asociated with this token");
-
-    let userFound: any = await Member.findById(userId);
-    if (!userFound) userFound = await UserSchema.findById(userId);
+      userId = jwt.verify(token, SECRET).sub;
+      userFound = await UserSchema.findById(userId);
+    }
 
     const indexOfFilm: number = userFound.films.indexOf(ytId);
     if (indexOfFilm !== -1) {

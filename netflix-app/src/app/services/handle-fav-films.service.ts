@@ -7,7 +7,11 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 export class HandleFavFilmsService {
   constructor(private http: HttpClient) {}
 
-  async handleFavFilms(token: string, ytIdSelected: string): Promise<any> {
+  async handleFavFilms(
+    token: string,
+    ytIdSelected: string,
+    nick: string
+  ): Promise<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`,
@@ -16,7 +20,7 @@ export class HandleFavFilmsService {
     return this.http
       .patch(
         `http://localhost:3000/users/fav-films`,
-        { ytId: ytIdSelected },
+        { ytId: ytIdSelected, nick },
         httpOptions
       )
       .toPromise()

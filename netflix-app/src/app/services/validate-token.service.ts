@@ -6,20 +6,12 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
   providedIn: 'root',
 })
-export class HomeService {
+export class ValidateTokenService {
   profileSelected;
 
   helper = new JwtHelperService();
 
   constructor(private http: HttpClient) {}
-
-  getProfileSelected() {
-    return this.profileSelected;
-  }
-
-  setProfileSelected(profileSelected) {
-    this.profileSelected = profileSelected;
-  }
 
   validateToken(token: string) {
     try {

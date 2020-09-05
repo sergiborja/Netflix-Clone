@@ -12,7 +12,6 @@ export class RetrieveAllFilmsService {
       .get(`http://localhost:3000/films`)
       .toPromise()
       .then((allFilmsRetrieved: any) => {
-        console.log(allFilmsRetrieved);
         return allFilmsRetrieved;
       });
   }

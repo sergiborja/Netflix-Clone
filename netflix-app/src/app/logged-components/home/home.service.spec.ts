@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HomeService } from '../../services/home.service';
+import { ValidateTokenService } from '../../services/validate-token.service';
 
 describe('HomeService', () => {
-  let service: HomeService;
+  let service: ValidateTokenService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HomeService);
+    service = TestBed.inject(service);
   });
 
   it('should be created', () => {

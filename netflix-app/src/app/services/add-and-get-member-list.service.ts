@@ -27,7 +27,9 @@ export class AddAndGetMemberListService {
           .then(({ members }: any) => {
             return { members: members };
           })
-          .catch((error) => console.log('hola'));
+          .catch((error) => {
+            return { error: error };
+          });
       })
       .catch((error) => {
         return { error: error };

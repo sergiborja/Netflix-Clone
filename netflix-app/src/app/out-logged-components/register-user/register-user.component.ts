@@ -12,7 +12,7 @@ import validateEmail from '../../utils/email-validation';
 export class RegisterUserComponent implements OnInit {
   //We declare the global properties of this class.
   character: string;
-  errorFeedback: string;
+  errorFeedback;
 
   //We declare the angular services we are gonna use.
   constructor(
@@ -45,7 +45,7 @@ export class RegisterUserComponent implements OnInit {
           if (response.error) this.errorFeedback = response.error;
           else this.router.navigate(['authenticate']);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => this.errorFeedback(error));
     } else if (!emailValidation) {
       this.errorFeedback = 'Este email no existe';
     } else {

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { HomeService } from '../../services/home.service';
 import { RetrieveMemberService } from '../../services/retrieve-member.service';
 import { HandleFavFilmsService } from '../../services/handle-fav-films.service';
 import { HttpClient } from '@angular/common/http';
@@ -15,7 +14,6 @@ export class FavListChildrenComponent implements OnInit {
   favList: Array<Film>;
   profileSelected: string;
   constructor(
-    private homeService: HomeService,
     private retrieveMemberService: RetrieveMemberService,
     private handleFavFilmsService: HandleFavFilmsService,
     private router: Router,
@@ -39,7 +37,7 @@ export class FavListChildrenComponent implements OnInit {
 
   handleFavSelected(ytIdSelected: string, profileSelected: string): void {
     this.handleFavFilmsService
-      .handleFavFilms(profileSelected, ytIdSelected)
+      .handleFavFilms(profileSelected, ytIdSelected, this.profileSelected)
       .then((userUpdatedFilms) => {
         this.retrieveMemberService.setFavList(userUpdatedFilms);
       });

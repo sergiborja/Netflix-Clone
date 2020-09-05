@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HomeService } from '../../services/home.service';
+import { ValidateTokenService } from '../../services/validate-token.service';
 import { RetrieveMemberService } from '../../services/retrieve-member.service';
 import { RetrieveAllFilmsService } from '../../services/retrieve-all-films.service';
 import { HandleFavFilmsService } from '../../services/handle-fav-films.service';
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   validToken: boolean;
 
   constructor(
-    private homeService: HomeService,
+    private validateTokenService: ValidateTokenService,
     private retrieveMemberService: RetrieveMemberService,
     private retrieveAllFilmsService: RetrieveAllFilmsService,
     private handleFavFilmsService: HandleFavFilmsService,
@@ -29,7 +29,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     const [, profileSelected] = this.router.url.split('/home/');
-    this.validToken = this.homeService.validateToken(sessionStorage.token);
+    this.validToken = this.validateTokenService.validateToken(
+      sessionStorage.token
+    );
     this.profileSelected = profileSelected;
 
     this.retrieveMemberService
@@ -37,7 +39,7 @@ export class HomeComponent implements OnInit {
       .then((memberFound) => {
         this.profileSelected = memberFound.nick;
         this.favList = memberFound.films;
-        this.retrieveMemberService.setFavList(this.favList);
+        this.retrieveMemberService.setFavList(memberFound.films);
       });
 
     this.retrieveAllFilmsService
@@ -64,7 +66,7 @@ export class HomeComponent implements OnInit {
   handleFavSelected(ytIdSelected: string): void {
     const token = sessionStorage.token;
     this.handleFavFilmsService
-      .handleFavFilms(token, ytIdSelected)
+      .handleFavFilms(token, ytIdSelected, this.profileSelected)
       .then((userUpdatedFilms) => {
         this.retrieveMemberService.setFavList(userUpdatedFilms);
       });

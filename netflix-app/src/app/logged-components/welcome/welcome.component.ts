@@ -9,7 +9,6 @@ import {
 import { RetrieveUserService } from '../../services/retrieve-user.service';
 import { AddAndGetMemberListService } from '../../services/add-and-get-member-list.service';
 import { DeleteMemberService } from '../../services/delete-member.service';
-import { HomeService } from '../../services/home.service';
 import { Router } from '@angular/router';
 import { UserMemberList } from 'src/app/utils/interfaces';
 
@@ -35,7 +34,6 @@ export class WelcomeComponent implements OnInit {
   ) {}
 
   sendProfileSelected(profileSelected: string): void {
-    // this.homeService.setProfileSelected(profileSelected);
     this.router.navigate([`home/${profileSelected}`]);
   }
 

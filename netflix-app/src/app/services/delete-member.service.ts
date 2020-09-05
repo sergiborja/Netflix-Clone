@@ -16,7 +16,8 @@ export class DeleteMemberService {
     return this.http
       .patch(`http://localhost:3000/members/delete-one`, { nick }, httpOptions)
       .toPromise()
-      .then((response) => {})
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        return { error: error };
+      });
   }
 }
