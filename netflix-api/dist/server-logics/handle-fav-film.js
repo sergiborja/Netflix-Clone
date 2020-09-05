@@ -53,29 +53,31 @@ Recieves the id of a film. If the user asking for this already has this id in hi
 @throws {UnexistenceError} If there's a fail obtaining the user id of the token.
 */
 module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, ytId, nick, token, userId, userFound, indexOfFilm, error_1;
-    var _b;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
+    var _a, ytId, nick, userFound, indexOfFilm, error_1;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                _c.trys.push([0, 6, , 7]);
+                _b.trys.push([0, 5, , 6]);
                 _a = req.body, ytId = _a.ytId, nick = _a.nick;
-                token = void 0;
-                userId = void 0;
                 userFound = void 0;
-                if (!nick) return [3 /*break*/, 2];
+                // if (nick) {
+                //   userFound = await Member.findOne({ nick });
+                // } else {
+                //   [, token] = req.headers.authorization.split(" ");
+                //   userId = jwt.verify(token, SECRET).sub;
+                //   userFound = await UserSchema.findById(userId);
+                // }
+                console.log(nick);
                 return [4 /*yield*/, member_1.default.findOne({ nick: nick })];
             case 1:
-                userFound = _c.sent();
-                return [3 /*break*/, 4];
+                userFound = _b.sent();
+                if (!!userFound) return [3 /*break*/, 3];
+                return [4 /*yield*/, user_1.default.findOne({ nick: nick })];
             case 2:
-                _b = req.headers.authorization.split(" "), token = _b[1];
-                userId = jwt.verify(token, SECRET).sub;
-                return [4 /*yield*/, user_1.default.findById(userId)];
+                userFound = _b.sent();
+                _b.label = 3;
             case 3:
-                userFound = _c.sent();
-                _c.label = 4;
-            case 4:
+                console.log(userFound);
                 indexOfFilm = userFound.films.indexOf(ytId);
                 if (indexOfFilm !== -1) {
                     userFound.films.splice(indexOfFilm, 1);
@@ -84,16 +86,16 @@ module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                     userFound.films.push(ytId);
                 }
                 return [4 /*yield*/, userFound.save()];
-            case 5:
-                _c.sent();
+            case 4:
+                _b.sent();
                 res.send(userFound.films);
-                return [3 /*break*/, 7];
-            case 6:
-                error_1 = _c.sent();
+                return [3 /*break*/, 6];
+            case 5:
+                error_1 = _b.sent();
                 handleError(error_1, res);
-                return [3 /*break*/, 7];
-            case 7: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGFuZGxlLWZhdi1maWxtLmpzIiwic291cmNlUm9vdCI6Ii4vc3JjLyIsInNvdXJjZXMiOlsic2VydmVyLWxvZ2ljcy9oYW5kbGUtZmF2LWZpbG0udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSx5REFBMkQ7QUFDM0QsNkRBQTJEO0FBQ25ELElBQUEsZ0JBQWdCLEdBQUssT0FBTyxDQUFDLG9DQUFvQyxDQUFDLGlCQUFsRCxDQUFtRDtBQUMzRSxJQUFNLFdBQVcsR0FBRyxPQUFPLENBQUMsbUNBQW1DLENBQUMsQ0FBQztBQUV4RCxJQUFBLE1BQU0sR0FDWCxPQUFPLFdBREksQ0FDSDtBQUNaLElBQU0sR0FBRyxHQUFHLE9BQU8sQ0FBQyxjQUFjLENBQUMsQ0FBQztBQUVwQzs7Ozs7O0VBTUU7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7Ozs7Z0JBRzdDLEtBQ0UsR0FBRyxLQURlLEVBQVosSUFBSSxVQUFBLEVBQUUsSUFBSSxVQUFBLENBQ1o7Z0JBRUosS0FBSyxTQUFBLENBQUM7Z0JBQ04sTUFBTSxTQUFBLENBQUM7Z0JBQ1AsU0FBUyxTQUFLLENBQUM7cUJBRWYsSUFBSSxFQUFKLHdCQUFJO2dCQUNNLHFCQUFNLGdCQUFNLENBQUMsT0FBTyxDQUFDLEVBQUUsSUFBSSxNQUFBLEVBQUUsQ0FBQyxFQUFBOztnQkFBMUMsU0FBUyxHQUFHLFNBQThCLENBQUM7OztnQkFFM0MsS0FBWSxHQUFHLENBQUMsT0FBTyxDQUFDLGFBQWEsQ0FBQyxLQUFLLENBQUMsR0FBRyxDQUFDLEVBQTdDLEtBQUssUUFBQSxDQUF5QztnQkFDakQsTUFBTSxHQUFHLEdBQUcsQ0FBQyxNQUFNLENBQUMsS0FBSyxFQUFFLE1BQU0sQ0FBQyxDQUFDLEdBQUcsQ0FBQztnQkFDM0IscUJBQU0sY0FBVSxDQUFDLFFBQVEsQ0FBQyxNQUFNLENBQUMsRUFBQTs7Z0JBQTdDLFNBQVMsR0FBRyxTQUFpQyxDQUFDOzs7Z0JBRzFDLFdBQVcsR0FBVyxTQUFTLENBQUMsS0FBSyxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsQ0FBQztnQkFDMUQsSUFBSSxXQUFXLEtBQUssQ0FBQyxDQUFDLEVBQUU7b0JBQ3RCLFNBQVMsQ0FBQyxLQUFLLENBQUMsTUFBTSxDQUFDLFdBQVcsRUFBRSxDQUFDLENBQUMsQ0FBQztpQkFDeEM7cUJBQU07b0JBQ0wsU0FBUyxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUM7aUJBQzVCO2dCQUVELHFCQUFNLFNBQVMsQ0FBQyxJQUFJLEVBQUUsRUFBQTs7Z0JBQXRCLFNBQXNCLENBQUM7Z0JBQ3ZCLEdBQUcsQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDOzs7O2dCQUUxQixXQUFXLENBQUMsT0FBSyxFQUFFLEdBQUcsQ0FBQyxDQUFDOzs7OztLQUUzQixDQUFDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGFuZGxlLWZhdi1maWxtLmpzIiwic291cmNlUm9vdCI6Ii4vc3JjLyIsInNvdXJjZXMiOlsic2VydmVyLWxvZ2ljcy9oYW5kbGUtZmF2LWZpbG0udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSx5REFBMkQ7QUFDM0QsNkRBQTJEO0FBQ25ELElBQUEsZ0JBQWdCLEdBQUssT0FBTyxDQUFDLG9DQUFvQyxDQUFDLGlCQUFsRCxDQUFtRDtBQUMzRSxJQUFNLFdBQVcsR0FBRyxPQUFPLENBQUMsbUNBQW1DLENBQUMsQ0FBQztBQUV4RCxJQUFBLE1BQU0sR0FDWCxPQUFPLFdBREksQ0FDSDtBQUNaLElBQU0sR0FBRyxHQUFHLE9BQU8sQ0FBQyxjQUFjLENBQUMsQ0FBQztBQUVwQzs7Ozs7O0VBTUU7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFHN0MsS0FDRSxHQUFHLEtBRGUsRUFBWixJQUFJLFVBQUEsRUFBRSxJQUFJLFVBQUEsQ0FDWjtnQkFJSixTQUFTLFNBQUssQ0FBQztnQkFFbkIsY0FBYztnQkFDZCxnREFBZ0Q7Z0JBQ2hELFdBQVc7Z0JBQ1gsc0RBQXNEO2dCQUN0RCw0Q0FBNEM7Z0JBQzVDLG1EQUFtRDtnQkFDbkQsSUFBSTtnQkFDSixPQUFPLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxDQUFDO2dCQUNOLHFCQUFNLGdCQUFNLENBQUMsT0FBTyxDQUFDLEVBQUUsSUFBSSxNQUFBLEVBQUUsQ0FBQyxFQUFBOztnQkFBMUMsU0FBUyxHQUFHLFNBQThCLENBQUM7cUJBQ3ZDLENBQUMsU0FBUyxFQUFWLHdCQUFVO2dCQUFjLHFCQUFNLGNBQVUsQ0FBQyxPQUFPLENBQUMsRUFBRSxJQUFJLE1BQUEsRUFBRSxDQUFDLEVBQUE7O2dCQUE5QyxTQUFTLEdBQUcsU0FBa0MsQ0FBQzs7O2dCQUMvRCxPQUFPLENBQUMsR0FBRyxDQUFDLFNBQVMsQ0FBQyxDQUFDO2dCQUVqQixXQUFXLEdBQVcsU0FBUyxDQUFDLEtBQUssQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLENBQUM7Z0JBQzFELElBQUksV0FBVyxLQUFLLENBQUMsQ0FBQyxFQUFFO29CQUN0QixTQUFTLENBQUMsS0FBSyxDQUFDLE1BQU0sQ0FBQyxXQUFXLEVBQUUsQ0FBQyxDQUFDLENBQUM7aUJBQ3hDO3FCQUFNO29CQUNMLFNBQVMsQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO2lCQUM1QjtnQkFFRCxxQkFBTSxTQUFTLENBQUMsSUFBSSxFQUFFLEVBQUE7O2dCQUF0QixTQUFzQixDQUFDO2dCQUN2QixHQUFHLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQzs7OztnQkFFMUIsV0FBVyxDQUFDLE9BQUssRUFBRSxHQUFHLENBQUMsQ0FBQzs7Ozs7S0FFM0IsQ0FBQyJ9

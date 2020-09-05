@@ -2,25 +2,6 @@
 <p class="feedback" *ngIf="favList && favList.length === 0">
   Aun no tienes ninguna película en Favoritos :(
 </p>
-<!-- <ul class="list-group list-group-horizontal">
-  <li class="list-group-item liFavs" *ngFor="let film of favList">
-    <img class="filmCover" src="{{ film.cover }}" alt="" />
-    <button
-    (click)="handleFavSelected(film.ytId, this.profileSelected)"
-    type="button"
-    class="btn btn-outline-info filmButtons"
-  >
-    Add to Favs
-  </button>
-  <button
-    (click)="filmSelected(film.ytId)"
-    type="button"
-    class="btn btn-outline-info"
-  >
-    Watch now!
-  </button>
-  </li>
-</ul> -->
 
 <ul class="list-group list-group-horizontal filmsContainer">
   <li class="list-group-item liAllFilms" *ngFor="let film of favList">
@@ -40,7 +21,7 @@
       </p>
       <p>{{ film.gender }}</p>
       <button
-        (click)="handleFavSelected(film.ytId, this.profileSelected)"
+        (click)="handleFavSelected(film.ytId)"
         type="button"
         class="btn btn-outline-info filmButtons"
       >

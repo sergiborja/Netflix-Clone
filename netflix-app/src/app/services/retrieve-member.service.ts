@@ -6,13 +6,13 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class RetrieveMemberService {
-  favFilmsList: Array<string>;
+  // favFilmsList: Array<string>;
   constructor(private http: HttpClient) {}
-  private favList = new Subject();
-  cast = this.favList.asObservable();
-  setFavList(data) {
-    this.favList.next(data);
-  }
+  // private favList = new Subject();
+  // cast = this.favList.asObservable();
+  // setFavList(data) {
+  //   this.favList.next(data);
+  // }
   async retrieveProfileSelected(profileSelected: string): Promise<any> {
     return this.http
       .get(`http://localhost:3000/members/${profileSelected}`)

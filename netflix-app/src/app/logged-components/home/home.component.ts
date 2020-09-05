@@ -3,6 +3,8 @@ import { ValidateTokenService } from '../../services/validate-token.service';
 import { RetrieveMemberService } from '../../services/retrieve-member.service';
 import { RetrieveAllFilmsService } from '../../services/retrieve-all-films.service';
 import { HandleFavFilmsService } from '../../services/handle-fav-films.service';
+import { RetrieveUserService } from '../../services/retrieve-user.service';
+import { FavListFeedingService } from '../../services/fav-list-feeding.service';
 import { Router } from '@angular/router';
 import { Film } from '../../utils/interfaces';
 
@@ -18,29 +20,46 @@ export class HomeComponent implements OnInit {
   dramaFilms: Array<Film>;
   actionFilms: Array<Film>;
   validToken: boolean;
+  showFavButton: boolean;
 
   constructor(
     private validateTokenService: ValidateTokenService,
     private retrieveMemberService: RetrieveMemberService,
     private retrieveAllFilmsService: RetrieveAllFilmsService,
     private handleFavFilmsService: HandleFavFilmsService,
+    private favListFeedingService: FavListFeedingService,
+    private retrieveUserService: RetrieveUserService,
     public router: Router
   ) {}
 
   ngOnInit() {
-    const [, profileSelected] = this.router.url.split('/home/');
     this.validToken = this.validateTokenService.validateToken(
       sessionStorage.token
     );
-    this.profileSelected = profileSelected;
 
-    this.retrieveMemberService
-      .retrieveProfileSelected(this.profileSelected)
-      .then((memberFound) => {
-        this.profileSelected = memberFound.nick;
-        this.favList = memberFound.films;
-        this.retrieveMemberService.setFavList(memberFound.films);
-      });
+    let profileSelected: string;
+
+    [, profileSelected] = this.router.url.split('/home/a:');
+    console.log(profileSelected);
+    if (profileSelected) {
+      this.retrieveUserService
+        .retrieveUser(sessionStorage.token)
+        .then((adminFound) => {
+          this.profileSelected = adminFound.nick;
+          this.favList = adminFound.films;
+          this.favListFeedingService.setFavList(adminFound.films);
+        });
+    } else {
+      [, profileSelected] = this.router.url.split('/home/');
+      this.retrieveMemberService
+        .retrieveProfileSelected(profileSelected)
+        .then((memberFound) => {
+          this.profileSelected = memberFound.nick;
+          this.favList = memberFound.films;
+          this.favListFeedingService.setFavList(memberFound.films);
+        });
+    }
+    this.profileSelected = profileSelected;
 
     this.retrieveAllFilmsService
       .retrieveAllFilms()
@@ -64,11 +83,10 @@ export class HomeComponent implements OnInit {
   }
 
   handleFavSelected(ytIdSelected: string): void {
-    const token = sessionStorage.token;
     this.handleFavFilmsService
-      .handleFavFilms(token, ytIdSelected, this.profileSelected)
+      .handleFavFilms(ytIdSelected, this.profileSelected)
       .then((userUpdatedFilms) => {
-        this.retrieveMemberService.setFavList(userUpdatedFilms);
+        this.favListFeedingService.setFavList(userUpdatedFilms);
       });
   }
 
@@ -79,5 +97,15 @@ export class HomeComponent implements OnInit {
   logOut(): void {
     delete sessionStorage.token;
     window.location.reload();
+  }
+
+  alreadyAFavValidation(currentFilmId) {
+    if (this.favList.indexOf(currentFilmId) !== -1) {
+      this.showFavButton = true;
+      return true;
+    } else {
+      this.showFavButton = false;
+      return false;
+    }
   }
 }

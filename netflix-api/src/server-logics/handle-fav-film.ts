@@ -22,17 +22,21 @@ module.exports = async (req: Request, res: Response) => {
       body: { ytId, nick },
     } = req;
 
-    let token;
-    let userId;
+    // let token;
+    // let userId;
     let userFound: any;
 
-    if (nick) {
-      userFound = await Member.findOne({ nick });
-    } else {
-      [, token] = req.headers.authorization.split(" ");
-      userId = jwt.verify(token, SECRET).sub;
-      userFound = await UserSchema.findById(userId);
-    }
+    // if (nick) {
+    //   userFound = await Member.findOne({ nick });
+    // } else {
+    //   [, token] = req.headers.authorization.split(" ");
+    //   userId = jwt.verify(token, SECRET).sub;
+    //   userFound = await UserSchema.findById(userId);
+    // }
+    console.log(nick);
+    userFound = await Member.findOne({ nick });
+    if (!userFound) userFound = await UserSchema.findOne({ nick });
+    console.log(userFound);
 
     const indexOfFilm: number = userFound.films.indexOf(ytId);
     if (indexOfFilm !== -1) {

@@ -34,7 +34,9 @@ export class WelcomeComponent implements OnInit {
   ) {}
 
   sendProfileSelected(profileSelected: string): void {
-    this.router.navigate([`home/${profileSelected}`]);
+    if (this.adminName === profileSelected)
+      this.router.navigate([`home/a:${profileSelected}`]);
+    else this.router.navigate([`home/${profileSelected}`]);
   }
 
   deleteMemberSelected(memberToDelete: string): void {

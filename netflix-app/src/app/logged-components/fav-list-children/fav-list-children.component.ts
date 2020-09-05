@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { RetrieveMemberService } from '../../services/retrieve-member.service';
 import { HandleFavFilmsService } from '../../services/handle-fav-films.service';
+import { FavListFeedingService } from '../../services/fav-list-feeding.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Film } from 'src/app/utils/interfaces';
@@ -14,14 +14,14 @@ export class FavListChildrenComponent implements OnInit {
   favList: Array<Film>;
   profileSelected: string;
   constructor(
-    private retrieveMemberService: RetrieveMemberService,
     private handleFavFilmsService: HandleFavFilmsService,
+    private favListFeedingService: FavListFeedingService,
     private router: Router,
     private http: HttpClient
   ) {}
 
   ngOnInit(): void {
-    this.retrieveMemberService.cast.subscribe((data: any) => {
+    this.favListFeedingService.cast.subscribe((data: any) => {
       if (data.length > 0) {
         this.http
           .post(`http://localhost:3000/films/favs`, { favList: data })
@@ -31,15 +31,17 @@ export class FavListChildrenComponent implements OnInit {
           });
       } else this.favList = data;
     });
-    const [, profileSelected] = this.router.url.split('/home/');
+    let profileSelected: string;
+    [, profileSelected] = this.router.url.split('/home/a:');
+    if (!profileSelected) [, profileSelected] = this.router.url.split('/home/');
     this.profileSelected = profileSelected;
   }
 
-  handleFavSelected(ytIdSelected: string, profileSelected: string): void {
+  handleFavSelected(ytIdSelected: string): void {
     this.handleFavFilmsService
-      .handleFavFilms(profileSelected, ytIdSelected, this.profileSelected)
+      .handleFavFilms(ytIdSelected, this.profileSelected)
       .then((userUpdatedFilms) => {
-        this.retrieveMemberService.setFavList(userUpdatedFilms);
+        this.favListFeedingService.setFavList(userUpdatedFilms);
       });
   }
 }

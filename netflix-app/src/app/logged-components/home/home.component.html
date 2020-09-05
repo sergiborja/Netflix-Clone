@@ -33,8 +33,6 @@
     </div>
   </nav>
 
-  <!-- <h2 class="titles">Welcome {{ this.profileSelected }}</h2> -->
-
   <h2 class="titles">All Our Films</h2>
   <ul class="list-group list-group-horizontal filmsContainer">
     <li class="list-group-item liAllFilms" *ngFor="let film of allFilms">
@@ -54,9 +52,10 @@
         </p>
         <p>{{ film.gender }}</p>
         <button
-          (click)="handleFavSelected(film.ytId, this.profileSelected)"
+          (click)="handleFavSelected(film.ytId)"
           type="button"
           class="btn btn-outline-info filmButtons"
+          *ngIf="alreadyAFavValidation(film.ytId) === false"
         >
           Add to Favs
         </button>
@@ -89,9 +88,10 @@
         </p>
         <p>{{ film.gender }}</p>
         <button
-          (click)="handleFavSelected(film.ytId, this.profileSelected)"
+          (click)="handleFavSelected(film.ytId)"
           type="button"
           class="btn btn-outline-info filmButtons"
+          *ngIf="alreadyAFavValidation(film.ytId) === false"
         >
           Add to Favs
         </button>
@@ -125,9 +125,10 @@
         </p>
         <p>{{ film.gender }}</p>
         <button
-          (click)="handleFavSelected(film.ytId, this.profileSelected)"
+          (click)="handleFavSelected(film.ytId)"
           type="button"
           class="btn btn-outline-info filmButtons"
+          *ngIf="alreadyAFavValidation(film.ytId) === false"
         >
           Add to Favs
         </button>
