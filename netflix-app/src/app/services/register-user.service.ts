@@ -6,7 +6,14 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 })
 export class RegisterUserService {
   constructor(private http: HttpClient) {}
-  public postUser(nick, email, password, character): Promise<any> {
+
+  //This function recieves the info of the new user, and sends it to the API using the HttpClient from Angular. After this it returns the response form the server (If the promise doesn't catch any error).
+  public async postUser(
+    nick: string,
+    email: string,
+    password: string,
+    character: string
+  ): Promise<any> {
     return this.http
       .post(`http://localhost:3000/users`, {
         nick,

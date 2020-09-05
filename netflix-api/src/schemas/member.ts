@@ -24,12 +24,3 @@ export interface MemberDocument extends Member, Document {}
 export const MemberSchema = mongoose.model("Member", schema);
 
 export default MemberSchema;
-
-// export const MemberSchema = new mongoose.Schema({
-//   nick: { type: String, required: true },
-//   films: [{ type: String, required: false }],
-//   character: { type: String, required: true },
-// });
-
-// const Member = mongoose.model("Member", MemberSchema);
-// export default Member;

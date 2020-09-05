@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import UserSchema from "../schemas/user";
-import Member from "../schemas/member";
+import UserSchema, { UserDocument } from "../schemas/user";
+import Member, { MemberDocument } from "../schemas/member";
 const { UnexistenceError } = require("../essentials/errors/error-builder");
 const handleError = require("../essentials/errors/handle-error");
 const {
@@ -35,15 +35,13 @@ module.exports = async (req: Request, res: Response) => {
     let userFound: any = await Member.findById(userId);
     if (!userFound) userFound = await UserSchema.findById(userId);
 
-    const updatedFavFilmList = userFound.films.filter(
-      (film: any) => film !== ytId
-    );
-    if (
-      JSON.stringify(updatedFavFilmList) === JSON.stringify(userFound.films)
-    ) {
-      updatedFavFilmList.push(ytId);
+    const indexOfFilm: number = userFound.films.indexOf(ytId);
+    if (indexOfFilm !== -1) {
+      userFound.films.splice(indexOfFilm, 1);
+    } else {
+      userFound.films.push(ytId);
     }
-    userFound.films = updatedFavFilmList;
+
     await userFound.save();
     res.send(userFound.films);
   } catch (error) {

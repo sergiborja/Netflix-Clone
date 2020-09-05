@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { HomeService } from '../../services/home.service';
+import { RetrieveMemberService } from '../../services/retrieve-member.service';
+import { HandleFavFilmsService } from '../../services/handle-fav-films.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Film } from 'src/app/interfaces/interfaces';
+import { Film } from 'src/app/utils/interfaces';
 
 @Component({
   selector: 'app-fav-list-children',
@@ -14,12 +16,14 @@ export class FavListChildrenComponent implements OnInit {
   profileSelected: string;
   constructor(
     private homeService: HomeService,
+    private retrieveMemberService: RetrieveMemberService,
+    private handleFavFilmsService: HandleFavFilmsService,
     private router: Router,
     private http: HttpClient
   ) {}
 
   ngOnInit(): void {
-    this.homeService.cast.subscribe((data: any) => {
+    this.retrieveMemberService.cast.subscribe((data: any) => {
       if (data.length > 0) {
         this.http
           .post(`http://localhost:3000/films/favs`, { favList: data })
@@ -34,10 +38,10 @@ export class FavListChildrenComponent implements OnInit {
   }
 
   handleFavSelected(ytIdSelected: string, profileSelected: string): void {
-    this.homeService
+    this.handleFavFilmsService
       .handleFavFilms(profileSelected, ytIdSelected)
       .then((userUpdatedFilms) => {
-        this.homeService.setFavList(userUpdatedFilms);
+        this.retrieveMemberService.setFavList(userUpdatedFilms);
       });
   }
 }

@@ -6,10 +6,12 @@ import {
   EventEmitter,
   ViewEncapsulation,
 } from '@angular/core';
-import { WelcomeService } from '../../services/welcome.service';
+import { RetrieveUserService } from '../../services/retrieve-user.service';
+import { AddAndGetMemberListService } from '../../services/add-and-get-member-list.service';
+import { DeleteMemberService } from '../../services/delete-member.service';
 import { HomeService } from '../../services/home.service';
 import { Router } from '@angular/router';
-import { UserMemberList } from 'src/app/interfaces/interfaces';
+import { UserMemberList } from 'src/app/utils/interfaces';
 
 @Component({
   selector: 'app-welcome',
@@ -18,17 +20,18 @@ import { UserMemberList } from 'src/app/interfaces/interfaces';
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeComponent implements OnInit {
-  private displayAddMember: boolean;
-  private memberList: Array<UserMemberList>;
-  private adminName: String;
-  private adminCharacter: string;
-  private memberCharacter: string;
-  private errorFeedback: string;
+  displayAddMember: boolean;
+  memberList: Array<UserMemberList>;
+  adminName: String;
+  adminCharacter: string;
+  memberCharacter: string;
+  errorFeedback: string;
 
   constructor(
-    private welcomeService: WelcomeService,
-    private router: Router,
-    private homeService: HomeService
+    private welcomeService: RetrieveUserService,
+    private addAndGetMemberListService: AddAndGetMemberListService,
+    private deleteMemberService: DeleteMemberService,
+    private router: Router
   ) {}
 
   sendProfileSelected(profileSelected: string): void {
@@ -37,14 +40,13 @@ export class WelcomeComponent implements OnInit {
   }
 
   deleteMemberSelected(memberToDelete: string): void {
-    this.welcomeService
+    this.deleteMemberService
       .deleteMember(sessionStorage.token, memberToDelete)
       .then(() => {
         let filteredArray = this.memberList.filter(
           (member) => member.nick !== memberToDelete
         );
         this.memberList = filteredArray;
-        console.log(filteredArray);
       });
   }
 
@@ -54,7 +56,7 @@ export class WelcomeComponent implements OnInit {
     let character: string = this.memberCharacter;
 
     const token: string = sessionStorage.token;
-    this.welcomeService
+    this.addAndGetMemberListService
       .addAndGetMemberList(token, nick, character)
       .then(({ members, error }) => {
         if (error) this.errorFeedback = error.error;

@@ -42,11 +42,14 @@ app.get("/films", retrieveAllFilms);
 app.listen(app.get("port"), () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-mongoose.connect(uri, (error: any) => {
-  if (error) {
-    console.log(error.message);
-  } else {
-    console.log("Succesfully connected to MongoDB");
-  }
-});
+try {
+  mongoose.connect(uri, (error: any) => {
+    if (error) {
+      console.log(error.message);
+    } else {
+      console.log("Succesfully connected to MongoDB");
+    }
+  });
+} catch (error) {
+  console.error("Could not connect to MongoDB", error);
+}

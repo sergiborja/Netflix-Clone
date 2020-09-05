@@ -45,14 +45,21 @@ var UnexistenceError = require("../essentials/errors/error-builder").Unexistence
 var handleError = require("../essentials/errors/handle-error");
 var SECRET = process.env.SECRET;
 var jwt = require("jsonwebtoken");
+/**
+Recieves the id of a film. If the user asking for this already has this id in his favourite films array, it deletes it. Otherwise adds it.
+
+@param {string} ytId The id of the film that wants to be added or deleted.
+
+@throws {UnexistenceError} If there's a fail obtaining the user id of the token.
+*/
 module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var ytId_1, token, userId, userFound, updatedFavFilmList, error_1;
+    var ytId, token, userId, userFound, indexOfFilm, updatedFavFilmList, error_1;
     var _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 5, , 6]);
-                ytId_1 = req.body.ytId;
+                ytId = req.body.ytId;
                 token = void 0;
                 userId = void 0;
                 if (req.headers.authorization)
@@ -69,13 +76,18 @@ module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 userFound = _b.sent();
                 _b.label = 3;
             case 3:
-                updatedFavFilmList = userFound.films.filter(function (film) { return film !== ytId_1; });
-                if (JSON.stringify(updatedFavFilmList) === JSON.stringify(userFound.films)) {
-                    updatedFavFilmList.push(ytId_1);
+                indexOfFilm = userFound.films.indexOf(ytId);
+                updatedFavFilmList = [];
+                if (indexOfFilm !== -1) {
+                    userFound.films.splice(indexOfFilm, 1);
                 }
-                userFound.films = updatedFavFilmList;
+                else {
+                    userFound.films.push(ytId);
+                }
+                // userFound.films = updatedFavFilmList;
                 return [4 /*yield*/, userFound.save()];
             case 4:
+                // userFound.films = updatedFavFilmList;
                 _b.sent();
                 res.send(userFound.films);
                 return [3 /*break*/, 6];
@@ -87,4 +99,4 @@ module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGFuZGxlLWZhdi1maWxtLmpzIiwic291cmNlUm9vdCI6Ii4vc3JjLyIsInNvdXJjZXMiOlsic2VydmVyLWxvZ2ljcy9oYW5kbGUtZmF2LWZpbG0udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSx5REFBeUM7QUFDekMsNkRBQXVDO0FBQy9CLElBQUEsZ0JBQWdCLEdBQUssT0FBTyxDQUFDLG9DQUFvQyxDQUFDLGlCQUFsRCxDQUFtRDtBQUMzRSxJQUFNLFdBQVcsR0FBRyxPQUFPLENBQUMsbUNBQW1DLENBQUMsQ0FBQztBQUV4RCxJQUFBLE1BQU0sR0FDWCxPQUFPLFdBREksQ0FDSDtBQUNaLElBQU0sR0FBRyxHQUFHLE9BQU8sQ0FBQyxjQUFjLENBQUMsQ0FBQztBQUVwQyxNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7Ozs7Z0JBR3JDLFNBQ04sR0FBRyxVQURPLENBQ047Z0JBRUosS0FBSyxTQUFBLENBQUM7Z0JBQ04sTUFBTSxTQUFBLENBQUM7Z0JBRVgsSUFBSSxHQUFHLENBQUMsT0FBTyxDQUFDLGFBQWE7b0JBQzNCLEtBQVksR0FBRyxDQUFDLE9BQU8sQ0FBQyxhQUFhLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxFQUE3QyxLQUFLLFFBQUEsQ0FBeUM7Z0JBQ25ELE1BQU0sR0FBRyxHQUFHLENBQUMsTUFBTSxDQUFDLEtBQUssRUFBRSxNQUFNLENBQUMsQ0FBQyxHQUFHLENBQUM7Z0JBRXZDLElBQUksQ0FBQyxNQUFNO29CQUNULE1BQU0sSUFBSSxnQkFBZ0IsQ0FBQyw0Q0FBNEMsQ0FBQyxDQUFDO2dCQUV0RCxxQkFBTSxnQkFBTSxDQUFDLFFBQVEsQ0FBQyxNQUFNLENBQUMsRUFBQTs7Z0JBQTlDLFNBQVMsR0FBUSxTQUE2QjtxQkFDOUMsQ0FBQyxTQUFTLEVBQVYsd0JBQVU7Z0JBQWMscUJBQU0sY0FBVSxDQUFDLFFBQVEsQ0FBQyxNQUFNLENBQUMsRUFBQTs7Z0JBQTdDLFNBQVMsR0FBRyxTQUFpQyxDQUFDOzs7Z0JBRXhELGtCQUFrQixHQUFHLFNBQVMsQ0FBQyxLQUFLLENBQUMsTUFBTSxDQUMvQyxVQUFDLElBQVMsSUFBSyxPQUFBLElBQUksS0FBSyxNQUFJLEVBQWIsQ0FBYSxDQUM3QixDQUFDO2dCQUNGLElBQ0UsSUFBSSxDQUFDLFNBQVMsQ0FBQyxrQkFBa0IsQ0FBQyxLQUFLLElBQUksQ0FBQyxTQUFTLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxFQUN0RTtvQkFDQSxrQkFBa0IsQ0FBQyxJQUFJLENBQUMsTUFBSSxDQUFDLENBQUM7aUJBQy9CO2dCQUNELFNBQVMsQ0FBQyxLQUFLLEdBQUcsa0JBQWtCLENBQUM7Z0JBQ3JDLHFCQUFNLFNBQVMsQ0FBQyxJQUFJLEVBQUUsRUFBQTs7Z0JBQXRCLFNBQXNCLENBQUM7Z0JBQ3ZCLEdBQUcsQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDOzs7O2dCQUUxQixXQUFXLENBQUMsT0FBSyxFQUFFLEdBQUcsQ0FBQyxDQUFDOzs7OztLQUUzQixDQUFDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGFuZGxlLWZhdi1maWxtLmpzIiwic291cmNlUm9vdCI6Ii4vc3JjLyIsInNvdXJjZXMiOlsic2VydmVyLWxvZ2ljcy9oYW5kbGUtZmF2LWZpbG0udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSx5REFBMkQ7QUFDM0QsNkRBQXVDO0FBQy9CLElBQUEsZ0JBQWdCLEdBQUssT0FBTyxDQUFDLG9DQUFvQyxDQUFDLGlCQUFsRCxDQUFtRDtBQUMzRSxJQUFNLFdBQVcsR0FBRyxPQUFPLENBQUMsbUNBQW1DLENBQUMsQ0FBQztBQUV4RCxJQUFBLE1BQU0sR0FDWCxPQUFPLFdBREksQ0FDSDtBQUNaLElBQU0sR0FBRyxHQUFHLE9BQU8sQ0FBQyxjQUFjLENBQUMsQ0FBQztBQUVwQzs7Ozs7O0VBTUU7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7Ozs7Z0JBR3JDLElBQUksR0FDVixHQUFHLFVBRE8sQ0FDTjtnQkFFSixLQUFLLFNBQUEsQ0FBQztnQkFDTixNQUFNLFNBQUEsQ0FBQztnQkFFWCxJQUFJLEdBQUcsQ0FBQyxPQUFPLENBQUMsYUFBYTtvQkFDM0IsS0FBWSxHQUFHLENBQUMsT0FBTyxDQUFDLGFBQWEsQ0FBQyxLQUFLLENBQUMsR0FBRyxDQUFDLEVBQTdDLEtBQUssUUFBQSxDQUF5QztnQkFDbkQsTUFBTSxHQUFHLEdBQUcsQ0FBQyxNQUFNLENBQUMsS0FBSyxFQUFFLE1BQU0sQ0FBQyxDQUFDLEdBQUcsQ0FBQztnQkFFdkMsSUFBSSxDQUFDLE1BQU07b0JBQ1QsTUFBTSxJQUFJLGdCQUFnQixDQUFDLDRDQUE0QyxDQUFDLENBQUM7Z0JBRXRELHFCQUFNLGdCQUFNLENBQUMsUUFBUSxDQUFDLE1BQU0sQ0FBQyxFQUFBOztnQkFBOUMsU0FBUyxHQUFRLFNBQTZCO3FCQUM5QyxDQUFDLFNBQVMsRUFBVix3QkFBVTtnQkFBYyxxQkFBTSxjQUFVLENBQUMsUUFBUSxDQUFDLE1BQU0sQ0FBQyxFQUFBOztnQkFBN0MsU0FBUyxHQUFHLFNBQWlDLENBQUM7OztnQkFVeEQsV0FBVyxHQUFXLFNBQVMsQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxDQUFDO2dCQUN0RCxrQkFBa0IsR0FBa0IsRUFBRSxDQUFDO2dCQUMzQyxJQUFJLFdBQVcsS0FBSyxDQUFDLENBQUMsRUFBRTtvQkFDdEIsU0FBUyxDQUFDLEtBQUssQ0FBQyxNQUFNLENBQUMsV0FBVyxFQUFFLENBQUMsQ0FBQyxDQUFDO2lCQUN4QztxQkFBTTtvQkFDTCxTQUFTLENBQUMsS0FBSyxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsQ0FBQztpQkFDNUI7Z0JBRUQsd0NBQXdDO2dCQUN4QyxxQkFBTSxTQUFTLENBQUMsSUFBSSxFQUFFLEVBQUE7O2dCQUR0Qix3Q0FBd0M7Z0JBQ3hDLFNBQXNCLENBQUM7Z0JBQ3ZCLEdBQUcsQ0FBQyxJQUFJLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDOzs7O2dCQUUxQixXQUFXLENBQUMsT0FBSyxFQUFFLEdBQUcsQ0FBQyxDQUFDOzs7OztLQUUzQixDQUFDIn0=
