@@ -12,7 +12,7 @@ import validateEmail from '../../utils/email-validation';
 export class RegisterUserComponent implements OnInit {
   //We declare the global properties of this class.
   character: string;
-  errorFeedback;
+  errorFeedback: string;
 
   //We declare the angular services we are gonna use.
   constructor(
@@ -22,7 +22,7 @@ export class RegisterUserComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  //This function beloww is gonna be executed when the user completes the register form and submits. After validating the inputs, we call the function from the register service to post this new user.
+  //This function below is gonna be executed when the user completes the register form and submits. After validating the inputs, we call the function from the register service to post this new user.
   async onSubmit(event) {
     event.preventDefault();
 
@@ -44,8 +44,7 @@ export class RegisterUserComponent implements OnInit {
         .then((response) => {
           if (response.error) this.errorFeedback = response.error;
           else this.router.navigate(['authenticate']);
-        })
-        .catch((error) => this.errorFeedback(error));
+        });
     } else if (!emailValidation) {
       this.errorFeedback = 'Este email no existe';
     } else {

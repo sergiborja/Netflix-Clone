@@ -11,8 +11,11 @@ import { Film } from 'src/app/utils/interfaces';
   styleUrls: ['./fav-list-children.component.sass'],
 })
 export class FavListChildrenComponent implements OnInit {
+  //We declare the global properties of this class.
   favList: Array<Film>;
   profileSelected: string;
+
+  //We declare the angular services we are gonna use.
   constructor(
     private handleFavFilmsService: HandleFavFilmsService,
     private favListFeedingService: FavListFeedingService,
@@ -20,6 +23,7 @@ export class FavListChildrenComponent implements OnInit {
     private http: HttpClient
   ) {}
 
+  //After the constructor is read, the ngOnInit is executed. The function inside is listening to the list of favourite films info, if it recieves new data, automatically uptades itself.
   ngOnInit(): void {
     this.favListFeedingService.cast.subscribe((data: any) => {
       if (data.length > 0) {
@@ -37,6 +41,7 @@ export class FavListChildrenComponent implements OnInit {
     this.profileSelected = profileSelected;
   }
 
+  //This function deletes a film from the list of favourites, recycling the handleFavFilms function.
   handleFavSelected(ytIdSelected: string): void {
     this.handleFavFilmsService
       .handleFavFilms(ytIdSelected, this.profileSelected)
