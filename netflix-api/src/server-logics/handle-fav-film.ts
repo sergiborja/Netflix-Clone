@@ -9,7 +9,7 @@ const {
 const jwt = require("jsonwebtoken");
 
 /** 
-Recieves the id of a film. If the user asking for this already has this id in his favourite films array, it deletes it. Otherwise adds it.
+Recieves the id of a film and a nick name. If the user with this nick already has this id in his favourite films array, it deletes it. Otherwise adds it.
 
 @param {string} ytId The id of the film that wants to be added or deleted.
 
@@ -22,18 +22,8 @@ module.exports = async (req: Request, res: Response) => {
       body: { ytId, nick },
     } = req;
 
-    // let token;
-    // let userId;
     let userFound: any;
 
-    // if (nick) {
-    //   userFound = await Member.findOne({ nick });
-    // } else {
-    //   [, token] = req.headers.authorization.split(" ");
-    //   userId = jwt.verify(token, SECRET).sub;
-    //   userFound = await UserSchema.findById(userId);
-    // }
-    console.log(nick);
     userFound = await Member.findOne({ nick });
     if (!userFound) userFound = await UserSchema.findOne({ nick });
     console.log(userFound);
