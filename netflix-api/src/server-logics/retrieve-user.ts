@@ -17,21 +17,9 @@ or
 @throws {UnexistenceError} If the user cannot be found.
 */
 
-module.exports = async (req: Request, res: Response) => {
-  try {
-    if (!req.headers.authorization) {
-      const userFound: any = await UserSchema.findOne(req.body);
-      if (!userFound) throw new UnexistenceError("This user doesn't exist");
-      const { nick, films, email, members, character } = userFound;
-      res.send({ nick, films, email, members, character });
-    } else if (req.headers.authorization) {
-      let [, token] = req.headers.authorization.split(" ");
-      let userId = jwt.verify(token, SECRET).sub;
-      const _userFound = await UserSchema.findById(userId);
-      if (!_userFound) throw new UnexistenceError("This user doesn't exist");
-      res.send(_userFound);
-    }
-  } catch (error) {
-    handleError(error, res);
-  }
+module.exports = async (userInfo: any) => {
+  let userFound: any = await UserSchema.findOne({ nick: userInfo });
+  if (!userFound) userFound = await UserSchema.findById(userInfo);
+  if (!userFound) throw new UnexistenceError("This user doesn't exist");
+  return userFound;
 };

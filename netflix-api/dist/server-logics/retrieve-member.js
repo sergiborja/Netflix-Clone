@@ -49,27 +49,17 @@ Recieves the nick name of the member that wants to be retrieved.
 
 @throws {UnexistenceError} If member with this nick name couldn't be found.
 */
-module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var nick, memberFound, error_1;
+module.exports = function (nick) { return __awaiter(void 0, void 0, void 0, function () {
+    var memberFound;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                nick = req.params.nick;
-                return [4 /*yield*/, member_1.default.findOne({ nick: nick })];
+            case 0: return [4 /*yield*/, member_1.default.findOne({ nick: nick })];
             case 1:
                 memberFound = _a.sent();
                 if (!memberFound)
                     throw new error_builder_1.UnexistenceError("This member doesn't exist");
-                else
-                    res.send(memberFound);
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _a.sent();
-                handleError(error_1, res);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [2 /*return*/, memberFound];
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV0cmlldmUtbWVtYmVyLmpzIiwic291cmNlUm9vdCI6Ii4vc3JjLyIsInNvdXJjZXMiOlsic2VydmVyLWxvZ2ljcy9yZXRyaWV2ZS1tZW1iZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSw2REFBdUM7QUFDdkMsb0VBQXNFO0FBQ3RFLElBQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyxtQ0FBbUMsQ0FBQyxDQUFDO0FBRWpFOzs7Ozs7RUFNRTtBQUVGLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxHQUFZLEVBQUUsR0FBYTs7Ozs7O2dCQUV6QyxJQUFJLEdBQVcsR0FBRyxDQUFDLE1BQU0sQ0FBQyxJQUFJLENBQUM7Z0JBQ2pCLHFCQUFNLGdCQUFNLENBQUMsT0FBTyxDQUFDLEVBQUUsSUFBSSxNQUFBLEVBQUUsQ0FBQyxFQUFBOztnQkFBNUMsV0FBVyxHQUFHLFNBQThCO2dCQUNsRCxJQUFJLENBQUMsV0FBVztvQkFBRSxNQUFNLElBQUksZ0NBQWdCLENBQUMsMkJBQTJCLENBQUMsQ0FBQzs7b0JBQ3JFLEdBQUcsQ0FBQyxJQUFJLENBQUMsV0FBVyxDQUFDLENBQUM7Ozs7Z0JBRTNCLFdBQVcsQ0FBQyxPQUFLLEVBQUUsR0FBRyxDQUFDLENBQUM7Ozs7O0tBRTNCLENBQUMifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV0cmlldmUtbWVtYmVyLmpzIiwic291cmNlUm9vdCI6Ii4vc3JjLyIsInNvdXJjZXMiOlsic2VydmVyLWxvZ2ljcy9yZXRyaWV2ZS1tZW1iZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSw2REFBdUM7QUFDdkMsb0VBQXNFO0FBQ3RFLElBQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyxtQ0FBbUMsQ0FBQyxDQUFDO0FBRWpFOzs7Ozs7RUFNRTtBQUVGLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxJQUFZOzs7O29CQUNkLHFCQUFNLGdCQUFNLENBQUMsT0FBTyxDQUFDLEVBQUUsSUFBSSxNQUFBLEVBQUUsQ0FBQyxFQUFBOztnQkFBNUMsV0FBVyxHQUFHLFNBQThCO2dCQUNsRCxJQUFJLENBQUMsV0FBVztvQkFBRSxNQUFNLElBQUksZ0NBQWdCLENBQUMsMkJBQTJCLENBQUMsQ0FBQztnQkFDMUUsc0JBQU8sV0FBVyxFQUFDOzs7S0FDcEIsQ0FBQyJ9

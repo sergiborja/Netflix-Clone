@@ -42,54 +42,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var user_1 = __importDefault(require("./../schemas/user"));
 var member_1 = __importDefault(require("../schemas/member"));
 var error_builder_1 = require("../essentials/errors/error-builder");
-var jwt = require("jsonwebtoken");
-var SECRET = process.env.SECRET;
-var handleError = require("../essentials/errors/handle-error");
-/**
-Recieves a nick name and the src of the character user chose for this new member. If the params pass the error tests, status 201 will be sent.
-@param {string} token The req headers authorization, will be used to find and handle the User collection.
-@param {string} nick The nick name of the new member.
-@param {string} character The src of the character for this new member.
-
-@throws {DuplicityError} If the nick name of the new member already exist.
-*/
-module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, nick, character, token, userId, nickFound, error_1;
-    var _b;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
-            case 0:
-                _a = req.body, nick = _a.nick, character = _a.character;
-                if (req.headers.authorization)
-                    _b = req.headers.authorization.split(" "), token = _b[1];
-                userId = jwt.verify(token, SECRET).sub;
-                _c.label = 1;
+module.exports = function (nick, character, userId) { return __awaiter(void 0, void 0, void 0, function () {
+    var nickFound, adminFound;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, member_1.default.findOne({ nick: nick })];
             case 1:
-                _c.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, member_1.default.findOne({ nick: nick })];
-            case 2:
-                nickFound = _c.sent();
-                if (nickFound) {
+                nickFound = _a.sent();
+                if (nickFound)
                     throw new error_builder_1.DuplicityError("This nick name already exists");
-                }
-                else {
-                    user_1.default.findById(userId)
-                        .then(function (user) {
-                        user.members.push({ nick: nick, character: character });
-                        user.save();
-                        member_1.default.create(req.body)
-                            .then(function () { return res.status(204).send(); })
-                            .catch(function (error) { return handleError(error, res); });
-                    })
-                        .catch(function (error) { return handleError(error, res); });
-                }
-                return [3 /*break*/, 4];
+                return [4 /*yield*/, user_1.default.findById(userId)];
+            case 2:
+                adminFound = _a.sent();
+                if (!adminFound)
+                    throw new error_builder_1.UnexistenceError("There's no user with this UserId");
+                adminFound.members.push({ nick: nick, character: character });
+                adminFound.save();
+                return [4 /*yield*/, member_1.default.create({ nick: nick, character: character })];
             case 3:
-                error_1 = _c.sent();
-                handleError(error_1, res);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                _a.sent();
+                return [2 /*return*/];
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWRkLW1lbWJlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvYWRkLW1lbWJlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLDJEQUEyQztBQUMzQyw2REFBdUM7QUFDdkMsb0VBQW9FO0FBQ3BFLElBQU0sR0FBRyxHQUFHLE9BQU8sQ0FBQyxjQUFjLENBQUMsQ0FBQztBQUUzQixJQUFBLE1BQU0sR0FDWCxPQUFPLFdBREksQ0FDSDtBQUNaLElBQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyxtQ0FBbUMsQ0FBQyxDQUFDO0FBRWpFOzs7Ozs7O0VBT0U7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFFL0MsS0FDRSxHQUFHLEtBRG9CLEVBQWpCLElBQUksVUFBQSxFQUFFLFNBQVMsZUFBQSxDQUNqQjtnQkFHUixJQUFJLEdBQUcsQ0FBQyxPQUFPLENBQUMsYUFBYTtvQkFDM0IsS0FBWSxHQUFHLENBQUMsT0FBTyxDQUFDLGFBQWEsQ0FBQyxLQUFLLENBQUMsR0FBRyxDQUFDLEVBQTdDLEtBQUssUUFBQSxDQUF5QztnQkFDbkQsTUFBTSxHQUFHLEdBQUcsQ0FBQyxNQUFNLENBQUMsS0FBSyxFQUFFLE1BQU0sQ0FBQyxDQUFDLEdBQUcsQ0FBQzs7OztnQkFFbkIscUJBQU0sZ0JBQU0sQ0FBQyxPQUFPLENBQUMsRUFBRSxJQUFJLE1BQUEsRUFBRSxDQUFDLEVBQUE7O2dCQUExQyxTQUFTLEdBQUcsU0FBOEI7Z0JBQ2hELElBQUksU0FBUyxFQUFFO29CQUNiLE1BQU0sSUFBSSw4QkFBYyxDQUFDLCtCQUErQixDQUFDLENBQUM7aUJBQzNEO3FCQUFNO29CQUNMLGNBQVUsQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDO3lCQUN4QixJQUFJLENBQUMsVUFBQyxJQUFTO3dCQUNkLElBQUksQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLEVBQUUsSUFBSSxNQUFBLEVBQUUsU0FBUyxXQUFBLEVBQUUsQ0FBQyxDQUFDO3dCQUN2QyxJQUFJLENBQUMsSUFBSSxFQUFFLENBQUM7d0JBQ1osZ0JBQU0sQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQzs2QkFDcEIsSUFBSSxDQUFDLGNBQU0sT0FBQSxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksRUFBRSxFQUF0QixDQUFzQixDQUFDOzZCQUNsQyxLQUFLLENBQUMsVUFBQyxLQUFLLElBQUssT0FBQSxXQUFXLENBQUMsS0FBSyxFQUFFLEdBQUcsQ0FBQyxFQUF2QixDQUF1QixDQUFDLENBQUM7b0JBQy9DLENBQUMsQ0FBQzt5QkFDRCxLQUFLLENBQUMsVUFBQyxLQUFLLElBQUssT0FBQSxXQUFXLENBQUMsS0FBSyxFQUFFLEdBQUcsQ0FBQyxFQUF2QixDQUF1QixDQUFDLENBQUM7aUJBQzlDOzs7O2dCQUVELFdBQVcsQ0FBQyxPQUFLLEVBQUUsR0FBRyxDQUFDLENBQUM7Ozs7O0tBRTNCLENBQUMifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWRkLW1lbWJlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvYWRkLW1lbWJlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLDJEQUEyQztBQUMzQyw2REFBdUM7QUFDdkMsb0VBRzRDO0FBRTVDLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxJQUFZLEVBQUUsU0FBaUIsRUFBRSxNQUFjOzs7O29CQUNuRCxxQkFBTSxnQkFBTSxDQUFDLE9BQU8sQ0FBQyxFQUFFLElBQUksTUFBQSxFQUFFLENBQUMsRUFBQTs7Z0JBQTFDLFNBQVMsR0FBRyxTQUE4QjtnQkFDaEQsSUFBSSxTQUFTO29CQUFFLE1BQU0sSUFBSSw4QkFBYyxDQUFDLCtCQUErQixDQUFDLENBQUM7Z0JBQ2pELHFCQUFNLGNBQVUsQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDLEVBQUE7O2dCQUFuRCxVQUFVLEdBQVEsU0FBaUM7Z0JBQ3pELElBQUksQ0FBQyxVQUFVO29CQUNiLE1BQU0sSUFBSSxnQ0FBZ0IsQ0FBQyxrQ0FBa0MsQ0FBQyxDQUFDO2dCQUNqRSxVQUFVLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxFQUFFLElBQUksTUFBQSxFQUFFLFNBQVMsV0FBQSxFQUFFLENBQUMsQ0FBQztnQkFDN0MsVUFBVSxDQUFDLElBQUksRUFBRSxDQUFDO2dCQUNsQixxQkFBTSxnQkFBTSxDQUFDLE1BQU0sQ0FBQyxFQUFFLElBQUksTUFBQSxFQUFFLFNBQVMsV0FBQSxFQUFFLENBQUMsRUFBQTs7Z0JBQXhDLFNBQXdDLENBQUM7Ozs7S0FDMUMsQ0FBQyJ9

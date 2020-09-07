@@ -1,12 +1,6 @@
-import { Request, Response } from "express";
 import UserSchema, { UserDocument } from "./../schemas/user";
 import Member, { MemberDocument } from "../schemas/member";
-const jwt = require("jsonwebtoken");
-const {
-  env: { SECRET },
-} = process;
 const { UnexistenceError } = require("../essentials/errors/error-builder");
-const handleError = require("../essentials/errors/handle-error");
 
 /** 
 Recieves the nick name of the member that wants to be deleted, and deletes it.
@@ -16,31 +10,17 @@ Recieves the nick name of the member that wants to be deleted, and deletes it.
 @throws {UnexistenceError} If the nick name doesn't exist.
 */
 
-module.exports = async (req: Request, res: Response) => {
-  try {
-    const {
-      body: { nick },
-    } = req;
-    let token;
-    let userId: any;
-    if (req.headers.authorization)
-      [, token] = req.headers.authorization.split(" ");
-    userId = jwt.verify(token, SECRET).sub;
-
-    const userFound: any = await UserSchema.findById(userId);
-    const filteredMemberList = userFound.members.filter(
-      (member: any) => member.nick !== nick
+module.exports = async (userId: string, nick: string) => {
+  const userFound: any = await UserSchema.findById(userId);
+  const filteredMemberList = userFound.members.filter(
+    (member: any) => member.nick !== nick
+  );
+  userFound.members = filteredMemberList;
+  userFound.save();
+  if (nick) {
+    await Member.remove({ nick });
+  } else
+    throw new UnexistenceError(
+      "The nick of the user you want to delete doesn't exist"
     );
-    userFound.members = filteredMemberList;
-    userFound.save();
-    if (nick) {
-      await Member.remove({ nick });
-      res.status(204).send();
-    } else
-      throw new UnexistenceError(
-        "The nick of the user you want to delete doesn't exist"
-      );
-  } catch (error) {
-    handleError(error, res);
-  }
 };

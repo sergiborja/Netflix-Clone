@@ -6,18 +6,19 @@ import mongoose = require("mongoose");
 const { MONGODB_URL: uri, PORT } = require("process").env;
 const cors = require("./essentials/cors");
 const app = express();
+const { retrieveFavFilmsInfo } = require("./server-logics/index");
+
 const {
-  registerUser,
-  retrieveUser,
-  authenticateUser,
   addMember,
-  retrieveMember,
+  authenticateUser,
   createFilm,
-  handleFavFilm,
-  retrieveFavFilmsInfo,
-  retrieveAllFilms,
   deleteMember,
-} = require("./server-logics/index");
+  handleFavFilm,
+  registerUser,
+  retrieveAllFilms,
+  retrieveMember,
+  retrieveUser,
+} = require("./handlers");
 
 app.set("port", PORT);
 

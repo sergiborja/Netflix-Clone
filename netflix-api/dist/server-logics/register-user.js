@@ -41,7 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var user_1 = __importDefault(require("../schemas/user"));
 var error_builder_1 = require("../essentials/errors/error-builder");
-var handleError = require("../essentials/errors/handle-error");
 /**
 Recieves the data of the new user that wants to be created.
 
@@ -53,21 +52,20 @@ Recieves the data of the new user that wants to be created.
 @throws {DuplicityError} If the email is already registered to our database.
 @throws {DuplicityError} If the nick name is already registered to our database.
 */
-module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, nick, email, password, character, nickFound, emailFound, userCreated, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+module.exports = function (body) { return __awaiter(void 0, void 0, void 0, function () {
+    var nick, email, password, character, nickFound, emailFound;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _b.trys.push([0, 4, , 5]);
-                _a = req.body, nick = _a.nick, email = _a.email, password = _a.password, character = _a.character;
+                nick = body.nick, email = body.email, password = body.password, character = body.character;
                 return [4 /*yield*/, user_1.default.findOne({ nick: nick })];
             case 1:
-                nickFound = _b.sent();
+                nickFound = _a.sent();
                 if (nickFound)
                     throw new error_builder_1.DuplicityError("This nick name already exists");
                 return [4 /*yield*/, user_1.default.findOne({ email: email })];
             case 2:
-                emailFound = _b.sent();
+                emailFound = _a.sent();
                 if (emailFound)
                     throw new error_builder_1.DuplicityError("This email already exists");
                 return [4 /*yield*/, user_1.default.create({
@@ -77,17 +75,9 @@ module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                         character: character,
                     })];
             case 3:
-                userCreated = _b.sent();
-                if (!userCreated)
-                    throw new Error("There has been a problem with server, try it again later");
-                res.status(201).send();
-                return [3 /*break*/, 5];
-            case 4:
-                error_1 = _b.sent();
-                handleError(error_1, res);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                _a.sent();
+                return [2 /*return*/];
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVnaXN0ZXItdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmVnaXN0ZXItdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLHlEQUEyRDtBQUMzRCxvRUFBb0U7QUFDcEUsSUFBTSxXQUFXLEdBQUcsT0FBTyxDQUFDLG1DQUFtQyxDQUFDLENBQUM7QUFFakU7Ozs7Ozs7Ozs7RUFVRTtBQUVGLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxHQUFZLEVBQUUsR0FBYTs7Ozs7O2dCQUV6QyxLQUFxRCxHQUFHLENBQUMsSUFBSSxFQUEzRCxJQUFJLFVBQUEsRUFBRSxLQUFLLFdBQUEsRUFBRSxRQUFRLGNBQUEsRUFBRSxTQUFTLGVBQUEsQ0FBNEI7Z0JBRWxELHFCQUFNLGNBQVUsQ0FBQyxPQUFPLENBQUMsRUFBRSxJQUFJLE1BQUEsRUFBRSxDQUFDLEVBQUE7O2dCQUE5QyxTQUFTLEdBQUcsU0FBa0M7Z0JBQ3BELElBQUksU0FBUztvQkFBRSxNQUFNLElBQUksOEJBQWMsQ0FBQywrQkFBK0IsQ0FBQyxDQUFDO2dCQUV0RCxxQkFBTSxjQUFVLENBQUMsT0FBTyxDQUFDLEVBQUUsS0FBSyxPQUFBLEVBQUUsQ0FBQyxFQUFBOztnQkFBaEQsVUFBVSxHQUFHLFNBQW1DO2dCQUN0RCxJQUFJLFVBQVU7b0JBQUUsTUFBTSxJQUFJLDhCQUFjLENBQUMsMkJBQTJCLENBQUMsQ0FBQztnQkFFbEQscUJBQU0sY0FBVSxDQUFDLE1BQU0sQ0FBQzt3QkFDMUMsSUFBSSxNQUFBO3dCQUNKLEtBQUssT0FBQTt3QkFDTCxRQUFRLFVBQUE7d0JBQ1IsU0FBUyxXQUFBO3FCQUNWLENBQUMsRUFBQTs7Z0JBTEksV0FBVyxHQUFHLFNBS2xCO2dCQUVGLElBQUksQ0FBQyxXQUFXO29CQUNkLE1BQU0sSUFBSSxLQUFLLENBQ2IsMERBQTBELENBQzNELENBQUM7Z0JBRUosR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLEVBQUUsQ0FBQzs7OztnQkFFdkIsV0FBVyxDQUFDLE9BQUssRUFBRSxHQUFHLENBQUMsQ0FBQzs7Ozs7S0FFM0IsQ0FBQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVnaXN0ZXItdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmVnaXN0ZXItdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLHlEQUEyRDtBQUMzRCxvRUFBb0U7QUFFcEU7Ozs7Ozs7Ozs7RUFVRTtBQUVGLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxJQUFrQjs7Ozs7Z0JBQ2hDLElBQUksR0FBaUMsSUFBSSxLQUFyQyxFQUFFLEtBQUssR0FBMEIsSUFBSSxNQUE5QixFQUFFLFFBQVEsR0FBZ0IsSUFBSSxTQUFwQixFQUFFLFNBQVMsR0FBSyxJQUFJLFVBQVQsQ0FBVTtnQkFFaEMscUJBQU0sY0FBVSxDQUFDLE9BQU8sQ0FBQyxFQUFFLElBQUksTUFBQSxFQUFFLENBQUMsRUFBQTs7Z0JBQTlDLFNBQVMsR0FBRyxTQUFrQztnQkFDcEQsSUFBSSxTQUFTO29CQUFFLE1BQU0sSUFBSSw4QkFBYyxDQUFDLCtCQUErQixDQUFDLENBQUM7Z0JBRXRELHFCQUFNLGNBQVUsQ0FBQyxPQUFPLENBQUMsRUFBRSxLQUFLLE9BQUEsRUFBRSxDQUFDLEVBQUE7O2dCQUFoRCxVQUFVLEdBQUcsU0FBbUM7Z0JBQ3RELElBQUksVUFBVTtvQkFBRSxNQUFNLElBQUksOEJBQWMsQ0FBQywyQkFBMkIsQ0FBQyxDQUFDO2dCQUV0RSxxQkFBTSxjQUFVLENBQUMsTUFBTSxDQUFDO3dCQUN0QixJQUFJLE1BQUE7d0JBQ0osS0FBSyxPQUFBO3dCQUNMLFFBQVEsVUFBQTt3QkFDUixTQUFTLFdBQUE7cUJBQ1YsQ0FBQyxFQUFBOztnQkFMRixTQUtFLENBQUM7Ozs7S0FDSixDQUFDIn0=

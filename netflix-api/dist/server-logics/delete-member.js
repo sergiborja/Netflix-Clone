@@ -41,10 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var user_1 = __importDefault(require("./../schemas/user"));
 var member_1 = __importDefault(require("../schemas/member"));
-var jwt = require("jsonwebtoken");
-var SECRET = process.env.SECRET;
 var UnexistenceError = require("../essentials/errors/error-builder").UnexistenceError;
-var handleError = require("../essentials/errors/handle-error");
 /**
 Recieves the nick name of the member that wants to be deleted, and deletes it.
 
@@ -52,39 +49,24 @@ Recieves the nick name of the member that wants to be deleted, and deletes it.
 
 @throws {UnexistenceError} If the nick name doesn't exist.
 */
-module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var nick_1, token, userId, userFound, filteredMemberList, error_1;
-    var _a;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _b.trys.push([0, 5, , 6]);
-                nick_1 = req.body.nick;
-                token = void 0;
-                userId = void 0;
-                if (req.headers.authorization)
-                    _a = req.headers.authorization.split(" "), token = _a[1];
-                userId = jwt.verify(token, SECRET).sub;
-                return [4 /*yield*/, user_1.default.findById(userId)];
+module.exports = function (userId, nick) { return __awaiter(void 0, void 0, void 0, function () {
+    var userFound, filteredMemberList;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, user_1.default.findById(userId)];
             case 1:
-                userFound = _b.sent();
-                filteredMemberList = userFound.members.filter(function (member) { return member.nick !== nick_1; });
+                userFound = _a.sent();
+                filteredMemberList = userFound.members.filter(function (member) { return member.nick !== nick; });
                 userFound.members = filteredMemberList;
                 userFound.save();
-                if (!nick_1) return [3 /*break*/, 3];
-                return [4 /*yield*/, member_1.default.remove({ nick: nick_1 })];
+                if (!nick) return [3 /*break*/, 3];
+                return [4 /*yield*/, member_1.default.remove({ nick: nick })];
             case 2:
-                _b.sent();
-                res.status(204).send();
+                _a.sent();
                 return [3 /*break*/, 4];
             case 3: throw new UnexistenceError("The nick of the user you want to delete doesn't exist");
-            case 4: return [3 /*break*/, 6];
-            case 5:
-                error_1 = _b.sent();
-                handleError(error_1, res);
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGVsZXRlLW1lbWJlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvZGVsZXRlLW1lbWJlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLDJEQUE2RDtBQUM3RCw2REFBMkQ7QUFDM0QsSUFBTSxHQUFHLEdBQUcsT0FBTyxDQUFDLGNBQWMsQ0FBQyxDQUFDO0FBRTNCLElBQUEsTUFBTSxHQUNYLE9BQU8sV0FESSxDQUNIO0FBQ0osSUFBQSxnQkFBZ0IsR0FBSyxPQUFPLENBQUMsb0NBQW9DLENBQUMsaUJBQWxELENBQW1EO0FBQzNFLElBQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyxtQ0FBbUMsQ0FBQyxDQUFDO0FBRWpFOzs7Ozs7RUFNRTtBQUVGLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxHQUFZLEVBQUUsR0FBYTs7Ozs7OztnQkFHckMsU0FDTixHQUFHLFVBRE8sQ0FDTjtnQkFDSixLQUFLLFNBQUEsQ0FBQztnQkFDTixNQUFNLFNBQUssQ0FBQztnQkFDaEIsSUFBSSxHQUFHLENBQUMsT0FBTyxDQUFDLGFBQWE7b0JBQzNCLEtBQVksR0FBRyxDQUFDLE9BQU8sQ0FBQyxhQUFhLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxFQUE3QyxLQUFLLFFBQUEsQ0FBeUM7Z0JBQ25ELE1BQU0sR0FBRyxHQUFHLENBQUMsTUFBTSxDQUFDLEtBQUssRUFBRSxNQUFNLENBQUMsQ0FBQyxHQUFHLENBQUM7Z0JBRWhCLHFCQUFNLGNBQVUsQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDLEVBQUE7O2dCQUFsRCxTQUFTLEdBQVEsU0FBaUM7Z0JBQ2xELGtCQUFrQixHQUFHLFNBQVMsQ0FBQyxPQUFPLENBQUMsTUFBTSxDQUNqRCxVQUFDLE1BQVcsSUFBSyxPQUFBLE1BQU0sQ0FBQyxJQUFJLEtBQUssTUFBSSxFQUFwQixDQUFvQixDQUN0QyxDQUFDO2dCQUNGLFNBQVMsQ0FBQyxPQUFPLEdBQUcsa0JBQWtCLENBQUM7Z0JBQ3ZDLFNBQVMsQ0FBQyxJQUFJLEVBQUUsQ0FBQztxQkFDYixNQUFJLEVBQUosd0JBQUk7Z0JBQ04scUJBQU0sZ0JBQU0sQ0FBQyxNQUFNLENBQUMsRUFBRSxJQUFJLFFBQUEsRUFBRSxDQUFDLEVBQUE7O2dCQUE3QixTQUE2QixDQUFDO2dCQUM5QixHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksRUFBRSxDQUFDOztvQkFFdkIsTUFBTSxJQUFJLGdCQUFnQixDQUN4Qix1REFBdUQsQ0FDeEQsQ0FBQzs7OztnQkFFSixXQUFXLENBQUMsT0FBSyxFQUFFLEdBQUcsQ0FBQyxDQUFDOzs7OztLQUUzQixDQUFDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGVsZXRlLW1lbWJlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvZGVsZXRlLW1lbWJlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLDJEQUE2RDtBQUM3RCw2REFBMkQ7QUFDbkQsSUFBQSxnQkFBZ0IsR0FBSyxPQUFPLENBQUMsb0NBQW9DLENBQUMsaUJBQWxELENBQW1EO0FBRTNFOzs7Ozs7RUFNRTtBQUVGLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxNQUFjLEVBQUUsSUFBWTs7OztvQkFDM0IscUJBQU0sY0FBVSxDQUFDLFFBQVEsQ0FBQyxNQUFNLENBQUMsRUFBQTs7Z0JBQWxELFNBQVMsR0FBUSxTQUFpQztnQkFDbEQsa0JBQWtCLEdBQUcsU0FBUyxDQUFDLE9BQU8sQ0FBQyxNQUFNLENBQ2pELFVBQUMsTUFBVyxJQUFLLE9BQUEsTUFBTSxDQUFDLElBQUksS0FBSyxJQUFJLEVBQXBCLENBQW9CLENBQ3RDLENBQUM7Z0JBQ0YsU0FBUyxDQUFDLE9BQU8sR0FBRyxrQkFBa0IsQ0FBQztnQkFDdkMsU0FBUyxDQUFDLElBQUksRUFBRSxDQUFDO3FCQUNiLElBQUksRUFBSix3QkFBSTtnQkFDTixxQkFBTSxnQkFBTSxDQUFDLE1BQU0sQ0FBQyxFQUFFLElBQUksTUFBQSxFQUFFLENBQUMsRUFBQTs7Z0JBQTdCLFNBQTZCLENBQUM7O29CQUU5QixNQUFNLElBQUksZ0JBQWdCLENBQ3hCLHVEQUF1RCxDQUN4RCxDQUFDOzs7O0tBQ0wsQ0FBQyJ9

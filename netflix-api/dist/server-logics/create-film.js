@@ -41,38 +41,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var film_1 = __importDefault(require("../schemas/film"));
 var DuplicityError = require("../essentials/errors/error-builder").DuplicityError;
-var handleError = require("../essentials/errors/handle-error");
 /**
-Recieves all the info of the film that wants to be added.
+Recieves all the info of the film that wants to be added and creates the new film.
 
 @param {string} req.body All the new film information.
 @param {string} name The name of the new film to check if it already exist.
 
 @throws {DuplicityError} If the name of the film already exist.
 */
-module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name_1, filmFound, error_1;
+module.exports = function (body) { return __awaiter(void 0, void 0, void 0, function () {
+    var name, filmFound;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 3, , 4]);
-                name_1 = req.body.name;
-                return [4 /*yield*/, film_1.default.findOne({ name: name_1 })];
+                name = body.name;
+                return [4 /*yield*/, film_1.default.findOne({ name: name })];
             case 1:
                 filmFound = _a.sent();
                 if (filmFound)
                     throw new DuplicityError("This film already exists");
-                return [4 /*yield*/, film_1.default.create(req.body)];
+                return [4 /*yield*/, film_1.default.create(body)];
             case 2:
                 _a.sent();
-                res.status(201).send();
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _a.sent();
-                handleError(error_1, res);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [2 /*return*/];
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3JlYXRlLWZpbG0uanMiLCJzb3VyY2VSb290IjoiLi9zcmMvIiwic291cmNlcyI6WyJzZXJ2ZXItbG9naWNzL2NyZWF0ZS1maWxtLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQ0EseURBQW1DO0FBRTNCLElBQUEsY0FBYyxHQUFLLE9BQU8sQ0FBQyxvQ0FBb0MsQ0FBQyxlQUFsRCxDQUFtRDtBQUN6RSxJQUFNLFdBQVcsR0FBRyxPQUFPLENBQUMsbUNBQW1DLENBQUMsQ0FBQztBQUVqRTs7Ozs7OztFQU9FO0FBRUYsTUFBTSxDQUFDLE9BQU8sR0FBRyxVQUFPLEdBQVksRUFBRSxHQUFhOzs7Ozs7Z0JBRXZDLFNBQVMsR0FBRyxDQUFDLElBQUksS0FBYixDQUFjO2dCQUNSLHFCQUFNLGNBQUksQ0FBQyxPQUFPLENBQUMsRUFBRSxJQUFJLFFBQUEsRUFBRSxDQUFDLEVBQUE7O2dCQUF4QyxTQUFTLEdBQUcsU0FBNEI7Z0JBQzlDLElBQUksU0FBUztvQkFBRSxNQUFNLElBQUksY0FBYyxDQUFDLDBCQUEwQixDQUFDLENBQUM7Z0JBQ3BFLHFCQUFNLGNBQUksQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxFQUFBOztnQkFBM0IsU0FBMkIsQ0FBQztnQkFDNUIsR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLEVBQUUsQ0FBQzs7OztnQkFFdkIsV0FBVyxDQUFDLE9BQUssRUFBRSxHQUFHLENBQUMsQ0FBQzs7Ozs7S0FFM0IsQ0FBQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3JlYXRlLWZpbG0uanMiLCJzb3VyY2VSb290IjoiLi9zcmMvIiwic291cmNlcyI6WyJzZXJ2ZXItbG9naWNzL2NyZWF0ZS1maWxtLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQUEseURBQW1DO0FBRTNCLElBQUEsY0FBYyxHQUFLLE9BQU8sQ0FBQyxvQ0FBb0MsQ0FBQyxlQUFsRCxDQUFtRDtBQUV6RTs7Ozs7OztFQU9FO0FBRUYsTUFBTSxDQUFDLE9BQU8sR0FBRyxVQUFPLElBQVM7Ozs7O2dCQUN2QixJQUFJLEdBQUssSUFBSSxLQUFULENBQVU7Z0JBQ0oscUJBQU0sY0FBSSxDQUFDLE9BQU8sQ0FBQyxFQUFFLElBQUksTUFBQSxFQUFFLENBQUMsRUFBQTs7Z0JBQXhDLFNBQVMsR0FBRyxTQUE0QjtnQkFDOUMsSUFBSSxTQUFTO29CQUFFLE1BQU0sSUFBSSxjQUFjLENBQUMsMEJBQTBCLENBQUMsQ0FBQztnQkFDcEUscUJBQU0sY0FBSSxDQUFDLE1BQU0sQ0FBQyxJQUFJLENBQUMsRUFBQTs7Z0JBQXZCLFNBQXVCLENBQUM7Ozs7S0FDekIsQ0FBQyJ9

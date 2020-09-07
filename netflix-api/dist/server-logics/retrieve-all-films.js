@@ -47,25 +47,17 @@ Retrieves all the films from the database.
 
 @throws {UnexistenceError} If there's an error finding the films.
 */
-module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var allFilms, error_1;
+module.exports = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var allFilms;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, film_1.default.find()];
+            case 0: return [4 /*yield*/, film_1.default.find()];
             case 1:
                 allFilms = _a.sent();
                 if (!allFilms)
                     throw new error_builder_1.UnexistenceError("We couldn't find any films");
-                res.send(allFilms);
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _a.sent();
-                handleError(error_1, res);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [2 /*return*/, allFilms];
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV0cmlldmUtYWxsLWZpbG1zLmpzIiwic291cmNlUm9vdCI6Ii4vc3JjLyIsInNvdXJjZXMiOlsic2VydmVyLWxvZ2ljcy9yZXRyaWV2ZS1hbGwtZmlsbXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSx5REFBbUM7QUFDbkMsb0VBQXNFO0FBQ3RFLElBQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyxtQ0FBbUMsQ0FBQyxDQUFDO0FBRWpFOzs7O0VBSUU7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7OztnQkFFOUIscUJBQU0sY0FBSSxDQUFDLElBQUksRUFBRSxFQUFBOztnQkFBNUIsUUFBUSxHQUFHLFNBQWlCO2dCQUNsQyxJQUFJLENBQUMsUUFBUTtvQkFBRSxNQUFNLElBQUksZ0NBQWdCLENBQUMsNEJBQTRCLENBQUMsQ0FBQztnQkFDeEUsR0FBRyxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsQ0FBQzs7OztnQkFFbkIsV0FBVyxDQUFDLE9BQUssRUFBRSxHQUFHLENBQUMsQ0FBQzs7Ozs7S0FFM0IsQ0FBQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV0cmlldmUtYWxsLWZpbG1zLmpzIiwic291cmNlUm9vdCI6Ii4vc3JjLyIsInNvdXJjZXMiOlsic2VydmVyLWxvZ2ljcy9yZXRyaWV2ZS1hbGwtZmlsbXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSx5REFBbUM7QUFDbkMsb0VBQXNFO0FBQ3RFLElBQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyxtQ0FBbUMsQ0FBQyxDQUFDO0FBRWpFOzs7O0VBSUU7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHOzs7O29CQUNFLHFCQUFNLGNBQUksQ0FBQyxJQUFJLEVBQUUsRUFBQTs7Z0JBQTVCLFFBQVEsR0FBRyxTQUFpQjtnQkFDbEMsSUFBSSxDQUFDLFFBQVE7b0JBQUUsTUFBTSxJQUFJLGdDQUFnQixDQUFDLDRCQUE0QixDQUFDLENBQUM7Z0JBQ3hFLHNCQUFPLFFBQVEsRUFBQzs7O0tBQ2pCLENBQUMifQ==

@@ -54,48 +54,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var dotenv = __importStar(require("dotenv"));
 dotenv.config();
-var user_1 = __importDefault(require("./../schemas/user"));
-var jwtPromised = require("../essentials/jwt-promised");
-var SECRET = process.env.SECRET;
-var bcrypt = require("bcryptjs");
-var _a = require("../essentials/errors/error-builder"), UnexistenceError = _a.UnexistenceError, CredentialsError = _a.CredentialsError;
 var handleError = require("../essentials/errors/handle-error");
+var authenticateUser = require("../server-logics").authenticateUser;
 /**
-Recieves an email and a password, it the creadentials are correct, a new jwt token will be sent.
-
-@param {string} email The email (already registered).
-@param {string} password The password (already registered).
-
-@throws {UnexistenceError} If the email doesn't exist.
-@throws {CredentialsError} If the password is not correct.
+Recieves an email and a password from the Req, sends it to the server logic and if everything is okay, a new jwt token will be sent as Res.
 */
-module.exports = function (email, password) { return __awaiter(void 0, void 0, void 0, function () {
-    var userFound, match, token;
+module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var email, password;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, user_1.default.findOne({ email: email })];
-            case 1:
-                userFound = _a.sent();
-                if (!!userFound) return [3 /*break*/, 2];
-                throw new UnexistenceError("Email not found");
-            case 2: return [4 /*yield*/, bcrypt.compare(password, userFound.password)];
-            case 3:
-                match = _a.sent();
-                if (!match)
-                    throw new CredentialsError("Incorrect Password");
-                return [4 /*yield*/, jwtPromised.sign({ sub: userFound.id }, SECRET, {
-                        expiresIn: "1d",
-                    })];
-            case 4:
-                token = _a.sent();
-                return [2 /*return*/, token];
+        try {
+            email = req.body.email;
+            password = req.body.password;
+            authenticateUser(email, password)
+                .then(function (token) {
+                res.send({ token: token });
+            })
+                .catch(function (error) {
+                handleError(error, res);
+            });
         }
+        catch (error) {
+            handleError(error, res);
+        }
+        return [2 /*return*/];
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXV0aGVudGljYXRlLXVzZXIuanMiLCJzb3VyY2VSb290IjoiLi9zcmMvIiwic291cmNlcyI6WyJzZXJ2ZXItbG9naWNzL2F1dGhlbnRpY2F0ZS11c2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLDZDQUFpQztBQUNqQyxNQUFNLENBQUMsTUFBTSxFQUFFLENBQUM7QUFDaEIsMkRBQTZEO0FBQzdELElBQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyw0QkFBNEIsQ0FBQyxDQUFDO0FBRWpELElBQUEsTUFBTSxHQUNYLE9BQU8sV0FESSxDQUNIO0FBQ1osSUFBTSxNQUFNLEdBQUcsT0FBTyxDQUFDLFVBQVUsQ0FBQyxDQUFDO0FBRTdCLElBQUEsS0FHRixPQUFPLENBQUMsb0NBQW9DLENBQUMsRUFGL0MsZ0JBQWdCLHNCQUFBLEVBQ2hCLGdCQUFnQixzQkFDK0IsQ0FBQztBQUNsRCxJQUFNLFdBQVcsR0FBRyxPQUFPLENBQUMsbUNBQW1DLENBQUMsQ0FBQztBQUVqRTs7Ozs7Ozs7RUFRRTtBQUVGLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxLQUFhLEVBQUUsUUFBZ0I7Ozs7b0JBQzlCLHFCQUFNLGNBQVUsQ0FBQyxPQUFPLENBQUMsRUFBRSxLQUFLLE9BQUEsRUFBRSxDQUFDLEVBQUE7O2dCQUFwRCxTQUFTLEdBQVEsU0FBbUM7cUJBQ3RELENBQUMsU0FBUyxFQUFWLHdCQUFVO2dCQUFFLE1BQU0sSUFBSSxnQkFBZ0IsQ0FBQyxpQkFBaUIsQ0FBQyxDQUFDO29CQUU5QyxxQkFBTSxNQUFNLENBQUMsT0FBTyxDQUFDLFFBQVEsRUFBRSxTQUFTLENBQUMsUUFBUSxDQUFDLEVBQUE7O2dCQUExRCxLQUFLLEdBQUcsU0FBa0Q7Z0JBQ2hFLElBQUksQ0FBQyxLQUFLO29CQUFFLE1BQU0sSUFBSSxnQkFBZ0IsQ0FBQyxvQkFBb0IsQ0FBQyxDQUFDO2dCQUN2QyxxQkFBTSxXQUFXLENBQUMsSUFBSSxDQUMxQyxFQUFFLEdBQUcsRUFBRSxTQUFTLENBQUMsRUFBRSxFQUFFLEVBQ3JCLE1BQU0sRUFDTjt3QkFDRSxTQUFTLEVBQUUsSUFBSTtxQkFDaEIsQ0FDRixFQUFBOztnQkFOSyxLQUFLLEdBQVcsU0FNckI7Z0JBQ0Qsc0JBQU8sS0FBSyxFQUFDOzs7S0FFaEIsQ0FBQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXV0aGVudGljYXRlLXVzZXIuanMiLCJzb3VyY2VSb290IjoiLi9zcmMvIiwic291cmNlcyI6WyJoYW5kbGVycy9hdXRoZW50aWNhdGUtdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSw2Q0FBaUM7QUFDakMsTUFBTSxDQUFDLE1BQU0sRUFBRSxDQUFDO0FBRWhCLElBQU0sV0FBVyxHQUFHLE9BQU8sQ0FBQyxtQ0FBbUMsQ0FBQyxDQUFDO0FBQ3pELElBQUEsZ0JBQWdCLEdBQUssT0FBTyxDQUFDLGtCQUFrQixDQUFDLGlCQUFoQyxDQUFpQztBQUV6RDs7RUFFRTtBQUVGLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxHQUFZLEVBQUUsR0FBYTs7O1FBQ2pELElBQUk7WUFDRSxLQUFLLEdBQVcsR0FBRyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUM7WUFDL0IsUUFBUSxHQUFXLEdBQUcsQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDO1lBQ3pDLGdCQUFnQixDQUFDLEtBQUssRUFBRSxRQUFRLENBQUM7aUJBQzlCLElBQUksQ0FBQyxVQUFDLEtBQWE7Z0JBQ2xCLEdBQUcsQ0FBQyxJQUFJLENBQUMsRUFBRSxLQUFLLE9BQUEsRUFBRSxDQUFDLENBQUM7WUFDdEIsQ0FBQyxDQUFDO2lCQUNELEtBQUssQ0FBQyxVQUFDLEtBQVU7Z0JBQ2hCLFdBQVcsQ0FBQyxLQUFLLEVBQUUsR0FBRyxDQUFDLENBQUM7WUFDMUIsQ0FBQyxDQUFDLENBQUM7U0FDTjtRQUFDLE9BQU8sS0FBSyxFQUFFO1lBQ2QsV0FBVyxDQUFDLEtBQUssRUFBRSxHQUFHLENBQUMsQ0FBQztTQUN6Qjs7O0tBQ0YsQ0FBQyJ9

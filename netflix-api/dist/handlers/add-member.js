@@ -35,41 +35,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var user_1 = __importDefault(require("./../schemas/user"));
-var error_builder_1 = require("../essentials/errors/error-builder");
 var jwt = require("jsonwebtoken");
 var SECRET = process.env.SECRET;
 var handleError = require("../essentials/errors/handle-error");
+var addMember = require("../server-logics").addMember;
 /**
-If a token is recieved from req headers, retrieves the info of the userId from this token. Otherwise, listens to the body of the req and retrives the user according to that body.
-
-@param {string} req.body The body.
-or
-@param {string} nick The nick name.
-
-@throws {UnexistenceError} If the user cannot be found.
+Recieves a nick name from Req, we send it to the server logic and if everything goes great, status 201 will be sent as Res.
 */
-module.exports = function (userInfo) { return __awaiter(void 0, void 0, void 0, function () {
-    var userFound;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, user_1.default.findOne({ nick: userInfo })];
-            case 1:
-                userFound = _a.sent();
-                if (!!userFound) return [3 /*break*/, 3];
-                return [4 /*yield*/, user_1.default.findById(userInfo)];
-            case 2:
-                userFound = _a.sent();
-                _a.label = 3;
-            case 3:
-                if (!userFound)
-                    throw new error_builder_1.UnexistenceError("This user doesn't exist");
-                return [2 /*return*/, userFound];
+module.exports = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, nick, character, token, userId;
+    var _b;
+    return __generator(this, function (_c) {
+        _a = req.body, nick = _a.nick, character = _a.character;
+        if (req.headers.authorization)
+            _b = req.headers.authorization.split(" "), token = _b[1];
+        userId = jwt.verify(token, SECRET).sub;
+        try {
+            addMember(nick, character, userId)
+                .then(function () {
+                res.status(204).send();
+            })
+                .catch(function (error) {
+                handleError(error, res);
+            });
         }
+        catch (error) {
+            handleError(error, res);
+        }
+        return [2 /*return*/];
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV0cmlldmUtdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmV0cmlldmUtdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLDJEQUE2RDtBQUM3RCxvRUFBc0U7QUFDdEUsSUFBTSxHQUFHLEdBQUcsT0FBTyxDQUFDLGNBQWMsQ0FBQyxDQUFDO0FBRTNCLElBQUEsTUFBTSxHQUNYLE9BQU8sV0FESSxDQUNIO0FBQ1osSUFBTSxXQUFXLEdBQUcsT0FBTyxDQUFDLG1DQUFtQyxDQUFDLENBQUM7QUFFakU7Ozs7Ozs7O0VBUUU7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sUUFBYTs7OztvQkFDZCxxQkFBTSxjQUFVLENBQUMsT0FBTyxDQUFDLEVBQUUsSUFBSSxFQUFFLFFBQVEsRUFBRSxDQUFDLEVBQUE7O2dCQUE3RCxTQUFTLEdBQVEsU0FBNEM7cUJBQzdELENBQUMsU0FBUyxFQUFWLHdCQUFVO2dCQUFjLHFCQUFNLGNBQVUsQ0FBQyxRQUFRLENBQUMsUUFBUSxDQUFDLEVBQUE7O2dCQUEvQyxTQUFTLEdBQUcsU0FBbUMsQ0FBQzs7O2dCQUNoRSxJQUFJLENBQUMsU0FBUztvQkFBRSxNQUFNLElBQUksZ0NBQWdCLENBQUMseUJBQXlCLENBQUMsQ0FBQztnQkFDdEUsc0JBQU8sU0FBUyxFQUFDOzs7S0FDbEIsQ0FBQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWRkLW1lbWJlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbImhhbmRsZXJzL2FkZC1tZW1iZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDQSxJQUFNLEdBQUcsR0FBRyxPQUFPLENBQUMsY0FBYyxDQUFDLENBQUM7QUFFM0IsSUFBQSxNQUFNLEdBQ1gsT0FBTyxXQURJLENBQ0g7QUFDWixJQUFNLFdBQVcsR0FBRyxPQUFPLENBQUMsbUNBQW1DLENBQUMsQ0FBQztBQUN6RCxJQUFBLFNBQVMsR0FBSyxPQUFPLENBQUMsa0JBQWtCLENBQUMsVUFBaEMsQ0FBaUM7QUFFbEQ7O0VBRUU7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sR0FBWSxFQUFFLEdBQWE7Ozs7UUFFL0MsS0FDRSxHQUFHLEtBRG9CLEVBQWpCLElBQUksVUFBQSxFQUFFLFNBQVMsZUFBQSxDQUNqQjtRQUdSLElBQUksR0FBRyxDQUFDLE9BQU8sQ0FBQyxhQUFhO1lBQzNCLEtBQVksR0FBRyxDQUFDLE9BQU8sQ0FBQyxhQUFhLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxFQUE3QyxLQUFLLFFBQUEsQ0FBeUM7UUFDbkQsTUFBTSxHQUFHLEdBQUcsQ0FBQyxNQUFNLENBQUMsS0FBSyxFQUFFLE1BQU0sQ0FBQyxDQUFDLEdBQUcsQ0FBQztRQUN2QyxJQUFJO1lBQ0YsU0FBUyxDQUFDLElBQUksRUFBRSxTQUFTLEVBQUUsTUFBTSxDQUFDO2lCQUMvQixJQUFJLENBQUM7Z0JBQ0osR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLEVBQUUsQ0FBQztZQUN6QixDQUFDLENBQUM7aUJBQ0QsS0FBSyxDQUFDLFVBQUMsS0FBVTtnQkFDaEIsV0FBVyxDQUFDLEtBQUssRUFBRSxHQUFHLENBQUMsQ0FBQztZQUMxQixDQUFDLENBQUMsQ0FBQztTQUNOO1FBQUMsT0FBTyxLQUFLLEVBQUU7WUFDZCxXQUFXLENBQUMsS0FBSyxFQUFFLEdBQUcsQ0FBQyxDQUFDO1NBQ3pCOzs7S0FDRixDQUFDIn0=
