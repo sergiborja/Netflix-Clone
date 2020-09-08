@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +19,11 @@ export class AddAndGetMemberListService {
       }),
     };
     return this.http
-      .patch(`http://localhost:3000/members`, { nick, character }, httpOptions)
+      .patch(`${environment.apiUrl}/members`, { nick, character }, httpOptions)
       .toPromise()
       .then(() => {
         return this.http
-          .get(`http://localhost:3000/users/single`, httpOptions)
+          .get(`${environment.apiUrl}/users/single`, httpOptions)
           .toPromise()
           .then(({ members }: any) => {
             return { members: members };

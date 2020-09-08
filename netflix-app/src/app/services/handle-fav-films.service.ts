@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class HandleFavFilmsService {
     // };
     return this.http
       .patch(
-        `http://localhost:3000/users/fav-films`,
+        `${environment.apiUrl}/users/fav-films`,
         { ytId: ytIdSelected, nick }
         // httpOptions
       )

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class DeleteMemberService {
       }),
     };
     return this.http
-      .patch(`http://localhost:3000/members/delete-one`, { nick }, httpOptions)
+      .patch(`${environment.apiUrl}/members/delete-one`, { nick }, httpOptions)
       .toPromise()
       .catch((error) => {
         return { error: error };

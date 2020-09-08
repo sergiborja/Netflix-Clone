@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class RetrieveUserService {
       }),
     };
     return this.http
-      .get(`http://localhost:3000/users/single`, httpOptions)
+      .get(`${environment.apiUrl}/users/single`, httpOptions)
       .toPromise()
       .then((userRetrieved) => {
         return userRetrieved;
