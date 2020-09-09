@@ -8,7 +8,10 @@ import { Film } from 'src/app/utils/interfaces';
 @Component({
   selector: 'app-fav-list-children',
   templateUrl: './fav-list-children.component.html',
-  styleUrls: ['./fav-list-children.component.sass'],
+  styleUrls: [
+    './fav-list-children.component.sass',
+    '../home/home.component.sass',
+  ],
 })
 export class FavListChildrenComponent implements OnInit {
   //We declare the global properties of this class.

@@ -5,7 +5,10 @@ import { AuthenticateService } from '../../services/User/authenticate.service';
 @Component({
   selector: 'app-authenticate-user',
   templateUrl: './authenticate-user.component.html',
-  styleUrls: ['./authenticate-user.component.sass'],
+  styleUrls: [
+    // './authenticate-user.component.sass',
+    '../register-user/register-user.component.sass',
+  ],
 })
 export class AuthenticateUserComponent implements OnInit {
   //We declare the global properties of this class.
