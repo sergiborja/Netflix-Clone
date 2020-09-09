@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-const handleError = require("../essentials/errors/handle-error");
-const { retrieveMember } = require("../server-logics");
+const handleError = require("../../essentials/errors/handle-error");
+const { retrieveMember } = require("../../server-logics");
 
 /** 
 Recieves the nick name of the member that wants to be retrieved, calls the server logic and if everything is correct, sends it as res.

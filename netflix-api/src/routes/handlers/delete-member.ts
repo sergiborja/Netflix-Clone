@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 const {
   env: { SECRET },
 } = process;
-const handleError = require("../essentials/errors/handle-error");
-const { deleteMember } = require("../server-logics");
+const handleError = require("../../essentials/errors/handle-error");
+const { deleteMember } = require("../../server-logics");
 
 /** 
 Recieves the nick name of the member that wants to be deleted by Req and the token of the admin. We send the required info to the server logic and if everything is okay, we send status 204.

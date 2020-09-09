@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import Film, { FilmDocument } from "../schemas/film";
-import { UnexistenceError } from "../essentials/errors/error-builder";
-const handleError = require("../essentials/errors/handle-error");
-const { retrieveFavFilmsInfo } = require("../server-logics");
+import { FilmDocument } from "../../schemas/film";
+const handleError = require("../../essentials/errors/handle-error");
+const { retrieveFavFilmsInfo } = require("../../server-logics");
 
 /** 
 Recieves the id of a film and returns the whole information of that film.

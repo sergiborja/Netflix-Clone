@@ -6,39 +6,18 @@ import mongoose = require("mongoose");
 const { MONGODB_URL: uri, PORT } = require("process").env;
 const cors = require("./essentials/cors");
 const app = express();
-const { retrieveFavFilmsInfo } = require("./server-logics/index");
-
-const {
-  addMember,
-  authenticateUser,
-  createFilm,
-  deleteMember,
-  handleFavFilm,
-  registerUser,
-  retrieveAllFilms,
-  retrieveMember,
-  retrieveUser,
-} = require("./handlers");
+const api = require("./routes");
 
 app.set("port", PORT);
 
 app.use(cors);
 app.use(bodyParser.json());
 
+app.use("/api", api);
+
 app.get("/", (req: any, res: any) => {
   res.send("NOT FOUND :(");
 });
-
-app.post("/users", registerUser);
-app.post("/films", createFilm);
-app.get("/users/single", retrieveUser);
-app.get("/members/:nick?", retrieveMember);
-app.post("/users/auth", authenticateUser);
-app.patch("/members", addMember);
-app.patch("/users/fav-films", handleFavFilm);
-app.patch("/members/delete-one", deleteMember);
-app.post("/films/favs", retrieveFavFilmsInfo);
-app.get("/films", retrieveAllFilms);
 
 app.listen(app.get("port"), () => {
   console.log(`Server running on port ${PORT}`);

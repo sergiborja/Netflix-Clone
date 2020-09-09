@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { FilmDocument } from "../schemas/film";
-const handleError = require("../essentials/errors/handle-error");
-const { retrieveAllFilms } = require("../server-logics");
+import { FilmDocument } from "../../schemas/film";
+const handleError = require("../../essentials/errors/handle-error");
+const { retrieveAllFilms } = require("../../server-logics");
 
 /** 
 Retrieves all the films from the database.

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-const handleError = require("../essentials/errors/handle-error");
-const { handleFavFilm } = require("../server-logics");
+const handleError = require("../../essentials/errors/handle-error");
+const { handleFavFilm } = require("../../server-logics");
 
 /** 
 Recieves the id of a film and a nick name. If the user with this nick already has this id in his favourite films array, it deletes it. Otherwise adds it. This is achieved due to the server logic we call from here.
