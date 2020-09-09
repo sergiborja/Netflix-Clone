@@ -67,18 +67,18 @@ export class HomeComponent implements OnInit {
     //Below here we retrieve the information of the films we have in our database, all of them.
     this.retrieveAllFilmsService
       .retrieveAllFilms()
-      .then((allFilmsRetrieved) => {
+      .then((allFilmsRetrieved: Array<Film>) => {
         this.allFilms = allFilmsRetrieved;
 
         let dramaFilms: Array<Film> = [];
-        allFilmsRetrieved.map((film) => {
+        allFilmsRetrieved.map((film: Film) => {
           const indexOf = film.gender.indexOf('drama');
           if (indexOf !== -1) dramaFilms.push(film);
         });
         this.dramaFilms = dramaFilms;
 
         let actionFilms: Array<Film> = [];
-        allFilmsRetrieved.map((film) => {
+        allFilmsRetrieved.map((film: Film) => {
           const indexOf = film.gender.indexOf('action');
           if (indexOf !== -1) actionFilms.push(film);
         });

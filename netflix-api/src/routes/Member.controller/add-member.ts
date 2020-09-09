@@ -11,15 +11,16 @@ Recieves a nick name from Req, we send it to the server logic and if everything 
 */
 
 module.exports = async (req: Request, res: Response) => {
-  const {
-    body: { nick, character },
-  } = req;
-  let token;
-  let userId: string;
-  if (req.headers.authorization)
-    [, token] = req.headers.authorization.split(" ");
-  userId = jwt.verify(token, SECRET).sub;
   try {
+    const {
+      body: { nick, character },
+    } = req;
+    let token;
+    let userId: string;
+    if (req.headers.authorization)
+      [, token] = req.headers.authorization.split(" ");
+    userId = jwt.verify(token, SECRET).sub;
+
     addMember(nick, character, userId)
       .then(() => {
         res.status(204).send();

@@ -7,8 +7,8 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthenticateUserComponent } from './out-logged-components/authenticate-user/authenticate-user.component';
-import { RegisterUserComponent } from './out-logged-components/register-user/register-user.component';
+import { AuthenticateUserComponent } from './components/authenticate-user/authenticate-user.component';
+import { RegisterUserComponent } from './components/register-user/register-user.component';
 
 @NgModule({
   declarations: [

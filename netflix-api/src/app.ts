@@ -6,7 +6,7 @@ import mongoose = require("mongoose");
 const { MONGODB_URL: uri, PORT } = require("process").env;
 const cors = require("./essentials/cors");
 const app = express();
-const api = require("./controllers");
+const api = require("./routes");
 
 app.set("port", PORT);
 

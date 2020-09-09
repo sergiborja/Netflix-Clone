@@ -3,25 +3,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var SECRET = process.env.SECRET;
 var express_1 = __importDefault(require("express"));
-var _a = require("./handlers"), addMember = _a.addMember, authenticateUser = _a.authenticateUser, createFilm = _a.createFilm, deleteMember = _a.deleteMember, handleFavFilm = _a.handleFavFilm, registerUser = _a.registerUser, retrieveAllFilms = _a.retrieveAllFilms, retrieveMember = _a.retrieveMember, retrieveUser = _a.retrieveUser;
+var _a = require("./Film.controller"), createFilm = _a.createFilm, retrieveAllFilms = _a.retrieveAllFilms;
 var retrieveFavFilmsInfo = require("../server-logics").retrieveFavFilmsInfo;
-// const bodyParser = require("body-parser");
-// const { jwtVerifierExtractor } = require("../middlewares");
-// const { handleError } = require("../helpers");
-// const parseBody = bodyParser.json();
-// const verifyExtractJwt = jwtVerifierExtractor(SECRET, handleError);
+var _b = require("./Member.controller"), addMember = _b.addMember, deleteMember = _b.deleteMember, retrieveMember = _b.retrieveMember;
+var _c = require("./User.controller"), authenticateUser = _c.authenticateUser, registerUser = _c.registerUser, retrieveUser = _c.retrieveUser, handleFavFilm = _c.handleFavFilm;
 var api = express_1.default.Router();
-api.post("/users", registerUser);
-api.post("/films", createFilm);
-api.get("/users/single", retrieveUser);
-api.get("/members/:nick?", retrieveMember);
-api.post("/users/auth", authenticateUser);
-api.patch("/members", addMember);
+//Common (admin-members) model
 api.patch("/users/fav-films", handleFavFilm);
-api.patch("/members/delete-one", deleteMember);
+//Film model
+api.post("/films", createFilm);
 api.post("/films/favs", retrieveFavFilmsInfo);
 api.get("/films", retrieveAllFilms);
+//Member model
+api.get("/members/:nick?", retrieveMember);
+api.patch("/members", addMember);
+api.patch("/members/delete-one", deleteMember);
+//User (admin) model
+api.post("/users", registerUser);
+api.get("/users/single", retrieveUser);
+api.post("/users/auth", authenticateUser);
 module.exports = api;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiLi9zcmMvIiwic291cmNlcyI6WyJyb3V0ZXMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFDUyxJQUFBLE1BQU0sR0FDWCxPQUFPLFdBREksQ0FDSDtBQUdaLG9EQUE4QjtBQUN4QixJQUFBLEtBVUYsT0FBTyxDQUFDLFlBQVksQ0FBQyxFQVR2QixTQUFTLGVBQUEsRUFDVCxnQkFBZ0Isc0JBQUEsRUFDaEIsVUFBVSxnQkFBQSxFQUNWLFlBQVksa0JBQUEsRUFDWixhQUFhLG1CQUFBLEVBQ2IsWUFBWSxrQkFBQSxFQUNaLGdCQUFnQixzQkFBQSxFQUNoQixjQUFjLG9CQUFBLEVBQ2QsWUFBWSxrQkFDVyxDQUFDO0FBQ2xCLElBQUEsb0JBQW9CLEdBQUssT0FBTyxDQUFDLGtCQUFrQixDQUFDLHFCQUFoQyxDQUFpQztBQUU3RCw2Q0FBNkM7QUFDN0MsOERBQThEO0FBQzlELGlEQUFpRDtBQUVqRCx1Q0FBdUM7QUFDdkMsc0VBQXNFO0FBRXRFLElBQU0sR0FBRyxHQUFHLGlCQUFPLENBQUMsTUFBTSxFQUFFLENBQUM7QUFFN0IsR0FBRyxDQUFDLElBQUksQ0FBQyxRQUFRLEVBQUUsWUFBWSxDQUFDLENBQUM7QUFDakMsR0FBRyxDQUFDLElBQUksQ0FBQyxRQUFRLEVBQUUsVUFBVSxDQUFDLENBQUM7QUFDL0IsR0FBRyxDQUFDLEdBQUcsQ0FBQyxlQUFlLEVBQUUsWUFBWSxDQUFDLENBQUM7QUFDdkMsR0FBRyxDQUFDLEdBQUcsQ0FBQyxpQkFBaUIsRUFBRSxjQUFjLENBQUMsQ0FBQztBQUMzQyxHQUFHLENBQUMsSUFBSSxDQUFDLGFBQWEsRUFBRSxnQkFBZ0IsQ0FBQyxDQUFDO0FBQzFDLEdBQUcsQ0FBQyxLQUFLLENBQUMsVUFBVSxFQUFFLFNBQVMsQ0FBQyxDQUFDO0FBQ2pDLEdBQUcsQ0FBQyxLQUFLLENBQUMsa0JBQWtCLEVBQUUsYUFBYSxDQUFDLENBQUM7QUFDN0MsR0FBRyxDQUFDLEtBQUssQ0FBQyxxQkFBcUIsRUFBRSxZQUFZLENBQUMsQ0FBQztBQUMvQyxHQUFHLENBQUMsSUFBSSxDQUFDLGFBQWEsRUFBRSxvQkFBb0IsQ0FBQyxDQUFDO0FBQzlDLEdBQUcsQ0FBQyxHQUFHLENBQUMsUUFBUSxFQUFFLGdCQUFnQixDQUFDLENBQUM7QUFFcEMsTUFBTSxDQUFDLE9BQU8sR0FBRyxHQUFHLENBQUMifQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiLi9zcmMvIiwic291cmNlcyI6WyJyb3V0ZXMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQSxvREFBOEI7QUFDeEIsSUFBQSxLQUFtQyxPQUFPLENBQUMsbUJBQW1CLENBQUMsRUFBN0QsVUFBVSxnQkFBQSxFQUFFLGdCQUFnQixzQkFBaUMsQ0FBQztBQUM5RCxJQUFBLG9CQUFvQixHQUFLLE9BQU8sQ0FBQyxrQkFBa0IsQ0FBQyxxQkFBaEMsQ0FBaUM7QUFDdkQsSUFBQSxLQUlGLE9BQU8sQ0FBQyxxQkFBcUIsQ0FBQyxFQUhoQyxTQUFTLGVBQUEsRUFDVCxZQUFZLGtCQUFBLEVBQ1osY0FBYyxvQkFDa0IsQ0FBQztBQUM3QixJQUFBLEtBS0YsT0FBTyxDQUFDLG1CQUFtQixDQUFDLEVBSjlCLGdCQUFnQixzQkFBQSxFQUNoQixZQUFZLGtCQUFBLEVBQ1osWUFBWSxrQkFBQSxFQUNaLGFBQWEsbUJBQ2lCLENBQUM7QUFFakMsSUFBTSxHQUFHLEdBQUcsaUJBQU8sQ0FBQyxNQUFNLEVBQUUsQ0FBQztBQUU3Qiw4QkFBOEI7QUFDOUIsR0FBRyxDQUFDLEtBQUssQ0FBQyxrQkFBa0IsRUFBRSxhQUFhLENBQUMsQ0FBQztBQUU3QyxZQUFZO0FBQ1osR0FBRyxDQUFDLElBQUksQ0FBQyxRQUFRLEVBQUUsVUFBVSxDQUFDLENBQUM7QUFDL0IsR0FBRyxDQUFDLElBQUksQ0FBQyxhQUFhLEVBQUUsb0JBQW9CLENBQUMsQ0FBQztBQUM5QyxHQUFHLENBQUMsR0FBRyxDQUFDLFFBQVEsRUFBRSxnQkFBZ0IsQ0FBQyxDQUFDO0FBRXBDLGNBQWM7QUFDZCxHQUFHLENBQUMsR0FBRyxDQUFDLGlCQUFpQixFQUFFLGNBQWMsQ0FBQyxDQUFDO0FBQzNDLEdBQUcsQ0FBQyxLQUFLLENBQUMsVUFBVSxFQUFFLFNBQVMsQ0FBQyxDQUFDO0FBQ2pDLEdBQUcsQ0FBQyxLQUFLLENBQUMscUJBQXFCLEVBQUUsWUFBWSxDQUFDLENBQUM7QUFFL0Msb0JBQW9CO0FBQ3BCLEdBQUcsQ0FBQyxJQUFJLENBQUMsUUFBUSxFQUFFLFlBQVksQ0FBQyxDQUFDO0FBQ2pDLEdBQUcsQ0FBQyxHQUFHLENBQUMsZUFBZSxFQUFFLFlBQVksQ0FBQyxDQUFDO0FBQ3ZDLEdBQUcsQ0FBQyxJQUFJLENBQUMsYUFBYSxFQUFFLGdCQUFnQixDQUFDLENBQUM7QUFFMUMsTUFBTSxDQUFDLE9BQU8sR0FBRyxHQUFHLENBQUMifQ==
