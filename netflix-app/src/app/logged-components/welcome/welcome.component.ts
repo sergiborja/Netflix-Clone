@@ -6,9 +6,9 @@ import {
   EventEmitter,
   ViewEncapsulation,
 } from '@angular/core';
-import { RetrieveUserService } from '../../services/retrieve-user.service';
-import { AddAndGetMemberListService } from '../../services/add-and-get-member-list.service';
-import { DeleteMemberService } from '../../services/delete-member.service';
+import { RetrieveUserService } from '../../services/User/retrieve-user.service';
+import { AddAndGetMemberListService } from '../../services/Member/add-and-get-member-list.service';
+import { DeleteMemberService } from '../../services/Member/delete-member.service';
 import { Router } from '@angular/router';
 import { UserMemberList } from 'src/app/utils/interfaces';
 

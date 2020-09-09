@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticateService } from '../../services/authenticate.service';
+import { AuthenticateService } from '../../services/User/authenticate.service';
 
 @Component({
   selector: 'app-authenticate-user',

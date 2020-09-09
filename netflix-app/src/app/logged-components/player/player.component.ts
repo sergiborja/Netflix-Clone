@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ValidateTokenService } from '../../services/validate-token.service';
+import { ValidateTokenService } from '../../services/Commons/validate-token.service';
 
 @Component({
   selector: 'app-player',

@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ValidateTokenService } from '../../services/validate-token.service';
-import { RetrieveMemberService } from '../../services/retrieve-member.service';
-import { RetrieveAllFilmsService } from '../../services/retrieve-all-films.service';
-import { HandleFavFilmsService } from '../../services/handle-fav-films.service';
-import { RetrieveUserService } from '../../services/retrieve-user.service';
-import { FavListFeedingService } from '../../services/fav-list-feeding.service';
+import { ValidateTokenService } from '../../services/Commons/validate-token.service';
+import { RetrieveMemberService } from '../../services/Member/retrieve-member.service';
+import { RetrieveAllFilmsService } from '../../services/Film/retrieve-all-films.service';
+import { HandleFavFilmsService } from '../../services/Commons/handle-fav-films.service';
+import { RetrieveUserService } from '../../services/User/retrieve-user.service';
+import { FavListFeedingService } from '../../services/Film/fav-list-feeding.service';
 import { Router } from '@angular/router';
 import { Film } from '../../utils/interfaces';
 

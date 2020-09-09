@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RegisterUserService } from '../../services/register-user.service';
+import { RegisterUserService } from '../../services/User/register-user.service';
 import * as bcrypt from 'bcryptjs';
 import validateEmail from '../../utils/email-validation';
 

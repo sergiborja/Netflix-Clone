@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment.prod';
 export class AddAndGetMemberListService {
   constructor(private http: HttpClient) {}
 
-  public addAndGetMemberList(
+  public async addAndGetMemberList(
     token: string,
     nick: string,
     character: string

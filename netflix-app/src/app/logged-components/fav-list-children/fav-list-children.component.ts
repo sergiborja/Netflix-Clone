@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { HandleFavFilmsService } from '../../services/handle-fav-films.service';
-import { FavListFeedingService } from '../../services/fav-list-feeding.service';
+import { HandleFavFilmsService } from '../../services/Commons/handle-fav-films.service';
+import { FavListFeedingService } from '../../services/Film/fav-list-feeding.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Film } from 'src/app/utils/interfaces';
