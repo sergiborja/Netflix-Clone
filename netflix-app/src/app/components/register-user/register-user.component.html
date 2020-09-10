@@ -104,9 +104,11 @@
         name="character"
       />
     </form>
-    <p class="errorFeedback" *ngIf="this.errorFeedback">
-      {{ this.errorFeedback }}
-    </p>
+    <ng-container *ngIf="this.errorFeedback">
+      <p class="errorFeedback">
+        {{ this.errorFeedback }}
+      </p>
+    </ng-container>
     <button type="submit" class="btn btn-outline-danger submitButton">
       Sign In
     </button>

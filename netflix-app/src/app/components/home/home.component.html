@@ -1,153 +1,152 @@
-<div class="homeWrapper" *ngIf="this.validToken">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light navbarWrapper">
-    <img
-      src="/assets/netflix-themes/netflix-logo.png"
-      class="navbar-brand navbarTitle"
-      href="#"
-    />
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<ng-container *ngIf="this.validToken">
+  <div class="homeWrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbarWrapper">
+      <img
+        src="/assets/netflix-themes/netflix-logo.png"
+        class="navbar-brand navbarTitle"
+        href="#"
+      />
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="">
-        <a
-          class="changeProfile"
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="">
+          <a
+            class="changeProfile"
+            type="button"
+            (click)="this.router.navigate(['welcome'])"
+          >
+            Change Profile
+          </a>
+        </div>
+        <div class="">
+          <a class="logOut" type="button" (click)="logOut()"> Log Out </a>
+        </div>
+      </div>
+    </nav>
+
+    <h2 class="titles">All Our Films</h2>
+    <ul class="list-group list-group-horizontal filmsContainer">
+      <li class="list-group-item liAllFilms" *ngFor="let film of allFilms">
+        <h4 class="filmName">{{ film.name }}</h4>
+        <img
+          class="filmCover"
           type="button"
-          (click)="this.router.navigate(['welcome'])"
-        >
-          Change Profile
-        </a>
-      </div>
-      <div class="">
-        <a class="logOut" type="button" (click)="logOut()"> Log Out </a>
-      </div>
+          (click)="filmSelected(film.ytId)"
+          src="{{ film.cover }}"
+          alt=""
+        />
+
+        <div class="filmInfo">
+          <h4>{{ film.name }}</h4>
+          <p>
+            {{ film.description }}
+          </p>
+          <p>{{ film.gender }}</p>
+          <button
+            (click)="handleFavSelected(film.ytId)"
+            type="button"
+            class="btn btn-outline-info filmButtons"
+          >
+            Add to Favs
+          </button>
+          <button
+            (click)="filmSelected(film.ytId)"
+            type="button"
+            class="btn btn-outline-info"
+          >
+            Watch now!
+          </button>
+        </div>
+      </li>
+    </ul>
+    <h2 class="titles">The drama ones</h2>
+    <ul class="list-group list-group-horizontal filmDetailsContainer">
+      <li class="list-group-item liAllFilms" *ngFor="let film of dramaFilms">
+        <h4 class="filmName">{{ film.name }}</h4>
+        <img
+          class="filmCover"
+          type="button"
+          (click)="filmSelected(film.ytId)"
+          src="{{ film.cover }}"
+          alt=""
+        />
+
+        <div class="filmInfo">
+          <h4>{{ film.name }}</h4>
+          <p>
+            {{ film.description }}
+          </p>
+          <p>{{ film.gender }}</p>
+          <button
+            (click)="handleFavSelected(film.ytId)"
+            type="button"
+            class="btn btn-outline-info filmButtons"
+          >
+            Add to Favs
+          </button>
+          <button
+            (click)="filmSelected(film.ytId)"
+            type="button"
+            class="btn btn-outline-info"
+          >
+            Watch now!
+          </button>
+        </div>
+      </li>
+    </ul>
+
+    <h2 class="titles">The action ones</h2>
+    <ul class="list-group list-group-horizontal filmsContainer">
+      <li class="list-group-item liAllFilms" *ngFor="let film of actionFilms">
+        <h4 class="filmName">{{ film.name }}</h4>
+        <img
+          class="filmCover"
+          type="button"
+          (click)="filmSelected(film.ytId)"
+          src="{{ film.cover }}"
+          alt=""
+        />
+
+        <div class="filmInfo">
+          <h4>{{ film.name }}</h4>
+          <p>
+            {{ film.description }}
+          </p>
+          <p>{{ film.gender }}</p>
+          <button
+            (click)="handleFavSelected(film.ytId)"
+            type="button"
+            class="btn btn-outline-info filmButtons"
+          >
+            Add to Favs
+          </button>
+          <button
+            (click)="filmSelected(film.ytId)"
+            type="button"
+            class="btn btn-outline-info"
+          >
+            Watch now!
+          </button>
+        </div>
+      </li>
+    </ul>
+
+    <app-fav-list-children></app-fav-list-children>
+  </div>
+  <ng-container *ngIf="!this.validToken">
+    <div class="alert alert-danger badTokenFeedback" role="alert">
+      There has been a problem,
+      <a href="#" class="alert-link">your token has expired</a>.
     </div>
-  </nav>
-
-  <h2 class="titles">All Our Films</h2>
-  <ul class="list-group list-group-horizontal filmsContainer">
-    <li class="list-group-item liAllFilms" *ngFor="let film of allFilms">
-      <h4 class="filmName">{{ film.name }}</h4>
-      <img
-        class="filmCover"
-        type="button"
-        (click)="filmSelected(film.ytId)"
-        src="{{ film.cover }}"
-        alt=""
-      />
-
-      <div class="filmInfo">
-        <h4>{{ film.name }}</h4>
-        <p>
-          {{ film.description }}
-        </p>
-        <p>{{ film.gender }}</p>
-        <button
-          (click)="handleFavSelected(film.ytId)"
-          type="button"
-          class="btn btn-outline-info filmButtons"
-        >
-          Add to Favs
-        </button>
-        <button
-          (click)="filmSelected(film.ytId)"
-          type="button"
-          class="btn btn-outline-info"
-        >
-          Watch now!
-        </button>
-      </div>
-    </li>
-  </ul>
-  <h2 class="titles">The drama ones</h2>
-  <ul class="list-group list-group-horizontal filmDetailsContainer">
-    <li class="list-group-item liAllFilms" *ngFor="let film of dramaFilms">
-      <h4 class="filmName">{{ film.name }}</h4>
-      <img
-        class="filmCover"
-        type="button"
-        (click)="filmSelected(film.ytId)"
-        src="{{ film.cover }}"
-        alt=""
-      />
-
-      <div class="filmInfo">
-        <h4>{{ film.name }}</h4>
-        <p>
-          {{ film.description }}
-        </p>
-        <p>{{ film.gender }}</p>
-        <button
-          (click)="handleFavSelected(film.ytId)"
-          type="button"
-          class="btn btn-outline-info filmButtons"
-        >
-          Add to Favs
-        </button>
-        <button
-          (click)="filmSelected(film.ytId)"
-          type="button"
-          class="btn btn-outline-info"
-        >
-          Watch now!
-        </button>
-      </div>
-    </li>
-  </ul>
-
-  <h2 class="titles">The action ones</h2>
-  <ul class="list-group list-group-horizontal filmsContainer">
-    <li class="list-group-item liAllFilms" *ngFor="let film of actionFilms">
-      <h4 class="filmName">{{ film.name }}</h4>
-      <img
-        class="filmCover"
-        type="button"
-        (click)="filmSelected(film.ytId)"
-        src="{{ film.cover }}"
-        alt=""
-      />
-
-      <div class="filmInfo">
-        <h4>{{ film.name }}</h4>
-        <p>
-          {{ film.description }}
-        </p>
-        <p>{{ film.gender }}</p>
-        <button
-          (click)="handleFavSelected(film.ytId)"
-          type="button"
-          class="btn btn-outline-info filmButtons"
-        >
-          Add to Favs
-        </button>
-        <button
-          (click)="filmSelected(film.ytId)"
-          type="button"
-          class="btn btn-outline-info"
-        >
-          Watch now!
-        </button>
-      </div>
-    </li>
-  </ul>
-
-  <app-fav-list-children></app-fav-list-children>
-</div>
-
-<div
-  *ngIf="!this.validToken"
-  class="alert alert-danger badTokenFeedback"
-  role="alert"
->
-  There has been a problem,
-  <a href="#" class="alert-link">your token has expired</a>.
-</div>
+  </ng-container>
+</ng-container>

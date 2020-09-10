@@ -1,7 +1,7 @@
 <h2 class="titles">Your favourite Ones</h2>
-<p class="feedback" *ngIf="favList && favList.length === 0">
-  Aun no tienes ninguna película en Favoritos :(
-</p>
+<ng-container *ngIf="favList && favList.length === 0">
+  <p class="feedback">Aun no tienes ninguna película en Favoritos :(</p>
+</ng-container>
 
 <ul class="list-group list-group-horizontal filmsContainer">
   <li class="list-group-item liAllFilms" *ngFor="let film of favList">
