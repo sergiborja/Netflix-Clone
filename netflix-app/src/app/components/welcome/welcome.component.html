@@ -30,7 +30,21 @@
               <p class="nameText">
                 {{ member.nick }}
               </p>
-              <button (click)="deleteMemberSelected(member.nick)">X</button>
+              <div class="deleteMemberContainer">
+                <img
+                  class="deleteMemberContainer__button"
+                  type="button"
+                  src="../../assets/buttons/delete.png"
+                  alt="delete member"
+                />
+                <p
+                  type="button"
+                  (click)="deleteMemberSelected(member.nick)"
+                  class="deleteMemberContainer__text"
+                >
+                  Delete {{ member.nick }}
+                </p>
+              </div>
             </div>
           </div>
         </li>

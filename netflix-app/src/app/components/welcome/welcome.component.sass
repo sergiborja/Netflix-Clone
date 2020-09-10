@@ -32,6 +32,20 @@
     font-size: 6.5vh
 .addButtonContainer
     margin-left: 5vh
+.deleteMemberContainer
+    display: flex
+    flex-direction: row
+    justify-content: center
+    &__button
+        height: 3.8vh
+        margin-right: 1vh
+    &__button:hover + &__text
+        display: inline-block
+    &__button:hover + .deleteMemberContainer
+        background-color: red
+    &__text
+        display: none
+        color: rgb(117, 0, 0)
 
 //Add member form edit styles:
 .addMemberForm
