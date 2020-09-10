@@ -51,14 +51,25 @@
           <p>
             {{ film.description }}
           </p>
-          <p>{{ film.gender }}</p>
-          <button
-            (click)="handleFavSelected(film.ytId)"
-            type="button"
-            class="btn btn-outline-info filmButtons"
-          >
-            Add to Favs
-          </button>
+          <p>{{ film.gender.join(", ") }}</p>
+          <ng-container *ngIf="!inFavListVerifier(film.ytId)">
+            <button
+              (click)="handleFavSelected(film.ytId)"
+              type="button"
+              class="btn btn-outline-info filmButtons"
+            >
+              Add to Favs
+            </button>
+          </ng-container>
+          <ng-container *ngIf="inFavListVerifier(film.ytId)">
+            <button
+              (click)="handleFavSelected(film.ytId)"
+              type="button"
+              class="btn btn-outline-info filmButtons"
+            >
+              Delete from Favs
+            </button>
+          </ng-container>
           <button
             (click)="filmSelected(film.ytId)"
             type="button"
@@ -86,14 +97,25 @@
           <p>
             {{ film.description }}
           </p>
-          <p>{{ film.gender }}</p>
-          <button
-            (click)="handleFavSelected(film.ytId)"
-            type="button"
-            class="btn btn-outline-info filmButtons"
-          >
-            Add to Favs
-          </button>
+          <p>{{ film.gender.join(", ") }}</p>
+          <ng-container *ngIf="!inFavListVerifier(film.ytId)">
+            <button
+              (click)="handleFavSelected(film.ytId)"
+              type="button"
+              class="btn btn-outline-info filmButtons"
+            >
+              Add to Favs
+            </button>
+          </ng-container>
+          <ng-container *ngIf="inFavListVerifier(film.ytId)">
+            <button
+              (click)="handleFavSelected(film.ytId)"
+              type="button"
+              class="btn btn-outline-info filmButtons"
+            >
+              Delete from Favs
+            </button>
+          </ng-container>
           <button
             (click)="filmSelected(film.ytId)"
             type="button"
@@ -122,14 +144,25 @@
           <p>
             {{ film.description }}
           </p>
-          <p>{{ film.gender }}</p>
-          <button
-            (click)="handleFavSelected(film.ytId)"
-            type="button"
-            class="btn btn-outline-info filmButtons"
-          >
-            Add to Favs
-          </button>
+          <p>{{ film.gender.join(", ") }}</p>
+          <ng-container *ngIf="!inFavListVerifier(film.ytId)">
+            <button
+              (click)="handleFavSelected(film.ytId)"
+              type="button"
+              class="btn btn-outline-info filmButtons"
+            >
+              Add to Favs
+            </button>
+          </ng-container>
+          <ng-container *ngIf="inFavListVerifier(film.ytId)">
+            <button
+              (click)="handleFavSelected(film.ytId)"
+              type="button"
+              class="btn btn-outline-info filmButtons"
+            >
+              Delete from Favs
+            </button>
+          </ng-container>
           <button
             (click)="filmSelected(film.ytId)"
             type="button"

@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   dramaFilms: Array<Film>;
   actionFilms: Array<Film>;
   validToken: boolean;
+  inFavList: boolean;
 
   //We declare the angular services we are gonna use.
   constructor(
@@ -83,6 +84,7 @@ export class HomeComponent implements OnInit {
     this.handleFavFilmsService
       .handleFavFilms(ytIdSelected, this.profileSelected)
       .then((userUpdatedFilms) => {
+        this.favList = userUpdatedFilms;
         this.favListFeedingService.setFavList(userUpdatedFilms);
       });
   }
@@ -96,5 +98,11 @@ export class HomeComponent implements OnInit {
   logOut(): void {
     delete sessionStorage.token;
     window.location.reload();
+  }
+
+  //This function verifies if a film is in the fav list, if it is the button text of the add/delete of favs will change.
+  inFavListVerifier(ytId: string) {
+    if (this.favList.indexOf(ytId) !== -1) return true;
+    else return false;
   }
 }

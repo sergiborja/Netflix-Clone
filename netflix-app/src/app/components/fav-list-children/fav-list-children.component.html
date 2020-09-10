@@ -19,7 +19,7 @@
       <p>
         {{ film.description }}
       </p>
-      <p>{{ film.gender }}</p>
+      <p>{{ film.gender.join(", ") }}</p>
       <button
         (click)="handleFavSelected(film.ytId)"
         type="button"

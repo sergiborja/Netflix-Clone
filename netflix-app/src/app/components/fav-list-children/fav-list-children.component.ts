@@ -37,10 +37,14 @@ export class FavListChildrenComponent implements OnInit {
           });
       } else this.favList = [];
     });
+
     let profileSelected: string;
+
     [, profileSelected] = this.router.url.split('/home/a:');
+
     if (!profileSelected)
       [, profileSelected] = this.router.url.split('/home/m:');
+
     this.profileSelected = profileSelected;
   }
 
