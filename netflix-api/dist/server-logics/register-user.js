@@ -41,6 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var user_1 = __importDefault(require("../schemas/user"));
 var error_builder_1 = require("../essentials/errors/error-builder");
+var bcrypt = require("bcrypt");
 /**
 Recieves the data of the new user that wants to be created.
 
@@ -53,31 +54,34 @@ Recieves the data of the new user that wants to be created.
 @throws {DuplicityError} If the nick name is already registered to our database.
 */
 module.exports = function (body) { return __awaiter(void 0, void 0, void 0, function () {
-    var nick, email, password, character, nickFound, emailFound;
+    var nick, email, password, character, hash, nickFound, emailFound;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 nick = body.nick, email = body.email, password = body.password, character = body.character;
-                return [4 /*yield*/, user_1.default.findOne({ nick: nick })];
+                return [4 /*yield*/, bcrypt.hash(password, 10)];
             case 1:
+                hash = _a.sent();
+                return [4 /*yield*/, user_1.default.findOne({ nick: nick })];
+            case 2:
                 nickFound = _a.sent();
                 if (nickFound)
                     throw new error_builder_1.DuplicityError("This nick name already exists");
                 return [4 /*yield*/, user_1.default.findOne({ email: email })];
-            case 2:
+            case 3:
                 emailFound = _a.sent();
                 if (emailFound)
                     throw new error_builder_1.DuplicityError("This email already exists");
                 return [4 /*yield*/, user_1.default.create({
                         nick: nick,
                         email: email,
-                        password: password,
+                        password: hash,
                         character: character,
                     })];
-            case 3:
+            case 4:
                 _a.sent();
                 return [2 /*return*/];
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVnaXN0ZXItdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmVnaXN0ZXItdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLHlEQUEyRDtBQUMzRCxvRUFBb0U7QUFFcEU7Ozs7Ozs7Ozs7RUFVRTtBQUVGLE1BQU0sQ0FBQyxPQUFPLEdBQUcsVUFBTyxJQUFrQjs7Ozs7Z0JBQ2hDLElBQUksR0FBaUMsSUFBSSxLQUFyQyxFQUFFLEtBQUssR0FBMEIsSUFBSSxNQUE5QixFQUFFLFFBQVEsR0FBZ0IsSUFBSSxTQUFwQixFQUFFLFNBQVMsR0FBSyxJQUFJLFVBQVQsQ0FBVTtnQkFFaEMscUJBQU0sY0FBVSxDQUFDLE9BQU8sQ0FBQyxFQUFFLElBQUksTUFBQSxFQUFFLENBQUMsRUFBQTs7Z0JBQTlDLFNBQVMsR0FBRyxTQUFrQztnQkFDcEQsSUFBSSxTQUFTO29CQUFFLE1BQU0sSUFBSSw4QkFBYyxDQUFDLCtCQUErQixDQUFDLENBQUM7Z0JBRXRELHFCQUFNLGNBQVUsQ0FBQyxPQUFPLENBQUMsRUFBRSxLQUFLLE9BQUEsRUFBRSxDQUFDLEVBQUE7O2dCQUFoRCxVQUFVLEdBQUcsU0FBbUM7Z0JBQ3RELElBQUksVUFBVTtvQkFBRSxNQUFNLElBQUksOEJBQWMsQ0FBQywyQkFBMkIsQ0FBQyxDQUFDO2dCQUV0RSxxQkFBTSxjQUFVLENBQUMsTUFBTSxDQUFDO3dCQUN0QixJQUFJLE1BQUE7d0JBQ0osS0FBSyxPQUFBO3dCQUNMLFFBQVEsVUFBQTt3QkFDUixTQUFTLFdBQUE7cUJBQ1YsQ0FBQyxFQUFBOztnQkFMRixTQUtFLENBQUM7Ozs7S0FDSixDQUFDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVnaXN0ZXItdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmVnaXN0ZXItdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLHlEQUEyRDtBQUMzRCxvRUFBb0U7QUFDcEUsSUFBTSxNQUFNLEdBQUcsT0FBTyxDQUFDLFFBQVEsQ0FBQyxDQUFDO0FBRWpDOzs7Ozs7Ozs7O0VBVUU7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sSUFBa0I7Ozs7O2dCQUNoQyxJQUFJLEdBQWlDLElBQUksS0FBckMsRUFBRSxLQUFLLEdBQTBCLElBQUksTUFBOUIsRUFBRSxRQUFRLEdBQWdCLElBQUksU0FBcEIsRUFBRSxTQUFTLEdBQUssSUFBSSxVQUFULENBQVU7Z0JBRXJDLHFCQUFNLE1BQU0sQ0FBQyxJQUFJLENBQUMsUUFBUSxFQUFFLEVBQUUsQ0FBQyxFQUFBOztnQkFBdEMsSUFBSSxHQUFHLFNBQStCO2dCQUUxQixxQkFBTSxjQUFVLENBQUMsT0FBTyxDQUFDLEVBQUUsSUFBSSxNQUFBLEVBQUUsQ0FBQyxFQUFBOztnQkFBOUMsU0FBUyxHQUFHLFNBQWtDO2dCQUNwRCxJQUFJLFNBQVM7b0JBQUUsTUFBTSxJQUFJLDhCQUFjLENBQUMsK0JBQStCLENBQUMsQ0FBQztnQkFFdEQscUJBQU0sY0FBVSxDQUFDLE9BQU8sQ0FBQyxFQUFFLEtBQUssT0FBQSxFQUFFLENBQUMsRUFBQTs7Z0JBQWhELFVBQVUsR0FBRyxTQUFtQztnQkFDdEQsSUFBSSxVQUFVO29CQUFFLE1BQU0sSUFBSSw4QkFBYyxDQUFDLDJCQUEyQixDQUFDLENBQUM7Z0JBRXRFLHFCQUFNLGNBQVUsQ0FBQyxNQUFNLENBQUM7d0JBQ3RCLElBQUksTUFBQTt3QkFDSixLQUFLLE9BQUE7d0JBQ0wsUUFBUSxFQUFFLElBQUk7d0JBQ2QsU0FBUyxXQUFBO3FCQUNWLENBQUMsRUFBQTs7Z0JBTEYsU0FLRSxDQUFDOzs7O0tBQ0osQ0FBQyJ9

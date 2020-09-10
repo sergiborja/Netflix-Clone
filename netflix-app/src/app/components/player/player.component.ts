@@ -5,7 +5,10 @@ import { ValidateTokenService } from '../../services/Commons/validate-token.serv
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.sass'],
+  styleUrls: [
+    './player.component.sass',
+    '../../global-style-sheets/bad-token-feedback.sass',
+  ],
 })
 export class PlayerComponent implements OnInit {
   //We declare the global properties of this class.s

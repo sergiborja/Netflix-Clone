@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticateService } from '../../services/User/authenticate.service';
+import { hash } from '../../utils/password-encrypt';
 
 @Component({
   selector: 'app-authenticate-user',
   templateUrl: './authenticate-user.component.html',
   styleUrls: [
-    // './authenticate-user.component.sass',
-    '../register-user/register-user.component.sass',
+    './authenticate-user.component.sass',
+    '../../global-style-sheets/forms.sass',
+    '../../global-style-sheets/landing-elements.sass',
   ],
 })
 export class AuthenticateUserComponent implements OnInit {
@@ -28,6 +30,8 @@ export class AuthenticateUserComponent implements OnInit {
 
     let email: string = event.target.email.value;
     let password: string = event.target.password.value;
+
+    password = hash(password);
 
     this.authService.getToken(email, password).then(({ token, error }) => {
       if (token) {

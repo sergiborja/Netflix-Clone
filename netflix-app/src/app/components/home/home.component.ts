@@ -11,7 +11,10 @@ import { Film } from '../../utils/interfaces';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass'],
+  styleUrls: [
+    './home.component.sass',
+    '../../global-style-sheets/bad-token-feedback.sass',
+  ],
 })
 export class HomeComponent implements OnInit {
   //We declare the global properties of this class.

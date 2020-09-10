@@ -1,4 +1,5 @@
-<div *ngIf="!displayAddMember">
+<!-- Choose profile or click to add a new user html -->
+<div class="selectProfileWrapper" *ngIf="!displayAddMember">
   <h1 class="bigTitle">Who's watching?</h1>
   <div class="container">
     <div>
@@ -48,9 +49,10 @@
   </div>
 </div>
 
+<!-- Add member form html -->
 <form
   (submit)="onSubmitName($event)"
-  class="formContainer"
+  class="addMemberForm formContainer"
   *ngIf="displayAddMember"
 >
   <h2 class="title">Add Profile</h2>

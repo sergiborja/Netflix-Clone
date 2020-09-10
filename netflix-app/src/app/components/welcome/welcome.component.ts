@@ -15,7 +15,10 @@ import { UserMemberList } from 'src/app/utils/interfaces';
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.sass'],
+  styleUrls: [
+    './welcome.component.sass',
+    '../../global-style-sheets/forms.sass',
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class WelcomeComponent implements OnInit {

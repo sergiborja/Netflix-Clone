@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegisterUserService } from '../../services/User/register-user.service';
-import * as bcrypt from 'bcryptjs';
+// import bcryptjs from 'bcryptjs';
 import validateEmail from '../../utils/email-validation';
+import { hash } from '../../utils/password-encrypt';
 
 @Component({
   selector: 'app-register-user',
   templateUrl: './register-user.component.html',
-  styleUrls: ['./register-user.component.sass'],
+  styleUrls: [
+    './register-user.component.sass',
+    '../../global-style-sheets/forms.sass',
+    '../../global-style-sheets/landing-elements.sass',
+  ],
 })
 export class RegisterUserComponent implements OnInit {
   //We declare the global properties of this class.
@@ -35,9 +40,8 @@ export class RegisterUserComponent implements OnInit {
 
     let emailValidation: boolean = validateEmail(email);
 
-    //If the passwords match, we encrypt the password so it's not readable when we send it to the server.
     if (password === passwordVerify && emailValidation) {
-      password = await bcrypt.hashSync(password, 10);
+      password = hash(password);
 
       this.registerUserService
         .postUser(nick, email, password, character)

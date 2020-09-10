@@ -1,5 +1,6 @@
 import UserSchema, { UserDocument } from "../schemas/user";
 import { DuplicityError } from "../essentials/errors/error-builder";
+const bcrypt = require("bcrypt");
 
 /** 
 Recieves the data of the new user that wants to be created.
@@ -16,6 +17,8 @@ Recieves the data of the new user that wants to be created.
 module.exports = async (body: UserDocument) => {
   const { nick, email, password, character } = body;
 
+  const hash = await bcrypt.hash(password, 10);
+
   const nickFound = await UserSchema.findOne({ nick });
   if (nickFound) throw new DuplicityError("This nick name already exists");
 
@@ -25,7 +28,7 @@ module.exports = async (body: UserDocument) => {
   await UserSchema.create({
     nick,
     email,
-    password,
+    password: hash,
     character,
   });
 };
