@@ -8,22 +8,12 @@ import { environment } from '../../../environments/environment.prod';
 export class HandleFavFilmsService {
   constructor(private http: HttpClient) {}
 
-  async handleFavFilms(
-    // token: string,
-    ytIdSelected: string,
-    nick: string
-  ): Promise<any> {
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     Authorization: `Bearer ${token}`,
-    //   }),
-    // };
+  async handleFavFilms(ytIdSelected: string, nick: string): Promise<any> {
     return this.http
-      .patch(
-        `${environment.apiUrl}/users/fav-films`,
-        { ytId: ytIdSelected, nick }
-        // httpOptions
-      )
+      .patch(`${environment.apiUrl}/users/fav-films`, {
+        ytId: ytIdSelected,
+        nick,
+      })
       .toPromise()
       .then((userUpdatedFilms: any) => {
         return userUpdatedFilms;
