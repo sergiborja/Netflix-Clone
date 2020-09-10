@@ -7,6 +7,7 @@ import { RetrieveUserService } from '../../services/User/retrieve-user.service';
 import { FavListFeedingService } from '../../services/Film/fav-list-feeding.service';
 import { Router } from '@angular/router';
 import { Film } from '../../utils/interfaces';
+import { filterFilmByGender } from '../../utils/filtered-film-by-gender';
 
 @Component({
   selector: 'app-home',
@@ -72,20 +73,8 @@ export class HomeComponent implements OnInit {
       .retrieveAllFilms()
       .then((allFilmsRetrieved: Array<Film>) => {
         this.allFilms = allFilmsRetrieved;
-
-        let dramaFilms: Array<Film> = [];
-        allFilmsRetrieved.map((film: Film) => {
-          const indexOf = film.gender.indexOf('drama');
-          if (indexOf !== -1) dramaFilms.push(film);
-        });
-        this.dramaFilms = dramaFilms;
-
-        let actionFilms: Array<Film> = [];
-        allFilmsRetrieved.map((film: Film) => {
-          const indexOf = film.gender.indexOf('action');
-          if (indexOf !== -1) actionFilms.push(film);
-        });
-        this.actionFilms = actionFilms;
+        this.dramaFilms = filterFilmByGender(allFilmsRetrieved, 'drama');
+        this.actionFilms = filterFilmByGender(allFilmsRetrieved, 'action');
       });
   }
 
