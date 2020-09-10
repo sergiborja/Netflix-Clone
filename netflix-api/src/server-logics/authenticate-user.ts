@@ -26,10 +26,7 @@ module.exports = async (email: string, password: string) => {
   const userFound: any = await UserSchema.findOne({ email });
   if (!userFound) throw new UnexistenceError("Email not found");
   else {
-    console.log(password);
-    console.log(userFound.password);
     const match = await bcrypt.compare(password, userFound.password);
-    console.log(match);
     if (!match) throw new CredentialsError("Incorrect Password");
     const token: string = await jwtPromised.sign(
       { sub: userFound.id },
