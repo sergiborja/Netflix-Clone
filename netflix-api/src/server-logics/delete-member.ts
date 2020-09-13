@@ -1,4 +1,4 @@
-import UserSchema, { UserDocument } from "./../schemas/user";
+import UserSchema, { User, UserDocument } from "./../schemas/user";
 import Member, { MemberDocument } from "../schemas/member";
 const { UnexistenceError } = require("../essentials/errors/error-builder");
 

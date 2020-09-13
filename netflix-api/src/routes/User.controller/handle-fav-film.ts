@@ -15,7 +15,7 @@ module.exports = (req: Request, res: Response) => {
       .then((updatedFilms: Array<string>) => {
         res.send(updatedFilms);
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         handleError(error, res);
       });
   } catch (error) {

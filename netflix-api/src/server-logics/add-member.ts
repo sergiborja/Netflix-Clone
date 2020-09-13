@@ -1,4 +1,4 @@
-import UserSchema from "./../schemas/user";
+import UserSchema, { UserDocument } from "./../schemas/user";
 import Member from "../schemas/member";
 import {
   DuplicityError,

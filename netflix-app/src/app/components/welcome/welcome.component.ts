@@ -1,16 +1,9 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { RetrieveUserService } from '../../services/User/retrieve-user.service';
 import { AddAndGetMemberListService } from '../../services/Member/add-and-get-member-list.service';
 import { DeleteMemberService } from '../../services/Member/delete-member.service';
 import { Router } from '@angular/router';
-import { UserMemberList } from 'src/app/utils/interfaces';
+import { Admin, UserMemberList } from 'src/app/utils/interfaces';
 
 @Component({
   selector: 'app-welcome',
@@ -42,7 +35,7 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     let token = sessionStorage.token;
 
-    this.welcomeService.retrieveUser(token).then((user: any) => {
+    this.welcomeService.retrieveUser(token).then((user: Admin) => {
       if (user) {
         this.adminCharacter = user.character;
         this.memberList = user.members;

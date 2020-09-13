@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { MemberDocument } from "../../schemas/member";
 const handleError = require("../../essentials/errors/handle-error");
 const { retrieveMember } = require("../../server-logics");
 
@@ -10,10 +11,10 @@ module.exports = async (req: Request, res: Response) => {
   try {
     const nick: string = req.params.nick;
     retrieveMember(nick)
-      .then((memberFound: any) => {
+      .then((memberFound: MemberDocument) => {
         res.send(memberFound);
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         handleError(error, res);
       });
   } catch (error) {

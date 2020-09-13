@@ -33,14 +33,16 @@ export class AuthenticateUserComponent implements OnInit {
 
     password = hash(password);
 
-    this.authService.getToken(email, password).then(({ token, error }) => {
-      if (token) {
-        sessionStorage.token = token;
-        this.router.navigate(['welcome']);
-      } else {
-        this.errorFeedback = error;
-      }
-    });
+    this.authService
+      .getToken(email, password)
+      .then(({ token, error }: { token: string; error: string }) => {
+        if (token) {
+          sessionStorage.token = token;
+          this.router.navigate(['welcome']);
+        } else {
+          this.errorFeedback = error;
+        }
+      });
   }
 
   routeToRegister() {

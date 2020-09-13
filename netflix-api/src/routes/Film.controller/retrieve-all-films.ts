@@ -13,7 +13,7 @@ module.exports = (req: Request, res: Response) => {
       .then((allFilms: Array<FilmDocument>) => {
         res.send(allFilms);
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         handleError(error, res);
       });
   } catch (error) {

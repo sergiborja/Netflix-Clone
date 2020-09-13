@@ -1,4 +1,4 @@
-import Film from "../schemas/film";
+import Film, { FilmDocument } from "../schemas/film";
 
 const { DuplicityError } = require("../essentials/errors/error-builder");
 
@@ -11,7 +11,7 @@ Recieves all the info of the film that wants to be added and creates the new fil
 @throws {DuplicityError} If the name of the film already exist.
 */
 
-module.exports = async (body: any) => {
+module.exports = async (body: FilmDocument) => {
   const { name } = body;
   const filmFound = await Film.findOne({ name });
   if (filmFound) throw new DuplicityError("This film already exists");

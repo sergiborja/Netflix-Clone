@@ -33,10 +33,10 @@ export class RegisterUserComponent implements OnInit {
 
     let character: string = this.character;
 
-    let nick = event.target.nick.value;
-    let email = event.target.email.value;
-    let password = event.target.password.value;
-    let passwordVerify = event.target.passwordVerify.value;
+    let nick: string = event.target.nick.value;
+    let email: string = event.target.email.value;
+    let password: string = event.target.password.value;
+    let passwordVerify: string = event.target.passwordVerify.value;
 
     let emailValidation: boolean = validateEmail(email);
 

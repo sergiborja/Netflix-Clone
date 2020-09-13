@@ -1,5 +1,6 @@
 import * as dotenv from "dotenv";
 dotenv.config();
+import { Request, Response } from "express";
 import bodyParser = require("body-parser");
 import express = require("express");
 import mongoose = require("mongoose");
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 
 app.use("/api", api);
 
-app.get("/", (req: any, res: any) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("NOT FOUND :(");
 });
 
@@ -23,7 +24,7 @@ app.listen(app.get("port"), () => {
   console.log(`Server running on port ${PORT}`);
 });
 try {
-  mongoose.connect(uri, (error: any) => {
+  mongoose.connect(uri, (error: Error) => {
     if (error) {
       console.log(error.message);
     } else {

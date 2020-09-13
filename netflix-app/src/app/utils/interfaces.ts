@@ -12,5 +12,18 @@ export interface Film {
 export interface UserMemberList {
   character: string;
   nick: string;
-  _id: string;
+}
+
+export interface Admin {
+  nick: string;
+  email: string;
+  password: string;
+  members: [
+    {
+      nick: string;
+      character: string;
+    }
+  ];
+  films: Array<string>;
+  character: string;
 }

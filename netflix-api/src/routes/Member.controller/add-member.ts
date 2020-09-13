@@ -25,7 +25,7 @@ module.exports = async (req: Request, res: Response) => {
       .then(() => {
         res.status(204).send();
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         handleError(error, res);
       });
   } catch (error) {

@@ -16,7 +16,7 @@ module.exports = async (req: Request, res: Response) => {
       .then((token: string) => {
         res.send({ token });
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         handleError(error, res);
       });
   } catch (error) {

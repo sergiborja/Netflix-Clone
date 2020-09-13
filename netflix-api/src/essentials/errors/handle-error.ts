@@ -1,4 +1,6 @@
-module.exports = function (error: any, res: any) {
+import { Request, Response } from "express";
+
+module.exports = function (error: Error, res: Response) {
   let status = 500;
   if (error.name === "UnexistenceError" || error.name === "DuplicityError")
     status = 409;

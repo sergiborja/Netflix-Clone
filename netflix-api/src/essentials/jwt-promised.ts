@@ -10,7 +10,7 @@ module.exports = {
       });
     });
   },
-  verify(token: any, secret: any) {
+  verify(token: string, secret: string) {
     return new Promise((resolve, reject) => {
       jwt.verify(token, secret, (error: any, payload: any) => {
         if (error) return reject(error);

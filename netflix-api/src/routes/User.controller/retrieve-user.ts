@@ -20,7 +20,7 @@ module.exports = async (req: Request, res: Response) => {
         .then((userFound: UserDocument) => {
           res.send(userFound);
         })
-        .catch((error: any) => {
+        .catch((error: Error) => {
           handleError(error, res);
         });
     } else if (req.headers.authorization) {
@@ -30,7 +30,7 @@ module.exports = async (req: Request, res: Response) => {
         .then((userFound: UserDocument) => {
           res.send(userFound);
         })
-        .catch((error: any) => {
+        .catch((error: Error) => {
           handleError(error, res);
         });
     }

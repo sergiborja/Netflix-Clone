@@ -41,9 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var user_1 = __importDefault(require("./../schemas/user"));
 var error_builder_1 = require("../essentials/errors/error-builder");
-var jwt = require("jsonwebtoken");
-var SECRET = process.env.SECRET;
-var handleError = require("../essentials/errors/handle-error");
 /**
 If a token is recieved from req headers, retrieves the info of the userId from this token. Otherwise, listens to the body of the req and retrives the user according to that body.
 
@@ -68,8 +65,9 @@ module.exports = function (userInfo) { return __awaiter(void 0, void 0, void 0, 
             case 3:
                 if (!userFound)
                     throw new error_builder_1.UnexistenceError("This user doesn't exist");
+                userFound.password = undefined;
                 return [2 /*return*/, userFound];
         }
     });
 }); };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV0cmlldmUtdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmV0cmlldmUtdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUNBLDJEQUE2RDtBQUM3RCxvRUFBc0U7QUFDdEUsSUFBTSxHQUFHLEdBQUcsT0FBTyxDQUFDLGNBQWMsQ0FBQyxDQUFDO0FBRTNCLElBQUEsTUFBTSxHQUNYLE9BQU8sV0FESSxDQUNIO0FBQ1osSUFBTSxXQUFXLEdBQUcsT0FBTyxDQUFDLG1DQUFtQyxDQUFDLENBQUM7QUFFakU7Ozs7Ozs7O0VBUUU7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sUUFBYTs7OztvQkFDZCxxQkFBTSxjQUFVLENBQUMsT0FBTyxDQUFDLEVBQUUsSUFBSSxFQUFFLFFBQVEsRUFBRSxDQUFDLEVBQUE7O2dCQUE3RCxTQUFTLEdBQVEsU0FBNEM7cUJBQzdELENBQUMsU0FBUyxFQUFWLHdCQUFVO2dCQUFjLHFCQUFNLGNBQVUsQ0FBQyxRQUFRLENBQUMsUUFBUSxDQUFDLEVBQUE7O2dCQUEvQyxTQUFTLEdBQUcsU0FBbUMsQ0FBQzs7O2dCQUNoRSxJQUFJLENBQUMsU0FBUztvQkFBRSxNQUFNLElBQUksZ0NBQWdCLENBQUMseUJBQXlCLENBQUMsQ0FBQztnQkFDdEUsc0JBQU8sU0FBUyxFQUFDOzs7S0FDbEIsQ0FBQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV0cmlldmUtdXNlci5qcyIsInNvdXJjZVJvb3QiOiIuL3NyYy8iLCJzb3VyY2VzIjpbInNlcnZlci1sb2dpY3MvcmV0cmlldmUtdXNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBLDJEQUE2RDtBQUM3RCxvRUFBc0U7QUFFdEU7Ozs7Ozs7O0VBUUU7QUFFRixNQUFNLENBQUMsT0FBTyxHQUFHLFVBQU8sUUFBZ0I7Ozs7b0JBQ2pCLHFCQUFNLGNBQVUsQ0FBQyxPQUFPLENBQUMsRUFBRSxJQUFJLEVBQUUsUUFBUSxFQUFFLENBQUMsRUFBQTs7Z0JBQTdELFNBQVMsR0FBUSxTQUE0QztxQkFDN0QsQ0FBQyxTQUFTLEVBQVYsd0JBQVU7Z0JBQWMscUJBQU0sY0FBVSxDQUFDLFFBQVEsQ0FBQyxRQUFRLENBQUMsRUFBQTs7Z0JBQS9DLFNBQVMsR0FBRyxTQUFtQyxDQUFDOzs7Z0JBQ2hFLElBQUksQ0FBQyxTQUFTO29CQUFFLE1BQU0sSUFBSSxnQ0FBZ0IsQ0FBQyx5QkFBeUIsQ0FBQyxDQUFDO2dCQUV0RSxTQUFTLENBQUMsUUFBUSxHQUFHLFNBQVMsQ0FBQztnQkFFL0Isc0JBQU8sU0FBUyxFQUFDOzs7S0FDbEIsQ0FBQyJ9

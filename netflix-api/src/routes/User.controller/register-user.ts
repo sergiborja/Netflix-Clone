@@ -12,7 +12,7 @@ module.exports = (req: Request, res: Response) => {
       .then(() => {
         res.status(201).send();
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         handleError(error, res);
       });
   } catch (error) {
